@@ -1114,18 +1114,25 @@
 
         // ========== 默认静态图片路径（部署后直接读取） ==========
         const defaultImages = {
-            poster1: 'images/work2/poster1.jpg',
-            poster2: 'images/work2/poster2.jpg',
-            banner1: 'images/work2/banner1.jpg',
-            banner2: 'images/work2/banner2.jpg',
-            main: 'images/work2/main.jpg',
+            poster1: '../images/work2/poster1.jpg',
+            poster2: '../images/work2/poster2.jpg',
+            banner1: '../images/work2/banner1.jpg',
+            banner2: '../images/work2/banner2.jpg',
+            main: '../images/work2/main.jpg',
             gallery: [
-                'images/work2/gallery1.jpg',
-                'images/work2/gallery2.jpg',
-                'images/work2/gallery3.jpg',
-                'images/work2/gallery4.jpg',
-                'images/work2/gallery5.jpg',
-                'images/work2/gallery6.jpg'
+                '../images/work2/gallery1.jpg',
+                '../images/work2/gallery2.jpg',
+                '../images/work2/gallery3.jpg',
+                '../images/work2/gallery4.jpg',
+                '../images/work2/gallery5.jpg',
+                '../images/work2/gallery6.jpg'
+            ],
+            details: [
+                '../images/work2/details1.jpg',
+                '../images/work2/details2.jpg',
+                '../images/work2/details3.jpg',
+                '../images/work2/details4.jpg',
+                '../images/work2/details5.jpg'
             ]
         };
 
@@ -1343,8 +1350,17 @@
                 }
 
                 // 详情页：加载已保存的图片
-                for (let i = 0; i < 50; i++) {
-                    const data = await loadImageFromDB(`details_${i}`);
+                for (let i = 0; i < defaultImages.details.length; i++) {
+                    const detailsKey = `details_${i}`;
+                    const defaultPath = defaultImages.details[i];
+                    let data = null;
+                    
+                    if (await checkImageExists(defaultPath)) {
+                        data = defaultPath;
+                    } else {
+                        data = await loadImageFromDB(detailsKey);
+                    }
+                    
                     if (data) {
                         const wrapper = document.createElement('div');
                         wrapper.className = 'details-item-wrapper';
