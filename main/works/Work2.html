@@ -1112,6 +1112,23 @@
         let galleryCount = 5;
         let detailsCount = 1;
 
+        // ========== 默认静态图片路径（部署后直接读取） ==========
+        const defaultImages = {
+            poster1: 'images/work2/poster1.jpg',
+            poster2: 'images/work2/poster2.jpg',
+            banner1: 'images/work2/banner1.jpg',
+            banner2: 'images/work2/banner2.jpg',
+            main: 'images/work2/main.jpg',
+            gallery: [
+                'images/work2/gallery1.jpg',
+                'images/work2/gallery2.jpg',
+                'images/work2/gallery3.jpg',
+                'images/work2/gallery4.jpg',
+                'images/work2/gallery5.jpg',
+                'images/work2/gallery6.jpg'
+            ]
+        };
+
         // ========== IndexedDB 管理 ==========
         const DB_NAME = 'ProductPageDB2';
         const DB_VERSION = 1;
@@ -1226,12 +1243,31 @@
             }
         }
 
+        // ========== 检查图片是否存在的辅助函数 ==========
+        function checkImageExists(src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = src;
+            });
+        }
+
         async function loadFromStorage() {
             try {
                 await initDB();
 
                 for (let i = 1; i <= 2; i++) {
-                    const data = await loadImageFromDB(`poster${i}`);
+                    const posterKey = `poster${i}`;
+                    const defaultPath = defaultImages[posterKey];
+                    let data = null;
+                    
+                    if (await checkImageExists(defaultPath)) {
+                        data = defaultPath;
+                    } else {
+                        data = await loadImageFromDB(posterKey);
+                    }
+                    
                     if (data) {
                         const preview = document.getElementById(`posterPreview${i}`);
                         const uploadArea = document.getElementById(`posterUpload${i}`);
@@ -1243,7 +1279,16 @@
                 }
 
                 for (let i = 1; i <= 2; i++) {
-                    const data = await loadImageFromDB(`banner${i}`);
+                    const bannerKey = `banner${i}`;
+                    const defaultPath = defaultImages[bannerKey];
+                    let data = null;
+                    
+                    if (await checkImageExists(defaultPath)) {
+                        data = defaultPath;
+                    } else {
+                        data = await loadImageFromDB(bannerKey);
+                    }
+                    
                     if (data) {
                         const preview = document.getElementById(`bannerPreview${i}`);
                         const uploadArea = document.getElementById(`bannerUpload${i}`);
@@ -1254,7 +1299,16 @@
                     }
                 }
 
-                const mainData = await loadImageFromDB('main');
+                const mainKey = 'main';
+                const mainDefaultPath = defaultImages[mainKey];
+                let mainData = null;
+                
+                if (await checkImageExists(mainDefaultPath)) {
+                    mainData = mainDefaultPath;
+                } else {
+                    mainData = await loadImageFromDB(mainKey);
+                }
+                
                 if (mainData) {
                     const preview = document.getElementById('mainPreview');
                     const uploadArea = document.getElementById('mainImageUpload');
@@ -1268,7 +1322,16 @@
                 initGallery();
                 
                 for (let i = 1; i <= 6; i++) {
-                    const data = await loadImageFromDB(`gallery_${i - 1}`);
+                    const galleryKey = `gallery_${i - 1}`;
+                    const galleryDefaultPath = defaultImages.gallery[i - 1];
+                    let data = null;
+                    
+                    if (await checkImageExists(galleryDefaultPath)) {
+                        data = galleryDefaultPath;
+                    } else {
+                        data = await loadImageFromDB(galleryKey);
+                    }
+                    
                     if (data) {
                         const preview = document.getElementById(`galleryPreview${i}`);
                         const uploadArea = document.getElementById(`galleryItem${i}`);
