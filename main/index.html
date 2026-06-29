@@ -2264,16 +2264,16 @@
         // ========== Works Data ==========
         /*精选作品的内容*/
         let worksData = [
-            { id: 0, category: 'product', title: '香薰', desc: '产品设计作品展示', link: 'works/Work1.html', img: '' },
-            { id: 1, category: 'product', title: '洗面奶', desc: '产品设计作品展示', link: 'works/Work2.html', img: '' },
-            { id: 2, category: 'product', title: '作品标题 3', desc: '产品设计作品展示', link: '#', img: '' },
-            { id: 3, category: 'app', title: '作品标题 4', desc: 'APP端作品展示', link: '#', img: '' },
-            { id: 4, category: 'ui', title: '作品标题 5', desc: 'UI设计作品展示', link: '#', img: '' },
-            { id: 5, category: 'model', title: '作品标题 6', desc: '建模作品展示', link: '#', img: '' },
-            { id: 6, category: 'motion', title: '作品标题 7', desc: '动效设计作品展示', link: '#', img: '' },
-            { id: 7, category: 'app', title: '作品标题 8', desc: 'APP端作品展示', link: '#', img: '' },
-            { id: 8, category: 'ui', title: '作品标题 9', desc: 'UI设计作品展示', link: '#', img: '' },
-            { id: 9, category: 'model', title: '作品标题 10', desc: '建模作品展示', link: '#', img: '' },
+            { id: 0, category: 'product', title: '香薰', desc: '产品设计作品展示', link: 'works/Work1.html', img: 'images/work-1.jpg' },
+            { id: 1, category: 'product', title: '洗面奶', desc: '产品设计作品展示', link: 'works/Work2.html', img: 'images/work-2.jpg' },
+            { id: 2, category: 'product', title: '作品标题 3', desc: '产品设计作品展示', link: '#', img: 'images/work-3.jpg' },
+            { id: 3, category: 'app', title: '作品标题 4', desc: 'APP端作品展示', link: '#', img: 'images/work-4.jpg' },
+            { id: 4, category: 'ui', title: '作品标题 5', desc: 'UI设计作品展示', link: '#', img: 'images/work-5.jpg' },
+            { id: 5, category: 'model', title: '作品标题 6', desc: '建模作品展示', link: '#', img: 'images/work-6.jpg' },
+            { id: 6, category: 'motion', title: '作品标题 7', desc: '动效设计作品展示', link: '#', img: 'images/work-7.jpg' },
+            { id: 7, category: 'app', title: '作品标题 8', desc: 'APP端作品展示', link: '#', img: 'images/work-8.jpg' },
+            { id: 8, category: 'ui', title: '作品标题 9', desc: 'UI设计作品展示', link: '#', img: 'images/work-9.jpg' },
+            { id: 9, category: 'model', title: '作品标题 10', desc: '建模作品展示', link: '#', img: 'images/work-10.jpg' },
         ];
 
         // ========== Works Filter & Animation ==========
@@ -2619,9 +2619,11 @@
             // 先加载所有已保存的图片数据
             const savedImages = await loadAllWorkImages();
             
-            // 更新 worksData 中的图片
+            // 更新 worksData 中的图片（优先使用静态图片，如果没有则用 IndexedDB 缓存）
             for (let i = 0; i < worksData.length; i++) {
-                if (savedImages[worksData[i].id]) {
+                const staticImg = 'images/work-' + (worksData[i].id + 1) + '.jpg';
+                // 如果静态图片不存在，且有缓存图片，则使用缓存
+                if (!worksData[i].img && savedImages[worksData[i].id]) {
                     worksData[i].img = savedImages[worksData[i].id];
                 }
             }
