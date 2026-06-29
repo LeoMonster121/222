@@ -2433,6 +2433,24 @@
         const DB_VERSION = 2;
         const STORE_NAME = 'images';
 
+        // ========== 默认静态图片路径（部署后直接读取） ==========
+        const defaultImages = {
+            avatar: 'images/me/avatar.jpg',
+            custom1: 'images/me/custom1.jpg',
+            custom2: 'images/me/custom2.jpg',
+            custom3: 'images/me/custom3.jpg'
+        };
+
+        // ========== 检查图片是否存在的辅助函数 ==========
+        function checkImageExists(src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = src;
+            });
+        }
+
         function openDB() {
             return new Promise((resolve, reject) => {
                 const request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -2465,6 +2483,12 @@
         }
 
         async function loadImage(id) {
+            // 优先检查静态图片是否存在
+            if (defaultImages[id] && await checkImageExists(defaultImages[id])) {
+                return defaultImages[id];
+            }
+            
+            // 否则从 IndexedDB 加载
             try {
                 const db = await openDB();
                 const tx = db.transaction(STORE_NAME, 'readonly');
