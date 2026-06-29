@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品 2 - 电商设计项目</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <style>
+        /* ========== CSS Variables ========== */
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --text: #ffffff;
+            --text-secondary: #a1a1aa;
+            --glass-bg: rgba(0, 0, 0, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-hero: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        /* ========== Reset & Base ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #000;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========== Video Background ========== */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .video-bg video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.4) 0%,
+                rgba(0, 0, 0, 0.6) 50%,
+                rgba(0, 0, 0, 0.8) 100%
+            );
+            z-index: -1;
+        }
+
+        /* ========== Navigation ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        /* ========== Hero Section ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 40px 80px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-title .highlight {
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            max-width: 700px;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .meta-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* ========== Main Content ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ========== Image Section ========== */
+        .image-section {
+            padding: 80px 0;
+        }
+
+        /* ========== Poster Section ========== */
+        .poster-section {
+            padding: 80px 0;
+        }
+
+        .poster-grid {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .poster-upload-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 400px;
+            max-width: 960px;
+        }
+
+        .poster-image-upload {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9/16;
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 3px dashed rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .poster-image-upload:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .poster-image-upload.has-image {
+            border: none;
+        }
+
+        .poster-image-upload input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .poster-image-upload img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .poster-image-upload .upload-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+        }
+
+        .poster-image-upload .icon {
+            font-size: 3rem;
+        }
+
+        .poster-image-upload .text {
+            font-size: 1rem;
+        }
+
+        .poster-image-upload .hint {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .poster-image-upload.has-image .poster-preview {
+            display: block;
+        }
+
+        .poster-image-upload.has-image .upload-placeholder {
+            display: none;
+        }
+
+        .delete-poster-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 0, 0, 0.8);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .poster-upload-wrapper:hover .delete-poster-btn {
+            opacity: 1;
+        }
+
+        .delete-poster-btn:hover {
+            background: #ff0000;
+            transform: scale(1.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background: var(--gradient-hero);
+            border-radius: 2px;
+        }
+
+        /* 主图上传区域 */
+        .main-image-upload {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 3px dashed rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .main-image-upload:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .main-image-upload.has-image {
+            border: none;
+        }
+
+        .main-image-upload input[type="file"] {
+            display: none;
+        }
+
+        .upload-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+            background: #111;
+        }
+
+        .main-image-upload.has-image .upload-preview {
+            display: block;
+        }
+
+        .main-image-upload.has-image .upload-placeholder {
+            display: none;
+        }
+
+        /* Banner 展示样式 */
+        .banner-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .banner-upload-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .banner-image-upload {
+            position: relative;
+            width: calc(100% - 10px);
+            aspect-ratio: 1920 / 600;
+            max-width: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 3px dashed rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .banner-image-upload:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .banner-image-upload.has-image {
+            border: none;
+        }
+
+        .banner-image-upload input[type="file"] {
+            display: none;
+        }
+
+        .banner-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .banner-image-upload.has-image .banner-preview {
+            display: block;
+        }
+
+        .banner-image-upload.has-image .upload-placeholder {
+            display: none;
+        }
+
+        /* Banner 删除按钮 */
+        .delete-banner-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 0, 0, 0.8);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .banner-upload-wrapper:hover .delete-banner-btn {
+            opacity: 1;
+        }
+
+        .delete-banner-btn:hover {
+            background: #ff3333;
+            transform: scale(1.1);
+        }
+
+        .banner-upload-wrapper:has(.has-image) .delete-banner-btn {
+            opacity: 1;
+        }
+
+        .upload-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-secondary);
+        }
+
+        .upload-placeholder .icon {
+            font-size: 4rem;
+        }
+
+        .upload-placeholder .text {
+            font-size: 1.1rem;
+        }
+
+        .upload-placeholder .hint {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ========== Gallery Section ========== */
+        .gallery-section {
+            padding: 80px 0;
+        }
+
+        .gallery-item-upload {
+            position: relative;
+            width: 540px;/*主图展示图片框参数*/
+            height: 540px;/*主图展示图片框参数*/
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .gallery-item-upload:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .gallery-item-upload.has-image {
+            border: none;
+        }
+
+        .gallery-item-upload input[type="file"] {
+            display: none;
+        }
+
+        .gallery-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .gallery-item-upload.has-image .gallery-preview {
+            display: block;
+        }
+
+        .gallery-item-upload.has-image .gallery-placeholder {
+            display: none;
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--text-secondary);
+        }
+
+        .gallery-placeholder .icon {
+            font-size: 2.5rem;
+            opacity: 0.5;
+        }
+
+        .gallery-placeholder .text {
+            font-size: 0.9rem;
+        }
+
+        .gallery-item-upload:hover .delete-image-btn {
+            opacity: 1;
+        }
+
+        /* 添加图片按钮 */
+        .add-gallery-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px 30px;
+            background: transparent;
+            border: 2px dashed rgba(99, 102, 241, 0.5);
+            border-radius: 16px;
+            color: var(--primary);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .add-gallery-btn:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+        }
+
+        /* 详情页展示 */
+        .details-section {
+            padding: 80px 0;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(790px, 1fr));
+            gap: 30px;
+        }
+
+        .details-item-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .details-item-upload {
+            position: relative;
+            width: 100%;
+            min-height: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .details-item-upload:hover {
+            border-color: var(--secondary);
+        }
+
+        .details-item-upload.has-image {
+            border: none;
+        }
+
+        .details-item-upload input[type="file"] {
+            display: none;
+        }
+
+        .details-preview {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+
+        .details-item-upload.has-image .details-preview {
+            display: block;
+        }
+
+        .details-item-upload.has-image .details-placeholder {
+            display: none;
+        }
+
+        .details-placeholder {
+            width: 100%;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: var(--text-secondary);
+        }
+
+        .details-placeholder .icon {
+            font-size: 3rem;
+            opacity: 0.5;
+        }
+
+        .details-placeholder .text {
+            font-size: 1rem;
+        }
+
+        .details-placeholder .hint {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* 删除按钮 */
+        .delete-image-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 0, 0, 0.8);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .details-item-wrapper:hover .delete-image-btn {
+            opacity: 1;
+        }
+
+        .delete-image-btn:hover {
+            background: #ff0000;
+            transform: scale(1.1);
+        }
+
+        /* ========== Description Section ========== */
+        .description-section {
+            padding: 80px 0;
+        }
+
+        .description-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 50px;
+        }
+
+        .description-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .description-text p {
+            margin-bottom: 20px;
+        }
+
+        .description-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 文字编辑 */
+        .editable-title {
+            background: transparent;
+            border: none;
+            border-bottom: 2px dashed transparent;
+            color: inherit;
+            font: inherit;
+            padding: 5px 10px;
+            margin: -5px -10px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .editable-title:hover,
+        .editable-title:focus {
+            border-bottom-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            outline: none;
+        }
+
+        .editable-text {
+            background: transparent;
+            border: 2px dashed transparent;
+            color: inherit;
+            font: inherit;
+            width: 100%;
+            padding: 10px;
+            margin: -10px 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+            resize: none;
+            min-height: 100px;
+        }
+
+        .editable-text:hover,
+        .editable-text:focus {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            outline: none;
+        }
+
+        /* ========== Tags Section ========== */
+        .tags-section {
+            padding: 80px 0;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .add-tag-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-tag-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* ========== Footer ========== */
+        .footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 80px;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-text a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* ========== Animations ========== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .description-box {
+                padding: 30px 20px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        .back-to-top svg {
+            transform: rotate(0deg);
+        }
+
+        /* 返回按钮 */
+        .back-to-portfolio {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-portfolio:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        .back-to-portfolio svg {
+            transition: transform 0.3s ease;
+        }
+
+        .back-to-portfolio:hover svg {
+            transform: translateX(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-bg">
+        <video autoplay muted loop playsinline>
+            <source src="video/video2.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <span>🚀</span>
+            <span>Portfolio</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span>✨</span>
+            <span>产品设计项目</span>
+        </div>
+        <h1 class="hero-title">
+            <span class="highlight">作品 2</span>
+        </h1>
+        <div class="hero-meta">
+            <div class="meta-item">
+                <span class="meta-label">类型</span>
+                <span class="meta-value" contenteditable="true">设计</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">年份</span>
+                <span class="meta-value" contenteditable="true">2026</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">状态</span>
+                <span class="meta-value">已完成</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Poster Section -->
+    <section class="poster-section">
+        <div class="container">
+            <h2 class="section-title">海报展示</h2>
+            <div class="poster-grid">
+                <div class="poster-upload-wrapper">
+                    <label class="poster-image-upload" id="posterUpload1">
+                        <input type="file" accept="image/*" onchange="handlePosterUpload(this, 1)">
+                        <img class="poster-preview" id="posterPreview1">
+                        <div class="upload-placeholder">
+                            <span class="icon">🖼️</span>
+                            <span class="text">点击上传海报 1</span>
+                            <span class="hint">尺寸：1080像素 x 1920像素</span>
+                        </div>
+                    </label>
+                    <button class="delete-poster-btn" onclick="deletePosterImage(event, 1)">✕</button>
+                </div>
+                <div class="poster-upload-wrapper">
+                    <label class="poster-image-upload" id="posterUpload2">
+                        <input type="file" accept="image/*" onchange="handlePosterUpload(this, 2)">
+                        <img class="poster-preview" id="posterPreview2">
+                        <div class="upload-placeholder">
+                            <span class="icon">🖼️</span>
+                            <span class="text">点击上传海报 2</span>
+                            <span class="hint">尺寸：1080像素 x 1920像素</span>
+                        </div>
+                    </label>
+                    <button class="delete-poster-btn" onclick="deletePosterImage(event, 2)">✕</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Section -->
+    <section class="image-section">
+        <div class="container">
+            <h2 class="section-title">Banner展示</h2>
+            <div class="banner-grid" id="bannerGrid">
+                <div class="banner-upload-wrapper" id="bannerWrapper1">
+                    <label class="banner-image-upload" id="bannerUpload1">
+                        <input type="file" accept="image/*" onchange="handleBannerUpload(this, 1)">
+                        <img class="banner-preview" id="bannerPreview1">
+                        <div class="upload-placeholder">
+                            <span class="icon">📷</span>
+                            <span class="text">点击上传Banner 1</span>
+                            <span class="hint">尺寸：1920像素 x 600像素</span>
+                        </div>
+                    </label>
+                    <button class="delete-banner-btn" onclick="deleteBannerImage(event, 1)">✕</button>
+                </div>
+                <div class="banner-upload-wrapper" id="bannerWrapper2">
+                    <label class="banner-image-upload" id="bannerUpload2">
+                        <input type="file" accept="image/*" onchange="handleBannerUpload(this, 2)">
+                        <img class="banner-preview" id="bannerPreview2">
+                        <div class="upload-placeholder">
+                            <span class="icon">📷</span>
+                            <span class="text">点击上传Banner 2</span>
+                            <span class="hint">尺寸：1920像素 x 600像素</span>
+                        </div>
+                    </label>
+                    <button class="delete-banner-btn" onclick="deleteBannerImage(event, 2)">✕</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">主图展示</h2>
+            <div class="gallery-grid" id="galleryGrid">
+            </div>
+        </div>
+    </section>
+
+    <!-- Details Section -->
+    <section class="details-section">
+        <div class="container">
+            <h2 class="section-title">详情页展示</h2>
+            <div class="details-grid" id="detailsGrid"></div>
+        </div>
+    </section>
+
+    <script>
+        let galleryCount = 5;
+        let detailsCount = 1;
+
+        // ========== IndexedDB 管理 ==========
+        const DB_NAME = 'ProductPageDB2';
+        const DB_VERSION = 1;
+        const STORE_NAME = 'images';
+        let db = null;
+
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => {
+                    db = request.result;
+                    resolve(db);
+                };
+                
+                request.onupgradeneeded = (event) => {
+                    const database = event.target.result;
+                    if (!database.objectStoreNames.contains(STORE_NAME)) {
+                        database.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                    }
+                };
+            });
+        }
+
+        function saveImageToDB(id, dataURL) {
+            return new Promise((resolve, reject) => {
+                if (!db) {
+                    initDB().then(() => saveImageToDB(id, dataURL).then(resolve).catch(reject));
+                    return;
+                }
+                
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.put({ id, data: dataURL, timestamp: Date.now() });
+                
+                request.onsuccess = () => resolve();
+                request.onerror = () => reject(request.error);
+            });
+        }
+
+        function loadImageFromDB(id) {
+            return new Promise((resolve, reject) => {
+                if (!db) {
+                    initDB().then(() => loadImageFromDB(id).then(resolve).catch(reject));
+                    return;
+                }
+                
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.get(id);
+                
+                request.onsuccess = () => resolve(request.result ? request.result.data : null);
+                request.onerror = () => reject(request.error);
+            });
+        }
+
+        function deleteImageFromDB(id) {
+            return new Promise((resolve, reject) => {
+                if (!db) {
+                    initDB().then(() => deleteImageFromDB(id).then(resolve).catch(reject));
+                    return;
+                }
+                
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.delete(id);
+                
+                request.onsuccess = () => resolve();
+                request.onerror = () => reject(request.error);
+            });
+        }
+
+        async function saveToStorage() {
+            try {
+                for (let i = 1; i <= 2; i++) {
+                    const preview = document.getElementById(`posterPreview${i}`);
+                    if (preview && preview.src && !preview.src.startsWith(window.location.href)) {
+                        await saveImageToDB(`poster${i}`, preview.src);
+                    }
+                }
+
+                for (let i = 1; i <= 2; i++) {
+                    const preview = document.getElementById(`bannerPreview${i}`);
+                    if (preview && preview.src && !preview.src.startsWith(window.location.href)) {
+                        await saveImageToDB(`banner${i}`, preview.src);
+                    }
+                }
+
+                const mainPreview = document.getElementById('mainPreview');
+                if (mainPreview && mainPreview.src && !mainPreview.src.startsWith(window.location.href)) {
+                    await saveImageToDB('main', mainPreview.src);
+                }
+
+                const currentGalleryItems = document.querySelectorAll('#galleryGrid .gallery-item-upload');
+                currentGalleryItems.forEach((item, index) => {
+                    const preview = item.querySelector('.gallery-preview');
+                    if (preview && preview.src && !preview.src.startsWith(window.location.href)) {
+                        saveImageToDB(`gallery_${index}`, preview.src);
+                    }
+                });
+
+                const currentDetailsItems = document.querySelectorAll('#detailsGrid .details-item-upload');
+                currentDetailsItems.forEach((item, index) => {
+                    const preview = item.querySelector('.details-preview');
+                    if (preview && preview.src && !preview.src.startsWith(window.location.href)) {
+                        saveImageToDB(`details_${index}`, preview.src);
+                    }
+                });
+            } catch (e) {
+                console.warn('保存图片失败', e);
+            }
+        }
+
+        async function loadFromStorage() {
+            try {
+                await initDB();
+
+                for (let i = 1; i <= 2; i++) {
+                    const data = await loadImageFromDB(`poster${i}`);
+                    if (data) {
+                        const preview = document.getElementById(`posterPreview${i}`);
+                        const uploadArea = document.getElementById(`posterUpload${i}`);
+                        if (preview && uploadArea) {
+                            preview.src = data;
+                            uploadArea.classList.add('has-image');
+                        }
+                    }
+                }
+
+                for (let i = 1; i <= 2; i++) {
+                    const data = await loadImageFromDB(`banner${i}`);
+                    if (data) {
+                        const preview = document.getElementById(`bannerPreview${i}`);
+                        const uploadArea = document.getElementById(`bannerUpload${i}`);
+                        if (preview && uploadArea) {
+                            preview.src = data;
+                            uploadArea.classList.add('has-image');
+                        }
+                    }
+                }
+
+                const mainData = await loadImageFromDB('main');
+                if (mainData) {
+                    const preview = document.getElementById('mainPreview');
+                    const uploadArea = document.getElementById('mainImageUpload');
+                    if (preview && uploadArea) {
+                        preview.src = mainData;
+                        uploadArea.classList.add('has-image');
+                    }
+                }
+
+                // 主图展示：先初始化空格子，再加载图片
+                initGallery();
+                
+                for (let i = 1; i <= 6; i++) {
+                    const data = await loadImageFromDB(`gallery_${i - 1}`);
+                    if (data) {
+                        const preview = document.getElementById(`galleryPreview${i}`);
+                        const uploadArea = document.getElementById(`galleryItem${i}`);
+                        if (preview && uploadArea) {
+                            preview.src = data;
+                            uploadArea.classList.add('has-image');
+                        }
+                    }
+                }
+
+                // 详情页：加载已保存的图片
+                for (let i = 0; i < 50; i++) {
+                    const data = await loadImageFromDB(`details_${i}`);
+                    if (data) {
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'details-item-wrapper';
+                        wrapper.innerHTML = `
+                            <label class="details-item-upload has-image" id="detailsItem${i + 1}">
+                                <input type="file" accept="image/*" onchange="handleDetailsUpload(this, ${i + 1})">
+                                <img class="details-preview" id="detailsPreview${i + 1}" src="${data}">
+                                <div class="details-placeholder">
+                                    <span class="icon">📄</span>
+                                    <span class="text">点击上传详情页图片</span>
+                                    <span class="hint">建议宽度：790像素</span>
+                                </div>
+                            </label>
+                            <button class="delete-image-btn" onclick="deleteDetailsImage(event, ${i + 1})">✕</button>
+                        `;
+                        document.getElementById('detailsGrid').appendChild(wrapper);
+                    }
+                }
+            } catch (e) {
+                console.warn('加载图片失败', e);
+            }
+        }
+
+        // ========== Poster Upload ==========
+        function handlePosterUpload(input, index) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById(`posterPreview${index}`);
+                const uploadArea = document.getElementById(`posterUpload${index}`);
+                preview.src = e.target.result;
+                uploadArea.classList.add('has-image');
+                saveToStorage();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ========== Delete Poster Image ==========
+        function deletePosterImage(event, index) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const preview = document.getElementById(`posterPreview${index}`);
+            const uploadArea = document.getElementById(`posterUpload${index}`);
+            const input = uploadArea.querySelector('input');
+
+            preview.src = '';
+            uploadArea.classList.remove('has-image');
+            input.value = '';
+            deleteImageFromDB(`poster${index}`);
+        }
+
+        // ========== Banner Upload ==========
+        function handleBannerUpload(input, index) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById(`bannerPreview${index}`);
+                const uploadArea = document.getElementById(`bannerUpload${index}`);
+                preview.src = e.target.result;
+                uploadArea.classList.add('has-image');
+                saveToStorage();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ========== Delete Banner Image ==========
+        function deleteBannerImage(event, index) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const preview = document.getElementById(`bannerPreview${index}`);
+            const uploadArea = document.getElementById(`bannerUpload${index}`);
+            const input = uploadArea.querySelector('input');
+
+            preview.src = '';
+            uploadArea.classList.remove('has-image');
+            input.value = '';
+            deleteImageFromDB(`banner${index}`);
+        }
+
+        // 初始化主图展示
+        function initGallery() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            if (galleryGrid.children.length > 0) return;
+            
+            for (let i = 1; i <= 6; i++) {
+                const item = document.createElement('label');
+                item.className = 'gallery-item-upload';
+                item.id = `galleryItem${i}`;
+                item.innerHTML = `
+                    <input type="file" accept="image/*" onchange="handleGalleryUpload(this, ${i})">
+                    <img class="gallery-preview" id="galleryPreview${i}">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 ${i}</span>
+                    </div>
+                    <button class="delete-image-btn" onclick="deleteGalleryImage(event, ${i})">✕</button>
+                `;
+                galleryGrid.appendChild(item);
+            }
+        }
+
+        // 添加主图展示项
+        function addGalleryItem() {
+            galleryCount++;
+            const galleryGrid = document.getElementById('galleryGrid');
+            const item = document.createElement('label');
+            item.className = 'gallery-item-upload';
+            item.id = `galleryItem${galleryCount}`;
+            item.innerHTML = `
+                <input type="file" accept="image/*" onchange="handleGalleryUpload(this, ${galleryCount})">
+                <img class="gallery-preview" id="galleryPreview${galleryCount}">
+                <div class="gallery-placeholder">
+                    <span class="icon">🖼️</span>
+                    <span class="text">图片 ${galleryCount}</span>
+                </div>
+                <button class="delete-image-btn" onclick="deleteGalleryImage(event, ${galleryCount})">✕</button>
+            `;
+            galleryGrid.appendChild(item);
+        }
+
+        // ========== Main Image Upload ==========
+        function handleMainImageUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById('mainPreview');
+                const uploadArea = document.getElementById('mainImageUpload');
+                preview.src = e.target.result;
+                uploadArea.classList.add('has-image');
+                saveToStorage();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ========== Gallery Image Upload ==========
+        function handleGalleryUpload(input, index) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById(`galleryPreview${index}`);
+                const uploadArea = document.getElementById(`galleryItem${index}`);
+                preview.src = e.target.result;
+                uploadArea.classList.add('has-image');
+                saveToStorage();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ========== Delete Gallery Image ==========
+        function deleteGalleryImage(event, index) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const preview = document.getElementById(`galleryPreview${index}`);
+            const uploadArea = document.getElementById(`galleryItem${index}`);
+            const input = uploadArea.querySelector('input');
+
+            preview.src = '';
+            uploadArea.classList.remove('has-image');
+            input.value = '';
+            deleteImageFromDB(`gallery_${index}`);
+        }
+
+        // ========== Details Upload ==========
+        function handleDetailsUpload(input, index) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById(`detailsPreview${index}`);
+                const uploadArea = document.getElementById(`detailsItem${index}`);
+                preview.src = e.target.result;
+                uploadArea.classList.add('has-image');
+                saveToStorage();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ========== Delete Details Image ==========
+        function deleteDetailsImage(event, index) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const wrapper = event.target.closest('.details-item-wrapper');
+            const grid = document.getElementById('detailsGrid');
+            const wasLastItem = wrapper === grid.lastElementChild;
+
+            wrapper.remove();
+            deleteImageFromDB(`details_${index - 1}`);
+
+            // 如果删除的是最后一个上传框，且现在没有格子了，添加新格子
+            if (wasLastItem && grid.children.length === 0) {
+                addDetailsItem();
+            }
+        }
+
+        // ========== Add Details Item ==========
+        function addDetailsItem() {
+            detailsCount++;
+            const detailsGrid = document.getElementById('detailsGrid');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'details-item-wrapper';
+            wrapper.innerHTML = `
+                <label class="details-item-upload" id="detailsItem${detailsCount}">
+                    <input type="file" accept="image/*" onchange="handleDetailsUpload(this, ${detailsCount})">
+                    <img class="details-preview" id="detailsPreview${detailsCount}">
+                    <div class="details-placeholder">
+                        <span class="icon">📄</span>
+                        <span class="text">点击上传详情页图片</span>
+                        <span class="hint">建议宽度：790像素</span>
+                    </div>
+                </label>
+                <button class="delete-image-btn" onclick="deleteDetailsImage(event, ${detailsCount})">✕</button>
+            `;
+            detailsGrid.appendChild(wrapper);
+        }
+
+        // ========== Video Auto Play ==========
+        document.addEventListener('click', function init() {
+            const video = document.querySelector('.video-bg video');
+            if (video) {
+                video.play().catch(() => {});
+            }
+            document.removeEventListener('click', init);
+        }, { once: true });
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadFromStorage();
+            initGallery();
+            // 如果没有详情页，初始化一个
+            if (document.getElementById('detailsGrid').children.length === 0) {
+                addDetailsItem();
+            }
+        });
+
+        // 回到顶部按钮
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 滚动监听：显示/隐藏回到顶部按钮
+        window.addEventListener('scroll', () => {
+            const btn = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
+    </script>
+
+    <!-- 返回按钮 -->
+    <a href="portfolio.html#works" class="back-to-portfolio" title="返回精选作品">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span>返回</span>
+    </a>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" onclick="scrollToTop()" title="回到顶部">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© 2026 Creative Portfolio. All rights reserved.</p>
+    </footer>
+</body>
+</html>
