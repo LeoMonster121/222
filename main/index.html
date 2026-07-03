@@ -360,6 +360,493 @@
             margin-bottom: 60px;
         }
 
+        /* ========== Creative Showcase Hero Layout ========== */
+        .showcase-hero {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: heroFadeIn 1s ease-out forwards;
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .showcase-left {
+            flex: 0 0 38%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 0;
+        }
+
+        .showcase-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            animation: bounce-subtle 2s ease-in-out infinite;
+        }
+
+        .showcase-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: clamp(60px, 5vw, 72px);
+            margin-bottom: 12px;
+            line-height: 1.1;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: titleFloatUp 0.8s ease-out 0.3s forwards;
+        }
+
+        @keyframes titleFloatUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .showcase-subtitle {
+            font-family: 'Outfit', sans-serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: titleFloatUp 0.8s ease-out 0.5s forwards;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .showcase-desc {
+            font-size: 16px;
+            color: #999;
+            margin-bottom: 28px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out 0.7s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .showcase-filter-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .showcase-filter-bar .filter-btn {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .showcase-filter-bar .filter-btn:nth-child(1) { animation: btnAppear 0.5s ease-out 0.9s forwards; }
+        .showcase-filter-bar .filter-btn:nth-child(2) { animation: btnAppear 0.5s ease-out 1.0s forwards; }
+        .showcase-filter-bar .filter-btn:nth-child(3) { animation: btnAppear 0.5s ease-out 1.1s forwards; }
+        .showcase-filter-bar .filter-btn:nth-child(4) { animation: btnAppear 0.5s ease-out 1.2s forwards; }
+        .showcase-filter-bar .filter-btn:nth-child(5) { animation: btnAppear 0.5s ease-out 1.3s forwards; }
+        .showcase-filter-bar .filter-btn:nth-child(6) { animation: btnAppear 0.5s ease-out 1.4s forwards; }
+
+        @keyframes btnAppear {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .showcase-right {
+            flex: 0 0 62%;
+            position: relative;
+        }
+
+        .showcase-card {
+            position: relative;
+            border-radius: 45px;
+            overflow: hidden;
+            box-shadow: 
+                0 38px 75px -18px rgba(0, 0, 0, 0.5),
+                0 0 120px rgba(123, 47, 255, 0.3);
+            animation: imageFloat 6s ease-in-out infinite, glowBreathing 4s ease-in-out infinite;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        @keyframes imageFloat {
+            0%, 100% { transform: translateY(0) rotateX(0deg); }
+            50% { transform: translateY(-12px) rotateX(1deg); }
+        }
+
+        @keyframes glowBreathing {
+            0%, 100% { box-shadow: 0 38px 75px -18px rgba(0, 0, 0, 0.5), 0 0 90px rgba(123, 47, 255, 0.25), 0 0 150px rgba(123, 47, 255, 0.15); }
+            50% { box-shadow: 0 38px 75px -18px rgba(0, 0, 0, 0.5), 0 0 120px rgba(123, 47, 255, 0.4), 0 0 180px rgba(123, 47, 255, 0.25); }
+        }
+
+        .showcase-image-wrapper {
+            position: relative;
+            height: 480px;
+            overflow: hidden;
+            border-radius: 45px 45px 0 0;
+        }
+
+        .showcase-image-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, rgba(13, 13, 26, 0.9) 0%, rgba(13, 13, 26, 0.6) 50%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .showcase-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1.05) contrast(1.02);
+            transition: opacity 0.4s ease;
+        }
+
+        .showcase-glow {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 47px;
+            background: linear-gradient(135deg, rgba(123, 47, 255, 0.3), rgba(255, 58, 242, 0.2), rgba(0, 245, 212, 0.1));
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.6;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.4; filter: blur(15px); }
+            50% { opacity: 0.7; filter: blur(20px); }
+        }
+
+        .showcase-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 0;
+            background: linear-gradient(to top, rgba(13, 13, 26, 0.95) 0%, rgba(13, 13, 26, 0.7) 100%);
+        }
+
+        .showcase-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .showcase-dot.active {
+            background: linear-gradient(135deg, var(--accent-magenta), var(--accent-purple));
+            width: 28px;
+            border-radius: 5px;
+        }
+
+        .showcase-dot:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ========== Circular Carousel Styles ========== */
+        .circular-carousel-container {
+            position: relative;
+            width: 100%;
+            height: 750px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+
+        .circular-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: 650px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-cards-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            perspective: 1400px;
+        }
+
+        .carousel-card {
+            position: absolute;
+            width: 260px;
+            height: 360px;
+            left: 50%;
+            top: 50%;
+            margin-left: -140px;
+            margin-top: -190px;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(123, 47, 255, 0.2);
+            background: linear-gradient(145deg, rgba(30, 30, 50, 0.95), rgba(20, 20, 35, 0.98));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .carousel-card-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s ease;
+        }
+
+        .carousel-card-image {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-card:hover .carousel-card-image img {
+            transform: scale(1.08);
+        }
+
+        .carousel-card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 140px;
+            background: linear-gradient(to top, rgba(15, 15, 28, 0.98) 0%, rgba(15, 15, 28, 0.7) 60%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .carousel-card-title {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .carousel-card-category {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            padding: 5px 12px;
+            background: rgba(123, 47, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .carousel-card.video-card::after {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--accent-purple);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+        }
+
+        .carousel-center-content {
+            position: absolute;
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(123, 47, 255, 0.2), rgba(0, 245, 212, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: 
+                inset 0 0 80px rgba(123, 47, 255, 0.15),
+                0 0 100px rgba(123, 47, 255, 0.2);
+        }
+
+        .carousel-center-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 30px rgba(123, 47, 255, 0.5);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            gap: 14px;
+            margin-top: 30px;
+            z-index: 100;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        .carousel-indicator:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.2);
+        }
+
+        .carousel-indicator.active {
+            width: 36px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, var(--accent-magenta), var(--accent-purple));
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+        }
+
+        /* Auto-rotation animation */
+        @keyframes autoRotate {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        .carousel-cards-wrapper.auto-rotating {
+            animation: autoRotate var(--rotation-duration, 20s) linear infinite;
+        }
+
+        /* Card glow effect */
+        .carousel-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, 
+                rgba(123, 47, 255, 0.4), 
+                rgba(255, 58, 242, 0.2), 
+                rgba(0, 245, 212, 0.1));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .carousel-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .circular-carousel-container {
+                height: 620px;
+            }
+            .circular-carousel {
+                max-width: 780px;
+                height: 500px;
+            }
+            .carousel-card {
+                width: 220px;
+                height: 300px;
+                margin-left: -110px;
+                margin-top: -150px;
+            }
+            .carousel-center-content {
+                width: 280px;
+                height: 280px;
+            }
+            .carousel-card-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .circular-carousel-container {
+                height: 520px;
+            }
+            .circular-carousel {
+                max-width: 100%;
+                height: 420px;
+            }
+            .carousel-card {
+                width: 160px;
+                height: 220px;
+                margin-left: -80px;
+                margin-top: -110px;
+            }
+            .carousel-center-content {
+                width: 180px;
+                height: 180px;
+            }
+            .carousel-center-label {
+                font-size: 1rem;
+            }
+            .carousel-card-title {
+                font-size: 0.9rem;
+                bottom: 12px;
+                right: 12px;
+            }
+            .carousel-card-category {
+                font-size: 0.6rem;
+                padding: 4px 10px;
+            }
+            .carousel-indicators {
+                gap: 8px;
+            }
+            .carousel-indicator {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        /* Original section styles for below showcase */
+        .section-header.original {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
         .section-emoji {
             font-size: 4rem;
             margin-bottom: 16px;
@@ -399,7 +886,7 @@
             background: rgba(255, 255, 255, 0.05);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 30px;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
@@ -511,6 +998,169 @@
             display: none;
         }
 
+        /* ========== Works Categories ========== */
+        .works-categories-container {
+            display: flex;
+            flex-direction: column;
+            gap: 72px;
+            padding: 0 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .work-category-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .category-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+        }
+
+        .category-more {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s ease;
+        }
+
+        .category-more:hover {
+            color: var(--accent-cyan);
+        }
+
+        .category-cards-row {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 20px;
+            align-items: start;
+        }
+
+        .category-cards-row .works-grid-item {
+            min-width: 0;
+        }
+
+        .category-cards-row .work-card {
+            height: 100%;
+        }
+
+        .category-cards-row--no-header {
+            margin-top: 24px;
+        }
+
+        .product-ip-headers {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .product-ip-header--product {
+            grid-column: 1 / 4;
+        }
+
+        .product-ip-header--ip {
+            grid-column: 4 / 6;
+            justify-content: flex-start;
+        }
+
+        .product-ip-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .product-ip-header .category-title {
+            font-size: 1.6rem;
+        }
+
+        .category-cards-row--product-ip {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .mv-tvc-headers {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .mv-tvc-header--mv {
+            grid-column: 1 / 4;
+        }
+
+        .mv-tvc-header--tvc {
+            grid-column: 4 / 6;
+            justify-content: flex-start;
+        }
+
+        .mv-tvc-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .mv-tvc-header .category-title {
+            font-size: 1.6rem;
+        }
+
+        .category-cards-row--mv-tvc {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .category-cards-row {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .product-ip-headers {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .category-cards-row--product-ip {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) repeat(2, minmax(0, 1fr));
+            }
+
+            .mv-tvc-headers {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .category-cards-row--mv-tvc {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .works-categories-container {
+                gap: 48px;
+                padding: 0 16px;
+            }
+
+            .category-cards-row {
+                grid-template-columns: 1fr;
+            }
+
+            .category-title {
+                font-size: 1.6rem;
+            }
+        }
+
         .work-card {
             background: rgba(45, 27, 78, 0.7);
             backdrop-filter: blur(10px);
@@ -580,7 +1230,7 @@
 
         .work-card-description {
             font-size: 0.9rem;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.8);
             line-height: 1.6;
         }
 
@@ -662,7 +1312,7 @@
 
         .work-card:hover {
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 12px 12px 0 var(--accent-purple), 24px 24px 0 var(--accent-cyan);
+            box-shadow: 12px 12px 0 var(--accent-purple);
         }
 
         .work-card:nth-child(2n):hover {
@@ -1736,6 +2386,26 @@
             box-shadow: 0 2px 10px rgba(255, 58, 242, 0.5);
         }
 
+        .video-play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--accent-purple);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+            z-index: 15;
+            padding-left: 4px;
+        }
+
         .video-modal-overlay {
             position: fixed;
             top: 0;
@@ -2290,24 +2960,60 @@
     <!-- Works Section -->
     <section id="works">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header original" style="display:none;">
                 <div class="section-emoji">🚀</div>
                 <h2 class="section-title text-shadow-double">精选作品</h2>
                 <p class="section-subtitle">点击任意作品查看详情，探索每一个创意背后的故事</p>
             </div>
 
-            <!-- 作品类别导航 -->
-            <div class="works-filter-bar">
-                <button class="filter-btn active" data-filter="all">全部</button>
-                <button class="filter-btn" data-filter="product">产品设计</button>
-                <button class="filter-btn" data-filter="IP">IP设计</button>
-                <button class="filter-btn" data-filter="MV">MV</button>
-                <button class="filter-btn" data-filter="TVC">TVC广告</button>
-                <button class="filter-btn" data-filter="motion">短剧/漫剧</button>
+            <!-- Creative Showcase Hero -->
+            <div class="showcase-hero">
+                <!-- 左侧内容 -->
+                <div class="showcase-left">
+                    <div class="showcase-emoji">🚀</div>
+                    <h2 class="showcase-title">精选作品</h2>
+                    <p class="showcase-subtitle">Creative Showcase</p>
+                    <p class="showcase-desc">
+                        探索每一个创意背后的故事，从概念到实现，用设计点亮灵感。
+                    </p>
+                    <div class="showcase-filter-bar">
+                        <button class="filter-btn active" data-filter="all">全部</button>
+                        <button class="filter-btn" data-filter="product">产品</button>
+                        <button class="filter-btn" data-filter="IP">IP设计</button>
+                        <button class="filter-btn" data-filter="MV">MV</button>
+                        <button class="filter-btn" data-filter="motion">TVC广告</button>
+                        <button class="filter-btn" data-filter="TVC">短剧/漫剧</button>
+                    </div>
+                </div>
+
+                <!-- 右侧展示卡片 -->
+                <div class="showcase-right">
+                    <div class="showcase-card">
+                        <div class="showcase-glow"></div>
+                        <div class="showcase-image-wrapper">
+                            <img class="showcase-image" src="images/work-1.jpg" alt="Featured Work" id="showcaseImage">
+                        </div>
+                        <div class="showcase-dots">
+                            <span class="showcase-dot active" data-index="0"></span>
+                            <span class="showcase-dot" data-index="1"></span>
+                            <span class="showcase-dot" data-index="2"></span>
+                            <span class="showcase-dot" data-index="3"></span>
+                            <span class="showcase-dot" data-index="4"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- 作品网格 -->
-            <div class="works-grid-container" id="worksGrid"></div>
+            <!-- 圆形作品展示区域 -->
+            <div class="circular-carousel-container">
+                <div class="circular-carousel" id="circularCarousel">
+                    <div class="carousel-cards-wrapper" id="carouselCardsWrapper"></div>
+                    <div class="carousel-center-content">
+                        <span class="carousel-center-label">精选作品</span>
+                    </div>
+                </div>
+                <div class="carousel-indicators" id="carouselIndicators"></div>
+            </div>
         </div>
     </section>
 
@@ -2465,89 +3171,334 @@
             { id: 2, category: 'product', title: '作品标题 3', desc: '产品设计作品展示', link: '#', img: 'images/work-3.jpg' },
             { id: 3, category: 'IP', title: '粉团', desc: 'IP设计作品展示', link: '#', img: 'images/work-4.jpg' },
             { id: 4, category: 'IP', title: '作品标题 5', desc: 'IP设计作品展示', link: '#', img: 'images/work-5.jpg' },
-            { id: 5, category: 'IP', title: '作品标题 6', desc: 'IP设计作品展示', link: '#', img: 'images/work-6.jpg' },
             { id: 6, category: 'MV', title: '往上走', desc: 'MV作品展示', link: '#', img: 'images/work-7.jpg', type: 'video', video: 'https://res.cloudinary.com/datarpybk/video/upload/f_auto,q_auto/v1782720171/mv1_gr0g5j.mp4' },
             { id: 7, category: 'TVC', title: '作品标题 8', desc: 'TVC广告', link: '#', img: 'images/work-8.jpg' },
             { id: 8, category: 'TVC', title: '作品标题 9', desc: 'TVC广告', link: '#', img: 'images/work-9.jpg' },
             { id: 9, category: 'TVC', title: '作品标题 10', desc: 'TVC广告', link: '#', img: 'images/work-10.jpg' },
+            { id: 10, category: 'TVC', title: '作品标题 11', desc: 'TVC广告', link: '#', img: 'images/work-11.jpg' },
         ];
 
         // ========== Works Filter & Animation ==========
-        function initWorksFilter() {
-            const grid = document.getElementById('worksGrid');
-            const filterBtns = document.querySelectorAll('.filter-btn');
+        const categoryOrder = ['product', 'IP', 'MV', 'TVC', 'motion'];
+        const categoryNames = {
+            'IP': 'IP设计',
+            'TVC': 'TVC广告',
+            'motion': '短剧/漫剧',
+            'MV': 'MV',
+            'product': '产品设计'
+        };
 
-            // 生成作品卡片
+        function initWorksFilter() {
+            const container = document.getElementById('worksCategories');
+            const filterBtns = document.querySelectorAll('.works-filter-bar .filter-btn, .showcase-filter-bar .filter-btn');
+
             renderWorks(worksData);
 
-            // 筛选功能
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     filterBtns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    
+
                     const filter = btn.dataset.filter;
                     filterWorks(filter);
                 });
             });
         }
 
-        function renderWorks(works) {
-            const grid = document.getElementById('worksGrid');
-            const categoryNames = {
-                'IP': 'IP设计',
-                'TVC': 'TVC广告',
-                'motion': '短剧/漫剧',
-                'MV': 'MV',
-                'product': '产品设计'
-            };
+        // ========== Circular Carousel Functions ==========
+        let currentCarouselIndex = 0;
+        let carouselData = [];
+        let autoRotateTimer = null;
+        let isUserInteracting = false;
+        let currentAngle = 0;
 
-            grid.innerHTML = works.map((work, index) => `
-                <div class="works-grid-item" data-category="${work.category}" data-id="${work.id}" style="transition-delay: ${index * 0.1}s">
-                    <div class="work-card">
-                        <div class="work-card-actions" onclick="event.stopPropagation()">
-                            <label class="action-btn upload-btn" for="upload-${work.id}" title="上传封面">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-                                    <polyline points="17 8 12 3 7 8"/>
-                                    <line x1="12" y1="3" x2="12" y2="15"/>
-                                </svg>
-                            </label>
-                            <input type="file" id="upload-${work.id}" accept="image/*">
-                            <button class="action-btn delete-btn" onclick="event.stopPropagation(); handleDelete(${work.id})" title="删除封面">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="3 6 5 6 21 6"/>
-                                    <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="work-card-image" onclick="${work.type === 'video' ? `openVideoModal(${work.id})` : (work.link !== '#' ? `window.location.href='${work.link}'` : '')}">
-                            ${work.img ? `<img src="${work.img}" alt="${work.title}">` : '<span class="placeholder-text">' + work.title + '</span>'}
-                            ${work.type === 'video' ? '<span class="video-badge">▶ 视频</span>' : ''}
-                        </div>
-                        <div class="work-card-content">
-                            <span class="work-card-category">${categoryNames[work.category] || work.category}</span>
-                            <h3 class="work-card-title">${work.title}</h3>
-                            <p class="work-card-description">${work.desc}</p>
+        function initCircularCarousel(works) {
+            carouselData = works;
+            const wrapper = document.getElementById('carouselCardsWrapper');
+            const indicators = document.getElementById('carouselIndicators');
+            
+            if (!wrapper || !indicators || works.length === 0) return;
+
+            // Create carousel cards
+            wrapper.innerHTML = works.map((work, index) => `
+                <div class="carousel-card" data-index="${index}" onclick="handleCarouselCardClick(${index})">
+                    <div class="carousel-card-inner">
+                        <div class="carousel-card-image">
+                            ${work.img ? `<img src="${work.img}" alt="${work.title}">` : ''}
+                            <div class="carousel-card-overlay"></div>
                         </div>
                     </div>
+                    <span class="carousel-card-category">${categoryNames[work.category] || work.category}</span>
+                    <span class="carousel-card-title">${work.title}</span>
+                    ${work.type === 'video' ? '<span class="video-play-icon">▶</span>' : ''}
                 </div>
             `).join('');
 
-            // 绑定上传事件 - 在 DOM 更新后执行
-            requestAnimationFrame(() => {
-                works.forEach(work => {
-                    const input = document.getElementById(`upload-${work.id}`);
-                    if (input) {
-                        input.addEventListener('change', (e) => handleUpload(work.id, e));
-                    }
-                });
+            // Create indicators
+            indicators.innerHTML = works.map((_, index) => `
+                <div class="carousel-indicator ${index === 0 ? 'active' : ''}" data-index="${index}" onclick="goToCarouselIndex(${index})"></div>
+            `).join('');
+
+            // Position cards in a circle
+            positionCarouselCards();
+            
+            // Setup mouse wheel scroll
+            setupCarouselScroll();
+            
+            // Start auto rotation
+            startAutoRotation();
+        }
+
+        function positionCarouselCards() {
+            const cards = document.querySelectorAll('.carousel-card');
+            const totalCards = carouselData.length;
+            if (totalCards === 0) return;
+
+            const angleStep = 360 / totalCards;
+            
+            cards.forEach((card, index) => {
+                const angle = angleStep * index + currentAngle;
+                const radian = (angle - 90) * (Math.PI / 180);
+                
+                // Calculate position on the circle - optimized radius for better fit
+                const radiusX = 450; // Horizontal radius
+                const radiusY = 200; // Vertical radius
+                
+                const x = Math.cos(radian) * radiusX;
+                const y = Math.sin(radian) * radiusY;
+                
+                // Calculate scale and opacity based on position
+                const normalizedAngle = ((angle % 360) + 360) % 360;
+                const isFront = normalizedAngle > 315 || normalizedAngle < 45;
+                const isLeftSide = normalizedAngle >= 45 && normalizedAngle <= 135;
+                const isRightSide = normalizedAngle > 225 && normalizedAngle <= 315;
+                
+                let scale = 0.75;
+                let opacity = 0.35;
+                let zIndex = 1;
+                let rotateY = 0;
+                
+                if (isFront) {
+                    scale = 1;
+                    opacity = 1;
+                    zIndex = 10;
+                    rotateY = 0;
+                } else if (isLeftSide) {
+                    scale = 0.85;
+                    opacity = 0.6;
+                    zIndex = 5;
+                    rotateY = 0;
+                } else if (isRightSide) {
+                    scale = 0.85;
+                    opacity = 0.6;
+                    zIndex = 5;
+                    rotateY = 0;
+                }
+
+                // Counter-rotate to keep card always facing forward
+                const counterRotateY = -angle;
+
+                card.style.transform = `
+                    translateX(${x}px) 
+                    translateY(${y}px) 
+                    rotateY(${counterRotateY}deg) 
+                    scale(${scale})
+                `;
+                card.style.opacity = opacity;
+                card.style.zIndex = zIndex;
+                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+        }
+
+        function rotateCarousel(direction) {
+            const totalCards = carouselData.length;
+            if (totalCards === 0) return;
+
+            const angleStep = 360 / totalCards;
+            currentAngle += direction * angleStep;
+            currentCarouselIndex = (currentCarouselIndex - direction + totalCards) % totalCards;
+            
+            const cards = document.querySelectorAll('.carousel-card');
+            cards.forEach((card, index) => {
+                const cardAngle = (angleStep * index) + currentAngle;
+                const normalizedAngle = ((cardAngle % 360) + 360) % 360;
+                
+                const radian = (cardAngle - 90) * (Math.PI / 180);
+                const radiusX = 450;
+                const radiusY = 200;
+                
+                const x = Math.cos(radian) * radiusX;
+                const y = Math.sin(radian) * radiusY;
+                
+                const isFront = normalizedAngle > 315 || normalizedAngle < 45;
+                const isLeftSide = normalizedAngle >= 45 && normalizedAngle <= 135;
+                const isRightSide = normalizedAngle > 225 && normalizedAngle <= 315;
+                
+                let scale = 0.75;
+                let opacity = 0.35;
+                let zIndex = 1;
+                let rotateY = 0;
+                
+                if (isFront) {
+                    scale = 1;
+                    opacity = 1;
+                    zIndex = 10;
+                    rotateY = 0;
+                } else if (isLeftSide) {
+                    scale = 0.85;
+                    opacity = 0.6;
+                    zIndex = 5;
+                    rotateY = 0;
+                } else if (isRightSide) {
+                    scale = 0.85;
+                    opacity = 0.6;
+                    zIndex = 5;
+                    rotateY = 0;
+                }
+
+                // Counter-rotate to keep card always facing forward
+                const counterRotateY = -cardAngle;
+
+                card.style.transform = `
+                    translateX(${x}px) 
+                    translateY(${y}px) 
+                    rotateY(${counterRotateY}deg) 
+                    scale(${scale})
+                `;
+                card.style.opacity = opacity;
+                card.style.zIndex = zIndex;
             });
 
-            // 初始显示动画
+            // Update indicators
+            updateCarouselIndicators();
+        }
+
+        function goToCarouselIndex(targetIndex) {
+            if (targetIndex === currentCarouselIndex) return;
+            
+            const totalCards = carouselData.length;
+            const currentIndex = currentCarouselIndex;
+            const diff = targetIndex - currentIndex;
+            
+            // Calculate shortest direction
+            let steps = diff;
+            if (Math.abs(diff) > totalCards / 2) {
+                steps = diff > 0 ? diff - totalCards : diff + totalCards;
+            }
+            
+            const direction = steps > 0 ? -1 : 1;
+            const angleStep = 360 / totalCards;
+            
+            // Animate to target position
+            const wrapper = document.getElementById('carouselCardsWrapper');
+            wrapper.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            currentAngle += direction * angleStep * Math.abs(steps);
+            wrapper.style.transform = `rotateY(${currentAngle}deg)`;
+            
             setTimeout(() => {
-                observeWorks();
+                wrapper.style.transition = 'none';
+                positionCarouselCards();
+            }, 800);
+            
+            currentCarouselIndex = targetIndex;
+            updateCarouselIndicators();
+        }
+
+        function updateCarouselIndicators() {
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentCarouselIndex);
+            });
+        }
+
+        function handleCarouselCardClick(index) {
+            if (index === currentCarouselIndex) {
+                // Click on front card - open work
+                const work = carouselData[index];
+                if (work.type === 'video') {
+                    openVideoModal(work.id);
+                } else if (work.link && work.link !== '#') {
+                    window.location.href = work.link;
+                } else {
+                    openModal(work.id);
+                }
+            } else {
+                // Click on non-front card - rotate to it
+                goToCarouselIndex(index);
+            }
+        }
+
+        function setupCarouselScroll() {
+            const container = document.querySelector('.circular-carousel-container');
+            if (!container) return;
+
+            let scrollAccumulator = 0;
+            const scrollThreshold = 50;
+
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                scrollAccumulator += e.deltaY;
+                
+                if (Math.abs(scrollAccumulator) > scrollThreshold) {
+                    const direction = scrollAccumulator > 0 ? -1 : 1;
+                    rotateCarousel(direction);
+                    scrollAccumulator = 0;
+                    resetAutoRotation();
+                }
+            }, { passive: false });
+        }
+
+        function startAutoRotation() {
+            if (autoRotateTimer) clearInterval(autoRotateTimer);
+            
+            const wrapper = document.getElementById('carouselCardsWrapper');
+            if (!wrapper) return;
+            
+            autoRotateTimer = setInterval(() => {
+                if (!isUserInteracting) {
+                    rotateCarousel(1);
+                }
+            }, 2000);
+        }
+
+        function resetAutoRotation() {
+            isUserInteracting = true;
+            clearInterval(autoRotateTimer);
+            
+            setTimeout(() => {
+                isUserInteracting = false;
+                startAutoRotation();
+            }, 3000);
+        }
+
+        function filterCarouselWorks(filter) {
+            let filteredWorks = worksData;
+            
+            if (filter !== 'all') {
+                filteredWorks = worksData.filter(work => work.category === filter);
+            }
+            
+            // Reinitialize carousel with filtered works
+            currentCarouselIndex = 0;
+            currentAngle = 0;
+            initCircularCarousel(filteredWorks);
+        }
+
+        function renderWorks(works) {
+            // Use the new circular carousel instead of grid
+            initCircularCarousel(works);
+            
+            // Add upload/delete functionality for carousel cards
+            setTimeout(() => {
+                works.forEach(work => {
+                    // We skip adding upload/delete buttons to carousel cards
+                    // as they are for the showcase display only
+                });
             }, 100);
+        }
+
+        function filterWorks(filter) {
+            filterCarouselWorks(filter);
         }
 
         // 上传封面
@@ -2582,26 +3533,6 @@
                 const title = worksData.find(w => w.id === workId)?.title || '';
                 imgContainer.innerHTML = `<span class="placeholder-text">${title}</span>`;
             }
-        }
-
-        function filterWorks(filter) {
-            const items = document.querySelectorAll('.works-grid-item');
-            
-            items.forEach((item, index) => {
-                const category = item.dataset.category;
-                
-                if (filter === 'all' || category === filter) {
-                    item.classList.remove('hidden');
-                    setTimeout(() => {
-                        item.classList.add('visible');
-                    }, index * 50);
-                } else {
-                    item.classList.remove('visible');
-                    setTimeout(() => {
-                        item.classList.add('hidden');
-                    }, 100);
-                }
-            });
         }
 
         function initWorksScrollAnimation() {
@@ -2987,6 +3918,63 @@
                         alert('如果文件没有自动下载，请在打开的PDF页面按 Ctrl+S 保存');
                     }, 500);
                 });
+            }
+
+            // ========== Showcase Image Carousel ==========
+            const showcaseImages = [
+                'images/work-1.jpg',
+                'images/work-2.jpg',
+                'images/work-3.jpg',
+                'images/work-4.jpg',
+                'images/work-5.jpg',
+            ];
+            const showcaseImageEl = document.getElementById('showcaseImage');
+            const showcaseDots = document.querySelectorAll('.showcase-dot');
+            let currentShowcaseIndex = 0;
+            let autoPlayInterval;
+
+            function updateShowcaseImage(index) {
+                currentShowcaseIndex = index;
+                if (showcaseImageEl && showcaseImages[index]) {
+                    showcaseImageEl.style.opacity = '0';
+                    setTimeout(() => {
+                        showcaseImageEl.src = showcaseImages[index];
+                        showcaseImageEl.onload = () => {
+                            showcaseImageEl.style.opacity = '1';
+                        };
+                    }, 200);
+                }
+                showcaseDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+
+            function nextShowcaseImage() {
+                const nextIndex = (currentShowcaseIndex + 1) % showcaseImages.length;
+                updateShowcaseImage(nextIndex);
+            }
+
+            // 轮播点点击事件
+            showcaseDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    updateShowcaseImage(index);
+                    resetAutoPlay();
+                });
+            });
+
+            // 自动播放
+            function startAutoPlay() {
+                autoPlayInterval = setInterval(nextShowcaseImage, 4000);
+            }
+
+            function resetAutoPlay() {
+                clearInterval(autoPlayInterval);
+                startAutoPlay();
+            }
+
+            // 初始化轮播
+            if (showcaseDots.length > 0) {
+                startAutoPlay();
             }
         });
     </script>

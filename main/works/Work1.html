@@ -38,14 +38,15 @@
             overflow-x: hidden;
         }
 
-        /* ========== Video Background ========== */
+        /* ========== Video Background (inside hero section) ========== */
         .video-bg {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: 0;
+            pointer-events: none;
         }
 
         .video-bg video {
@@ -58,19 +59,8 @@
             opacity: 0.7;
         }
 
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                180deg,
-                rgba(0, 0, 0, 0.4) 0%,
-                rgba(0, 0, 0, 0.6) 50%,
-                rgba(0, 0, 0, 0.8) 100%
-            );
-            z-index: -1;
+        .section-dark-bg {
+            background: rgba(0, 0, 0, 0.6);
         }
 
         /* ========== Navigation ========== */
@@ -144,6 +134,7 @@
 
         /* ========== Hero Section ========== */
         .hero {
+            position: relative;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -151,6 +142,7 @@
             align-items: center;
             padding: 120px 40px 80px;
             text-align: center;
+            z-index: 1;
         }
 
         .hero-badge {
@@ -626,8 +618,8 @@
 
         .details-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(790px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(580px, 1fr));
+            gap: 20px;
         }
 
         .details-item-wrapper {
@@ -638,7 +630,7 @@
         .details-item-upload {
             position: relative;
             width: 100%;
-            min-height: 400px;
+            min-height: 300px;
             border-radius: 16px;
             overflow: hidden;
             background: var(--glass-bg);
@@ -675,7 +667,7 @@
 
         .details-placeholder {
             width: 100%;
-            height: 400px;
+            height: 267px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -696,6 +688,66 @@
         .details-placeholder .hint {
             font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ========== Details Lightbox ========== */
+        .details-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .details-lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .details-lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            object-fit: contain;
+            transform: scale(1);
+            transform-origin: center center;
+            transition: transform 0.15s ease;
+            cursor: zoom-in;
+        }
+
+        .details-lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s, transform 0.3s;
+            line-height: 1;
+        }
+
+        .details-lightbox-close:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .details-lightbox-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
         }
 
         /* 删除按钮 */
@@ -910,6 +962,10 @@
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* 回到顶部按钮 */
@@ -983,14 +1039,6 @@
     </style>
 </head>
 <body>
-    <!-- Video Background -->
-    <div class="video-bg">
-        <video autoplay muted loop playsinline>
-            <source src="../video/video1.mp4" type="video/mp4">
-        </video>
-    </div>
-    <div class="overlay"></div>
-
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-logo">
@@ -1001,6 +1049,12 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <!-- Video Background -->
+        <div class="video-bg">
+            <video autoplay muted loop playsinline>
+                <source src="../video/video1.mp4" type="video/mp4">
+            </video>
+        </div>
         <div class="hero-badge">
             <span>✨</span>
             <span>产品设计项目</span>
@@ -1025,7 +1079,7 @@
     </section>
 
     <!-- Poster Section -->
-    <section class="poster-section">
+    <section class="poster-section section-dark-bg">
         <div class="container">
             <h2 class="section-title">海报展示</h2>
             <div class="poster-grid">
@@ -1057,8 +1111,15 @@
         </div>
     </section>
 
+    <!-- Details Lightbox -->
+    <div class="details-lightbox" id="detailsLightbox" onclick="closeDetailsLightbox()">
+        <span class="details-lightbox-close" onclick="closeDetailsLightbox()">✕</span>
+        <img id="detailsLightboxImg" src="" alt="详情页大图">
+        <span class="details-lightbox-hint">点击任意处关闭</span>
+    </div>
+
     <!-- Banner Section -->
-    <section class="image-section">
+    <section class="image-section section-dark-bg">
         <div class="container">
             <h2 class="section-title">Banner展示</h2>
             <div class="banner-grid" id="bannerGrid">
@@ -1091,7 +1152,7 @@
     </section>
 
     <!-- Gallery Section -->
-    <section class="gallery-section">
+    <section class="gallery-section section-dark-bg">
         <div class="container">
             <h2 class="section-title">主图展示</h2>
             <div class="gallery-grid" id="galleryGrid">
@@ -1100,7 +1161,7 @@
     </section>
 
     <!-- Details Section -->
-    <section class="details-section">
+    <section class="details-section section-dark-bg">
         <div class="container">
             <h2 class="section-title">详情页展示</h2>
             <div class="details-grid" id="detailsGrid"></div>
@@ -1366,16 +1427,9 @@
                         const wrapper = document.createElement('div');
                         wrapper.className = 'details-item-wrapper';
                         wrapper.innerHTML = `
-                            <label class="details-item-upload has-image" id="detailsItem${i + 1}">
-                                <input type="file" accept="image/*" onchange="handleDetailsUpload(this, ${i + 1})">
+                            <div class="details-item-upload has-image" id="detailsItem${i + 1}">
                                 <img class="details-preview" id="detailsPreview${i + 1}" src="${data}">
-                                <div class="details-placeholder">
-                                    <span class="icon">📄</span>
-                                    <span class="text">点击上传详情页图片</span>
-                                    <span class="hint">建议宽度：790像素</span>
-                                </div>
-                            </label>
-                            <button class="delete-image-btn" onclick="deleteDetailsImage(event, ${i + 1})">✕</button>
+                            </div>
                         `;
                         document.getElementById('detailsGrid').appendChild(wrapper);
                     }
@@ -1535,39 +1589,77 @@
             deleteImageFromDB(`gallery_${index}`);
         }
 
-        // ========== Details Upload ==========
-        function handleDetailsUpload(input, index) {
-            const file = input.files[0];
-            if (!file) return;
+        // ========== Details Lightbox ==========
+        document.addEventListener('click', (e) => {
+            const upload = e.target.closest('.details-item-upload.has-image');
+            if (!upload) return;
+            // 防止点击文件输入框时触发
+            if (e.target.tagName === 'INPUT') return;
+            const preview = upload.querySelector('.details-preview');
+            if (!preview || !preview.src) return;
+            const lightbox = document.getElementById('detailsLightbox');
+            const lightboxImg = document.getElementById('detailsLightboxImg');
+            lightboxImg.src = preview.src;
+            lightboxImg.style.transform = 'scale(1)';
+            lightbox.classList.add('active');
+        });
 
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const preview = document.getElementById(`detailsPreview${index}`);
-                const uploadArea = document.getElementById(`detailsItem${index}`);
-                preview.src = e.target.result;
-                uploadArea.classList.add('has-image');
-                saveToStorage();
-            };
-            reader.readAsDataURL(file);
-        }
+        // 详情页空格子点击上传
+        document.addEventListener('click', (e) => {
+            const upload = e.target.closest('.details-item-upload:not(.has-image)');
+            if (!upload) return;
+            const input = upload.parentElement.querySelector('input[type="file"]');
+            if (input) input.click();
+        });
 
-        // ========== Delete Details Image ==========
-        function deleteDetailsImage(event, index) {
-            event.preventDefault();
-            event.stopPropagation();
+        // 点击 placeholder 触发上传
+        document.addEventListener('click', (e) => {
+            const placeholder = e.target.closest('.details-placeholder');
+            if (!placeholder) return;
+            const wrapper = placeholder.closest('.details-item-wrapper');
+            if (!wrapper) return;
+            const input = wrapper.querySelector('input[type="file"]');
+            if (input) input.click();
+        });
 
-            const wrapper = event.target.closest('.details-item-wrapper');
-            const grid = document.getElementById('detailsGrid');
-            const wasLastItem = wrapper === grid.lastElementChild;
-
-            wrapper.remove();
-            deleteImageFromDB(`details_${index - 1}`);
-
-            // 如果删除的是最后一个上传框，且现在没有格子了，添加新格子
-            if (wasLastItem && grid.children.length === 0) {
-                addDetailsItem();
+        // 详情页 input change
+        document.addEventListener('change', (e) => {
+            if (e.target.matches('.details-item-wrapper input[type="file"]')) {
+                const input = e.target;
+                const file = input.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const wrapper = input.closest('.details-item-wrapper');
+                    const upload = wrapper.querySelector('.details-item-upload');
+                    const preview = wrapper.querySelector('.details-preview');
+                    upload.classList.add('has-image');
+                    preview.src = ev.target.result;
+                    upload.innerHTML = `<img class="details-preview" src="${ev.target.result}">`;
+                    saveToStorage();
+                };
+                reader.readAsDataURL(file);
             }
+        });
+
+        const lightboxImg = document.getElementById('detailsLightboxImg');
+        lightboxImg.addEventListener('wheel', (e) => {
+            if (!document.getElementById('detailsLightbox').classList.contains('active')) return;
+            e.preventDefault();
+            const rect = lightboxImg.getBoundingClientRect();
+            const factor = e.deltaY < 0 ? 1.1 : 0.9;
+            const current = parseFloat(lightboxImg.style.transform.replace('scale(', '')) || 1;
+            const next = Math.max(0.3, Math.min(5, current * factor));
+            lightboxImg.style.transform = `scale(${next})`;
+        });
+
+        function closeDetailsLightbox() {
+            document.getElementById('detailsLightbox').classList.remove('active');
         }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeDetailsLightbox();
+        });
 
         // ========== Add Details Item ==========
         function addDetailsItem() {
@@ -1576,16 +1668,15 @@
             const wrapper = document.createElement('div');
             wrapper.className = 'details-item-wrapper';
             wrapper.innerHTML = `
-                <label class="details-item-upload" id="detailsItem${detailsCount}">
-                    <input type="file" accept="image/*" onchange="handleDetailsUpload(this, ${detailsCount})">
+                <input type="file" accept="image/*" style="display:none">
+                <div class="details-item-upload" id="detailsItem${detailsCount}">
                     <img class="details-preview" id="detailsPreview${detailsCount}">
                     <div class="details-placeholder">
                         <span class="icon">📄</span>
                         <span class="text">点击上传详情页图片</span>
                         <span class="hint">建议宽度：790像素</span>
                     </div>
-                </label>
-                <button class="delete-image-btn" onclick="deleteDetailsImage(event, ${detailsCount})">✕</button>
+                </div>
             `;
             detailsGrid.appendChild(wrapper);
         }
@@ -1603,6 +1694,9 @@
         document.addEventListener('DOMContentLoaded', async () => {
             await loadFromStorage();
             initGallery();
+            if (document.querySelectorAll('#detailsGrid .details-item-wrapper').length === 0) {
+                addDetailsItem();
+            }
         });
 
         // 回到顶部按钮
