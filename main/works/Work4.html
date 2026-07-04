@@ -344,10 +344,15 @@
         }
 
         .scroll-bar {
+            position: absolute;
+            bottom: 20px;
+            left: 28px;
+            right: 28px;
             height: 6px;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.08);
             overflow: hidden;
+            z-index: 10;
         }
 
         .scroll-bar > span {
@@ -545,10 +550,9 @@
                                     <div class="card-text">活动主视觉与物料延展，强化整体氛围与记忆点。</div>
                                 </div>
                             </article>
+                            <div class="scroll-bar"><span id="scrollBarThumb"></span></div>
                         </div>
                     </div>
-
-                    <div class="scroll-bar"><span id="scrollBarThumb"></span></div>
                 </section>
             </div>
         </div>
