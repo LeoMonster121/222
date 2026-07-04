@@ -37,6 +37,7 @@
             min-height: 100vh;
             overflow: hidden;
             line-height: 1.625;
+            touch-action: none;
         }
 
         .page {
@@ -75,12 +76,15 @@
             width: min(360px, 100%);
             height: 100%;
             will-change: transform;
+            display: flex;
+            align-items: flex-start;
         }
 
         .intro {
-            padding: 36px 30px;
+            padding: 120px 30px 36px;
             height: 100%;
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
             display: flex;
             flex-direction: column;
             gap: 22px;
@@ -240,17 +244,17 @@
             position: relative;
             flex: 1;
             min-height: 0;
-            overflow: hidden;
+            overflow: visible;
             border-radius: 22px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: transparent;
+            border: none;
             display: flex;
             align-items: center;
         }
 
         .gallery-inner {
             display: flex;
-            gap: 20px;
+            gap: 0;
             padding: 28px 28px 34px;
             height: 100%;
             will-change: transform;
@@ -271,7 +275,8 @@
         .gallery-card {
             position: relative;
             flex: 0 0 auto;
-            width: 500px;/*卡片宽度*/
+            width: 420px;
+            margin-right: 60px;
             border-radius: 22px;
             overflow: hidden;
             background: rgba(13, 13, 26, 0.55);
@@ -354,6 +359,31 @@
             transition: width 0.1s linear;
         }
 
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.92rem;
+            text-decoration: none;
+            cursor: pointer;
+            color: var(--bg-primary);
+            background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange));
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 38px rgba(255, 107, 53, 0.5);
+        }
+
         @media (max-width: 900px) {
             .frame {
                 overflow: auto;
@@ -385,10 +415,18 @@
             .gallery-card {
                 scroll-snap-align: center;
             }
+
+            .back-btn {
+                top: 16px;
+                right: 16px;
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
+    <a class="back-btn" href="../index.html#works">返回作品集</a>
     <div class="page">
         <div class="frame">
             <div class="horizontal-container" id="horizontalContainer">
@@ -432,11 +470,11 @@
                             <span class="tag">图形延展</span>
                             <span class="tag">应用物料</span>
                         </div>
-
+                        <!-- 再看介绍按钮
                         <div class="intro-actions">
-                            <a class="btn btn-primary" href="../index.html#works">返回作品集</a>
                             <button class="btn btn-ghost" onclick="replayIntro()">再看介绍</button>
                         </div>
+                        -->
                     </aside>
                 </div>
 
