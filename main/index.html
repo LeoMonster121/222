@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>创意作品集 | Creative Portfolio</title>
+    <title>AIGC作品集 | AIGC Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;700&family=Bangers&display=swap" rel="stylesheet">
@@ -565,6 +565,8 @@
             justify-content: center;
             margin-top: 40px;
             margin-bottom: 60px;
+            overflow: hidden;
+            pointer-events: auto;
         }
 
         .circular-carousel {
@@ -573,6 +575,7 @@
             max-width: 1000px;
             height: 650px;
             display: flex;
+            margin-top: 250px;
             align-items: center;
             justify-content: center;
         }
@@ -718,12 +721,25 @@
 
         .carousel-indicators {
             display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
             gap: 14px;
-            margin-top: 30px;
+            margin-top: 230px;
+            padding-bottom: 8px;
             z-index: 100;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .carousel-indicators::-webkit-scrollbar {
+            display: none;
         }
 
         .carousel-indicator {
+            flex-shrink: 0;
             width: 12px;
             height: 12px;
             border-radius: 50%;
@@ -731,6 +747,7 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 2px solid transparent;
+            scroll-snap-align: center;
         }
 
         .carousel-indicator:hover {
@@ -834,10 +851,6 @@
             }
             .carousel-indicators {
                 gap: 8px;
-            }
-            .carousel-indicator {
-                width: 10px;
-                height: 10px;
             }
         }
 
@@ -2172,6 +2185,15 @@
             animation: modal-in 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
+        .modal-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .modal-content {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         @keyframes modal-in {
             from {
                 opacity: 0;
@@ -2283,6 +2305,34 @@
             border: 2px solid var(--accent-cyan);
             border-radius: 20px;
             font-size: 0.85rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            padding: 20px 40px 40px;
+        }
+
+        .modal-actions .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.92rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange));
+            color: var(--bg-primary);
+            border: none;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.35);
+        }
+
+        .modal-actions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(255, 107, 53, 0.5);
         }
 
         /* ========== Video Player ========== */
@@ -3009,7 +3059,7 @@
                 <div class="circular-carousel" id="circularCarousel">
                     <div class="carousel-cards-wrapper" id="carouselCardsWrapper"></div>
                     <div class="carousel-center-content">
-                        <span class="carousel-center-label">精选作品</span>
+                        <span class="carousel-center-label">Exhibition</span>
                     </div>
                 </div>
                 <div class="carousel-indicators" id="carouselIndicators"></div>
@@ -3041,7 +3091,7 @@
                             </div>
                             <div class="contact-info-item">
                                 <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                                <span>Behance / Dribbble / ZCool</span>
+                                <span>Behance / Dribbble / Pinterest</span>
                             </div>
                         </div>
                     </div>
@@ -3098,13 +3148,16 @@
                 </div>
             </div>
             <div class="modal-body">
-                <p class="modal-description" id="modalDescription">作品详细描述内容...</p>
+                <p class="modal-description" id="modalDescription" style="display:none;margin:0;padding:0;height:0;visibility:hidden;"></p>
                 <div class="modal-gallery" id="modalGallery">
                     <!-- Gallery items will be inserted here -->
                 </div>
                 <div class="modal-tags" id="modalTags">
                     <!-- Tags will be inserted here -->
                 </div>
+            </div>
+            <div class="modal-actions" id="modalAction">
+                <a class="btn btn-primary" id="modalActionLink" href="#">查看项目</a>
             </div>
         </div>
     </div>
@@ -3166,8 +3219,8 @@
         // ========== Works Data ==========
         /*精选作品的内容*/
         let worksData = [
-            { id: 0, category: 'product', title: '香薰', desc: '产品设计作品展示', link: 'works/Work1.html', img: 'images/work-1.jpg' },
-            { id: 1, category: 'product', title: '洗面奶', desc: '产品设计作品展示', link: 'works/Work2.html', img: 'images/work-2.jpg' },
+            { id: 0, category: 'product', title: '香薰', desc: '产品设计作品展示', link: '#', img: 'images/work-1.jpg', detailLink: 'works/Work1.html' },
+            { id: 1, category: 'product', title: '洗面奶', desc: '产品设计作品展示', link: '#', img: 'images/work-2.jpg', detailLink: 'works/Work2.html' },
             { id: 2, category: 'product', title: '作品标题 3', desc: '产品设计作品展示', link: '#', img: 'images/work-3.jpg' },
             { id: 3, category: 'IP', title: '粉团', desc: 'IP设计作品展示', link: '#', img: 'images/work-4.jpg' },
             { id: 4, category: 'IP', title: '作品标题 5', desc: 'IP设计作品展示', link: '#', img: 'images/work-5.jpg' },
@@ -3245,7 +3298,7 @@
             // Setup mouse wheel scroll
             setupCarouselScroll();
             
-            // Start auto rotation
+            // 启动自动轮播
             startAutoRotation();
         }
 
@@ -3270,8 +3323,6 @@
                 // Calculate scale and opacity based on position
                 const normalizedAngle = ((angle % 360) + 360) % 360;
                 const isFront = normalizedAngle > 315 || normalizedAngle < 45;
-                const isLeftSide = normalizedAngle >= 45 && normalizedAngle <= 135;
-                const isRightSide = normalizedAngle > 225 && normalizedAngle <= 315;
                 
                 let scale = 0.75;
                 let opacity = 0.35;
@@ -3279,19 +3330,10 @@
                 let rotateY = 0;
                 
                 if (isFront) {
+                    // 当前播放的卡片在最前面
                     scale = 1;
                     opacity = 1;
                     zIndex = 10;
-                    rotateY = 0;
-                } else if (isLeftSide) {
-                    scale = 0.85;
-                    opacity = 0.6;
-                    zIndex = 5;
-                    rotateY = 0;
-                } else if (isRightSide) {
-                    scale = 0.85;
-                    opacity = 0.6;
-                    zIndex = 5;
                     rotateY = 0;
                 }
 
@@ -3331,8 +3373,6 @@
                 const y = Math.sin(radian) * radiusY;
                 
                 const isFront = normalizedAngle > 315 || normalizedAngle < 45;
-                const isLeftSide = normalizedAngle >= 45 && normalizedAngle <= 135;
-                const isRightSide = normalizedAngle > 225 && normalizedAngle <= 315;
                 
                 let scale = 0.75;
                 let opacity = 0.35;
@@ -3340,19 +3380,10 @@
                 let rotateY = 0;
                 
                 if (isFront) {
+                    // 当前播放的卡片在最前面
                     scale = 1;
                     opacity = 1;
                     zIndex = 10;
-                    rotateY = 0;
-                } else if (isLeftSide) {
-                    scale = 0.85;
-                    opacity = 0.6;
-                    zIndex = 5;
-                    rotateY = 0;
-                } else if (isRightSide) {
-                    scale = 0.85;
-                    opacity = 0.6;
-                    zIndex = 5;
                     rotateY = 0;
                 }
 
@@ -3402,6 +3433,7 @@
             
             currentCarouselIndex = targetIndex;
             updateCarouselIndicators();
+            resetAutoRotation();
         }
 
         function updateCarouselIndicators() {
@@ -3409,6 +3441,17 @@
             indicators.forEach((indicator, index) => {
                 indicator.classList.toggle('active', index === currentCarouselIndex);
             });
+
+            // Scroll the active indicator into view horizontally
+            const activeIndicator = indicators[currentCarouselIndex];
+            const container = document.getElementById('carouselIndicators');
+            if (activeIndicator && container) {
+                activeIndicator.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'center'
+                });
+            }
         }
 
         function handleCarouselCardClick(index) {
@@ -3429,34 +3472,82 @@
         }
 
         function setupCarouselScroll() {
-            const container = document.querySelector('.circular-carousel-container');
-            if (!container) return;
-
-            let scrollAccumulator = 0;
-            const scrollThreshold = 50;
-
-            container.addEventListener('wheel', (e) => {
+            const wrapper = document.getElementById('carouselCardsWrapper');
+            if (!wrapper) return;
+            
+            let startX = 0;
+            let isDragging = false;
+            
+            // 鼠标/触摸开始
+            const handleStart = (e) => {
+                isDragging = true;
+                startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+                wrapper.style.cursor = 'grabbing';
+            };
+            
+            // 鼠标/触摸移动
+            const handleMove = (e) => {
+                if (!isDragging) return;
                 e.preventDefault();
-                scrollAccumulator += e.deltaY;
+            };
+            
+            // 鼠标/触摸结束
+            const handleEnd = (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                wrapper.style.cursor = 'grab';
                 
-                if (Math.abs(scrollAccumulator) > scrollThreshold) {
-                    const direction = scrollAccumulator > 0 ? -1 : 1;
-                    rotateCarousel(direction);
-                    scrollAccumulator = 0;
+                const endX = e.type === 'mouseup' ? e.clientX : e.changedTouches[0].clientX;
+                const diff = startX - endX;
+                
+                // 滑动超过50px时触发轮播切换
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        rotateCarousel(-1); // 左滑：下一张
+                    } else {
+                        rotateCarousel(1); // 右滑：上一张
+                    }
                     resetAutoRotation();
                 }
-            }, { passive: false });
+            };
+            
+            // 鼠标滚轮控制
+            const handleWheel = (e) => {
+                e.preventDefault();
+                const delta = e.deltaY || e.detail || -e.wheelDelta;
+                
+                if (delta > 0) {
+                    rotateCarousel(-1); // 向下滚动：下一张
+                } else {
+                    rotateCarousel(1); // 向上滚动：上一张
+                }
+                resetAutoRotation();
+            };
+            
+            wrapper.addEventListener('mousedown', handleStart);
+            wrapper.addEventListener('touchstart', handleStart, { passive: true });
+            wrapper.addEventListener('mousemove', handleMove);
+            wrapper.addEventListener('touchmove', handleMove, { passive: false });
+            wrapper.addEventListener('mouseup', handleEnd);
+            wrapper.addEventListener('touchend', handleEnd);
+            wrapper.addEventListener('mouseleave', handleEnd);
+            
+            // 添加鼠标滚轮事件监听
+            wrapper.addEventListener('wheel', handleWheel, { passive: false });
+            
+            wrapper.style.cursor = 'grab';
         }
 
         function startAutoRotation() {
             if (autoRotateTimer) clearInterval(autoRotateTimer);
-            
+
             const wrapper = document.getElementById('carouselCardsWrapper');
             if (!wrapper) return;
-            
+
+            // 只在轮播可见时才启动自动旋转
             autoRotateTimer = setInterval(() => {
-                if (!isUserInteracting) {
-                    rotateCarousel(1);
+                if (!isUserInteracting && isCarouselVisible) {
+                    rotateCarousel(-1); // 逆时针旋转
                 }
             }, 2000);
         }
@@ -3468,7 +3559,7 @@
             setTimeout(() => {
                 isUserInteracting = false;
                 startAutoRotation();
-            }, 3000);
+            }, 1000);
         }
 
         function filterCarouselWorks(filter) {
@@ -3727,19 +3818,67 @@
 
             document.getElementById('modalCategory').textContent = work.category;
             document.getElementById('modalTitle').textContent = work.title;
-            document.getElementById('modalDate').textContent = work.date;
+            document.getElementById('modalDate').textContent = work.date || (new Date().getFullYear() + '年');
             document.getElementById('modalAuthor').textContent = '创作者';
-            document.getElementById('modalDescription').textContent = work.description;
+            document.getElementById('modalDescription').textContent = '';
 
             const gallery = document.getElementById('modalGallery');
-            gallery.innerHTML = work.gallery.map(item => `
-                <div class="gallery-item">${item}</div>
-            `).join('');
+            const galleryItems = Array.isArray(work.gallery) ? work.gallery : [];
+            const galleryHtml = galleryItems.length
+                ? galleryItems.map(item => `<div class="gallery-item">${item}</div>`).join('')
+                : `<div class="gallery-item">${work.img ? `<img src="${work.img}" style="width:100%;height:100%;object-fit:cover;border-radius:16px;">` : '暂无预览'}</div>`;
+            gallery.innerHTML = galleryHtml;
 
             const tags = document.getElementById('modalTags');
-            tags.innerHTML = work.tags.map(tag => `
-                <span class="modal-tag">${tag}</span>
-            `).join('');
+            const tagItems = Array.isArray(work.tags) ? work.tags : [];
+            const tagsHtml = tagItems.length
+                ? tagItems.map(tag => `<span class="modal-tag">${tag}</span>`).join('')
+                : `<span class="modal-tag">${work.category || '作品'}</span>`;
+            tags.innerHTML = tagsHtml;
+
+            const actionLink = document.getElementById('modalActionLink');
+            const actionContainer = document.getElementById('modalAction');
+            if (actionLink && actionContainer) {
+                if (work.id === 0) {
+                    // 香薰：隐藏标签，显示"查看详情"按钮，日期和创作者显示为 Aromatherapy
+                    tags.style.display = 'none';
+                    actionContainer.style.display = 'flex';
+                    actionLink.href = work.detailLink || work.link;
+                    actionLink.textContent = '查看详情';
+                    actionLink.style.display = 'inline-flex';
+                    document.getElementById('modalDate').textContent = 'Aromatherapy';
+                    document.getElementById('modalAuthor').textContent = '';
+                } else if (work.id === 1) {
+                    // 洗面奶：隐藏标签，显示"查看详情"按钮跳转到详情页
+                    tags.style.display = 'none';
+                    actionContainer.style.display = 'flex';
+                    actionLink.href = work.detailLink || work.link;
+                    actionLink.textContent = '查看详情';
+                    actionLink.style.display = 'inline-flex';
+                    document.getElementById('modalDate').textContent = 'Facial Cleanser';
+                    document.getElementById('modalAuthor').textContent = '';
+                } else if (work.id === 3) {
+                    // 粉团：隐藏标签，显示"查看项目"按钮
+                    tags.style.display = 'none';
+                    actionContainer.style.display = 'flex';
+                    actionLink.href = 'works/Work4.html';
+                    actionLink.textContent = '查看项目';
+                    actionLink.style.display = 'inline-flex';
+                    document.getElementById('modalDate').textContent = 'Fen Tuan';
+                    document.getElementById('modalAuthor').textContent = '';
+                } else if (work.link && work.link !== '#') {
+                    // 其他有链接的作品：显示标签和按钮
+                    tags.style.display = 'flex';
+                    actionContainer.style.display = 'flex';
+                    actionLink.href = work.link;
+                    actionLink.textContent = '查看项目';
+                    actionLink.style.display = 'inline-flex';
+                } else {
+                    // 其他无链接的作品：显示标签，隐藏按钮
+                    tags.style.display = 'flex';
+                    actionContainer.style.display = 'none';
+                }
+            }
 
             document.getElementById('modal').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -3823,8 +3962,44 @@
             }
         });
 
+        // ========== Carousel Visibility Control ==========
+        let carouselAutoRotationStarted = false;
+        let isCarouselVisible = false;
+
+        function observeCarouselVisibility() {
+            const carouselContainer = document.getElementById('carouselCardsWrapper');
+            if (!carouselContainer) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    isCarouselVisible = entry.isIntersecting;
+                    if (entry.isIntersecting && !carouselAutoRotationStarted) {
+                        // 用户看到轮播区域，启动自动旋转
+                        carouselAutoRotationStarted = true;
+                        startAutoRotation();
+                    }
+                });
+            }, {
+                threshold: 0.3,
+                rootMargin: '0px'
+            });
+
+            observer.observe(carouselContainer);
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', async () => {
+            // ========== 处理从其他页面返回时的锚点跳转 ==========
+            const targetHash = window.location.hash;
+            const shouldScrollToWorks = targetHash === '#works' || targetHash === '#about' || targetHash === '#contact';
+
+            // 清除 URL hash，避免浏览器自动滚动到锚点
+            if (targetHash) {
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+            }
+            // 强制滚动到页面顶部
+            window.scrollTo(0, 0);
+
             initLoadingScreen();
 
             // 先加载所有已保存的图片数据
@@ -3842,6 +4017,19 @@
             // 初始化作品网格
             initWorksFilter();
             initWorksScrollAnimation();
+
+            // 观察轮播区域可见性，控制自动旋转
+            observeCarouselVisibility();
+
+            // ========== 从其他页面返回时跳转到目标区域 ==========
+            if (shouldScrollToWorks) {
+                setTimeout(() => {
+                    const targetSection = document.querySelector(targetHash);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 100);
+            }
 
             // 加载头像
             const savedAvatar = await loadImage('avatar');
