@@ -647,6 +647,34 @@
             border: none;
         }
 
+        /* ========== View Details Button ========== */
+        .view-details-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+        }
+
+        .details-item-upload.has-image:hover .view-details-btn {
+            opacity: 1;
+        }
+
+        .view-details-btn:hover {
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+            transform: scale(1.05);
+        }
+
         .details-item-upload input[type="file"] {
             display: none;
         }
@@ -655,6 +683,7 @@
             width: 100%;
             height: auto;
             display: none;
+            z-index: 1;
         }
 
         .details-item-upload.has-image .details-preview {
@@ -690,86 +719,7 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
-        /* ========== Details Lightbox ========== */
-        .details-lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .details-lightbox.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .details-lightbox img {
-            max-width: 90vw;
-            max-height: 90vh;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            object-fit: contain;
-            transform: scale(1);
-            transform-origin: center center;
-            transition: transform 0.15s ease;
-            cursor: zoom-in;
-        }
-
-        .details-lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 2.5rem;
-            color: white;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s, transform 0.3s;
-            line-height: 1;
-        }
-
-        .details-lightbox-close:hover {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-
-        .details-lightbox-hint {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.85rem;
-        }
-
-        /* 删除按钮 */
-        .delete-image-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 0, 0, 0.8);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.3s;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        /* ========== Footer ========== */
 
         .details-item-wrapper:hover .delete-image-btn {
             opacity: 1;
@@ -1084,39 +1034,18 @@
             <h2 class="section-title">海报展示</h2>
             <div class="poster-grid">
                 <div class="poster-upload-wrapper">
-                    <label class="poster-image-upload" id="posterUpload1">
-                        <input type="file" accept="image/*" onchange="handlePosterUpload(this, 1)">
+                    <div class="poster-image-upload has-image" id="posterUpload1">
                         <img class="poster-preview" id="posterPreview1">
-                        <div class="upload-placeholder">
-                            <span class="icon">🖼️</span>
-                            <span class="text">点击上传海报 1</span>
-                            <span class="hint">尺寸：1080像素 x 1920像素</span>
-                        </div>
-                    </label>
-                    <button class="delete-poster-btn" onclick="deletePosterImage(event, 1)">✕</button>
+                    </div>
                 </div>
                 <div class="poster-upload-wrapper">
-                    <label class="poster-image-upload" id="posterUpload2">
-                        <input type="file" accept="image/*" onchange="handlePosterUpload(this, 2)">
+                    <div class="poster-image-upload has-image" id="posterUpload2">
                         <img class="poster-preview" id="posterPreview2">
-                        <div class="upload-placeholder">
-                            <span class="icon">🖼️</span>
-                            <span class="text">点击上传海报 2</span>
-                            <span class="hint">尺寸：1080像素 x 1920像素</span>
-                        </div>
-                    </label>
-                    <button class="delete-poster-btn" onclick="deletePosterImage(event, 2)">✕</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Details Lightbox -->
-    <div class="details-lightbox" id="detailsLightbox" onclick="closeDetailsLightbox()">
-        <span class="details-lightbox-close" onclick="closeDetailsLightbox()">✕</span>
-        <img id="detailsLightboxImg" src="" alt="详情页大图">
-        <span class="details-lightbox-hint">点击任意处关闭</span>
-    </div>
 
     <!-- Banner Section -->
     <section class="image-section section-dark-bg">
@@ -1124,28 +1053,14 @@
             <h2 class="section-title">Banner展示</h2>
             <div class="banner-grid" id="bannerGrid">
                 <div class="banner-upload-wrapper" id="bannerWrapper1">
-                    <label class="banner-image-upload" id="bannerUpload1">
-                        <input type="file" accept="image/*" onchange="handleBannerUpload(this, 1)">
+                    <div class="banner-image-upload has-image" id="bannerUpload1">
                         <img class="banner-preview" id="bannerPreview1">
-                        <div class="upload-placeholder">
-                            <span class="icon">📷</span>
-                            <span class="text">点击上传Banner 1</span>
-                            <span class="hint">尺寸：900像素 x 460像素</span>
-                        </div>
-                    </label>
-                    <button class="delete-banner-btn" onclick="deleteBannerImage(event, 1)">✕</button>
+                    </div>
                 </div>
                 <div class="banner-upload-wrapper" id="bannerWrapper2">
-                    <label class="banner-image-upload" id="bannerUpload2">
-                        <input type="file" accept="image/*" onchange="handleBannerUpload(this, 2)">
+                    <div class="banner-image-upload has-image" id="bannerUpload2">
                         <img class="banner-preview" id="bannerPreview2">
-                        <div class="upload-placeholder">
-                            <span class="icon">📷</span>
-                            <span class="text">点击上传Banner 2</span>
-                            <span class="hint">尺寸：900像素 x 460像素</span>
-                        </div>
-                    </label>
-                    <button class="delete-banner-btn" onclick="deleteBannerImage(event, 2)">✕</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1170,7 +1085,6 @@
 
     <script>
         let galleryCount = 5;
-        let detailsCount = 1;
 
         // ========== 默认静态图片路径（部署后直接读取） ==========
         const defaultImages = {
@@ -1188,11 +1102,7 @@
                 '../images/work1/gallery6.jpg'
             ],
             details: [
-                '../images/work1/details1.jpg',
-                '../images/work1/details2.jpg',
-                '../images/work1/details3.jpg',
-                '../images/work1/details4.jpg',
-                '../images/work1/details5.jpg'
+                '../images/work1/details1.jpg'
             ]
         };
 
@@ -1285,11 +1195,6 @@
                     }
                 }
 
-                const mainPreview = document.getElementById('mainPreview');
-                if (mainPreview && mainPreview.src && !mainPreview.src.startsWith(window.location.href)) {
-                    await saveImageToDB('main', mainPreview.src);
-                }
-
                 const currentGalleryItems = document.querySelectorAll('#galleryGrid .gallery-item-upload');
                 currentGalleryItems.forEach((item, index) => {
                     const preview = item.querySelector('.gallery-preview');
@@ -1368,25 +1273,6 @@
                     }
                 }
 
-                const mainKey = 'main';
-                const mainDefaultPath = defaultImages[mainKey];
-                let mainData = null;
-                
-                if (await checkImageExists(mainDefaultPath)) {
-                    mainData = mainDefaultPath;
-                } else {
-                    mainData = await loadImageFromDB(mainKey);
-                }
-                
-                if (mainData) {
-                    const preview = document.getElementById('mainPreview');
-                    const uploadArea = document.getElementById('mainImageUpload');
-                    if (preview && uploadArea) {
-                        preview.src = mainData;
-                        uploadArea.classList.add('has-image');
-                    }
-                }
-
                 // 主图展示：先初始化空格子，再加载图片
                 initGallery();
                 
@@ -1423,82 +1309,32 @@
                         data = await loadImageFromDB(detailsKey);
                     }
                     
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'details-item-wrapper';
+                    
                     if (data) {
-                        const wrapper = document.createElement('div');
-                        wrapper.className = 'details-item-wrapper';
                         wrapper.innerHTML = `
                             <div class="details-item-upload has-image" id="detailsItem${i + 1}">
                                 <img class="details-preview" id="detailsPreview${i + 1}" src="${data}">
+                                <button class="view-details-btn" onclick="viewDetailImage('${data}')">查看详情</button>
                             </div>
                         `;
-                        document.getElementById('detailsGrid').appendChild(wrapper);
+                    } else {
+                        wrapper.innerHTML = `
+                            <div class="details-item-upload" id="detailsItem${i + 1}">
+                                <img class="details-preview" id="detailsPreview${i + 1}">
+                                <div class="details-placeholder">
+                                    <span class="icon">📄</span>
+                                    <span class="text">详情页 ${i + 1}</span>
+                                </div>
+                            </div>
+                        `;
                     }
+                    document.getElementById('detailsGrid').appendChild(wrapper);
                 }
             } catch (e) {
                 console.warn('加载图片失败', e);
             }
-        }
-
-        // ========== Poster Upload ==========
-        function handlePosterUpload(input, index) {
-            const file = input.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const preview = document.getElementById(`posterPreview${index}`);
-                const uploadArea = document.getElementById(`posterUpload${index}`);
-                preview.src = e.target.result;
-                uploadArea.classList.add('has-image');
-                saveToStorage();
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // ========== Delete Poster Image ==========
-        function deletePosterImage(event, index) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const preview = document.getElementById(`posterPreview${index}`);
-            const uploadArea = document.getElementById(`posterUpload${index}`);
-            const input = uploadArea.querySelector('input');
-
-            preview.src = '';
-            uploadArea.classList.remove('has-image');
-            input.value = '';
-            deleteImageFromDB(`poster${index}`);
-        }
-
-        // ========== Banner Upload ==========
-        function handleBannerUpload(input, index) {
-            const file = input.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const preview = document.getElementById(`bannerPreview${index}`);
-                const uploadArea = document.getElementById(`bannerUpload${index}`);
-                preview.src = e.target.result;
-                uploadArea.classList.add('has-image');
-                saveToStorage();
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // ========== Delete Banner Image ==========
-        function deleteBannerImage(event, index) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const preview = document.getElementById(`bannerPreview${index}`);
-            const uploadArea = document.getElementById(`bannerUpload${index}`);
-            const input = uploadArea.querySelector('input');
-
-            preview.src = '';
-            uploadArea.classList.remove('has-image');
-            input.value = '';
-            deleteImageFromDB(`banner${index}`);
         }
 
         // 初始化主图展示
@@ -1507,17 +1343,15 @@
             if (galleryGrid.children.length > 0) return;
             
             for (let i = 1; i <= 6; i++) {
-                const item = document.createElement('label');
+                const item = document.createElement('div');
                 item.className = 'gallery-item-upload';
                 item.id = `galleryItem${i}`;
                 item.innerHTML = `
-                    <input type="file" accept="image/*" onchange="handleGalleryUpload(this, ${i})">
                     <img class="gallery-preview" id="galleryPreview${i}">
                     <div class="gallery-placeholder">
                         <span class="icon">🖼️</span>
                         <span class="text">图片 ${i}</span>
                     </div>
-                    <button class="delete-image-btn" onclick="deleteGalleryImage(event, ${i})">✕</button>
                 `;
                 galleryGrid.appendChild(item);
             }
@@ -1527,158 +1361,17 @@
         function addGalleryItem() {
             galleryCount++;
             const galleryGrid = document.getElementById('galleryGrid');
-            const item = document.createElement('label');
+            const item = document.createElement('div');
             item.className = 'gallery-item-upload';
             item.id = `galleryItem${galleryCount}`;
             item.innerHTML = `
-                <input type="file" accept="image/*" onchange="handleGalleryUpload(this, ${galleryCount})">
                 <img class="gallery-preview" id="galleryPreview${galleryCount}">
                 <div class="gallery-placeholder">
                     <span class="icon">🖼️</span>
                     <span class="text">图片 ${galleryCount}</span>
                 </div>
-                <button class="delete-image-btn" onclick="deleteGalleryImage(event, ${galleryCount})">✕</button>
             `;
             galleryGrid.appendChild(item);
-        }
-
-        // ========== Main Image Upload ==========
-        function handleMainImageUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const preview = document.getElementById('mainPreview');
-                const uploadArea = document.getElementById('mainImageUpload');
-                preview.src = e.target.result;
-                uploadArea.classList.add('has-image');
-                saveToStorage();
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // ========== Gallery Image Upload ==========
-        function handleGalleryUpload(input, index) {
-            const file = input.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const preview = document.getElementById(`galleryPreview${index}`);
-                const uploadArea = document.getElementById(`galleryItem${index}`);
-                preview.src = e.target.result;
-                uploadArea.classList.add('has-image');
-                saveToStorage();
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // ========== Delete Gallery Image ==========
-        function deleteGalleryImage(event, index) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const preview = document.getElementById(`galleryPreview${index}`);
-            const uploadArea = document.getElementById(`galleryItem${index}`);
-            const input = uploadArea.querySelector('input');
-
-            preview.src = '';
-            uploadArea.classList.remove('has-image');
-            input.value = '';
-            deleteImageFromDB(`gallery_${index}`);
-        }
-
-        // ========== Details Lightbox ==========
-        document.addEventListener('click', (e) => {
-            const upload = e.target.closest('.details-item-upload.has-image');
-            if (!upload) return;
-            // 防止点击文件输入框时触发
-            if (e.target.tagName === 'INPUT') return;
-            const preview = upload.querySelector('.details-preview');
-            if (!preview || !preview.src) return;
-            const lightbox = document.getElementById('detailsLightbox');
-            const lightboxImg = document.getElementById('detailsLightboxImg');
-            lightboxImg.src = preview.src;
-            lightboxImg.style.transform = 'scale(1)';
-            lightbox.classList.add('active');
-        });
-
-        // 详情页空格子点击上传
-        document.addEventListener('click', (e) => {
-            const upload = e.target.closest('.details-item-upload:not(.has-image)');
-            if (!upload) return;
-            const input = upload.parentElement.querySelector('input[type="file"]');
-            if (input) input.click();
-        });
-
-        // 点击 placeholder 触发上传
-        document.addEventListener('click', (e) => {
-            const placeholder = e.target.closest('.details-placeholder');
-            if (!placeholder) return;
-            const wrapper = placeholder.closest('.details-item-wrapper');
-            if (!wrapper) return;
-            const input = wrapper.querySelector('input[type="file"]');
-            if (input) input.click();
-        });
-
-        // 详情页 input change
-        document.addEventListener('change', (e) => {
-            if (e.target.matches('.details-item-wrapper input[type="file"]')) {
-                const input = e.target;
-                const file = input.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    const wrapper = input.closest('.details-item-wrapper');
-                    const upload = wrapper.querySelector('.details-item-upload');
-                    const preview = wrapper.querySelector('.details-preview');
-                    upload.classList.add('has-image');
-                    preview.src = ev.target.result;
-                    upload.innerHTML = `<img class="details-preview" src="${ev.target.result}">`;
-                    saveToStorage();
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        const lightboxImg = document.getElementById('detailsLightboxImg');
-        lightboxImg.addEventListener('wheel', (e) => {
-            if (!document.getElementById('detailsLightbox').classList.contains('active')) return;
-            e.preventDefault();
-            const rect = lightboxImg.getBoundingClientRect();
-            const factor = e.deltaY < 0 ? 1.1 : 0.9;
-            const current = parseFloat(lightboxImg.style.transform.replace('scale(', '')) || 1;
-            const next = Math.max(0.3, Math.min(5, current * factor));
-            lightboxImg.style.transform = `scale(${next})`;
-        });
-
-        function closeDetailsLightbox() {
-            document.getElementById('detailsLightbox').classList.remove('active');
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeDetailsLightbox();
-        });
-
-        // ========== Add Details Item ==========
-        function addDetailsItem() {
-            detailsCount++;
-            const detailsGrid = document.getElementById('detailsGrid');
-            const wrapper = document.createElement('div');
-            wrapper.className = 'details-item-wrapper';
-            wrapper.innerHTML = `
-                <input type="file" accept="image/*" style="display:none">
-                <div class="details-item-upload" id="detailsItem${detailsCount}">
-                    <img class="details-preview" id="detailsPreview${detailsCount}">
-                    <div class="details-placeholder">
-                        <span class="icon">📄</span>
-                        <span class="text">点击上传详情页图片</span>
-                        <span class="hint">建议宽度：790像素</span>
-                    </div>
-                </div>
-            `;
-            detailsGrid.appendChild(wrapper);
         }
 
         // ========== Video Auto Play ==========
@@ -1694,10 +1387,105 @@
         document.addEventListener('DOMContentLoaded', async () => {
             await loadFromStorage();
             initGallery();
-            if (document.querySelectorAll('#detailsGrid .details-item-wrapper').length === 0) {
-                addDetailsItem();
-            }
         });
+
+        // 查看详情图片功能
+        function viewDetailImage(imageSrc) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                overflow: hidden;
+            `;
+
+            const imgContainer = document.createElement('div');
+            imgContainer.style.cssText = `
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: grab;
+                overflow: hidden;
+            `;
+
+            const img = document.createElement('img');
+            img.src = imageSrc;
+            img.style.cssText = `
+                max-width: 90%;
+                max-height: 90%;
+                object-fit: contain;
+                transform: scale(5);
+                transform-origin: center center;
+                transition: transform 0.1s ease-out;
+            `;
+
+            imgContainer.appendChild(img);
+            modal.appendChild(imgContainer);
+            document.body.appendChild(modal);
+
+            let scale = 5;
+            let isDragging = false;
+            let startX, startY, imgX = 0, imgY = 0;
+
+            // 滚轮缩放
+            modal.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.max(5, Math.min(25, scale * delta));
+
+                scale = newScale;
+                img.style.transform = `translate(${imgX}px, ${imgY}px) scale(${scale})`;
+            }, { passive: false });
+
+            // 鼠标拖拽
+            imgContainer.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                isDragging = true;
+                imgContainer.style.cursor = 'grabbing';
+                startX = e.clientX - imgX;
+                startY = e.clientY - imgY;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                imgX = e.clientX - startX;
+                imgY = e.clientY - startY;
+                img.style.transform = `translate(${imgX}px, ${imgY}px) scale(${scale})`;
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                imgContainer.style.cursor = 'grab';
+            });
+
+            // 点击空白处关闭
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            // ESC 键关闭
+            const escHandler = (e) => {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', escHandler);
+                }
+            };
+            document.addEventListener('keydown', escHandler);
+        }
 
         // 回到顶部按钮
         function scrollToTop() {
