@@ -1911,20 +1911,6 @@
             margin-bottom: 20px;
         }
 
-        .avatar-upload-label {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .avatar-hint {
-            font-size: 0.8rem;
-            color: var(--accent-cyan);
-            opacity: 0.8;
-        }
-
         .about-avatar {
             width: 200px;
             height: 200px;
@@ -2197,10 +2183,6 @@
             justify-content: center;
         }
 
-        .custom-image-label {
-            cursor: pointer;
-        }
-
         .custom-image-box {
             width: 230px;
             height: 230px;
@@ -2211,12 +2193,6 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .custom-image-box:hover {
-            border-color: var(--accent-cyan);
-            transform: scale(1.02);
         }
 
         .custom-image-preview {
@@ -3228,16 +3204,12 @@
                 <!-- 左侧信息栏 -->
                 <div class="about-left">
                     <div class="about-info-card">
-                        <!-- 头像区域 - 可点击上传 -->
+                        <!-- 头像区域 -->
                         <div class="avatar-upload-wrapper">
-                            <label class="avatar-upload-label" for="avatarInput">
-                                <div class="about-avatar">
-                                    <img src="" alt="头像" class="avatar-preview" id="avatarPreview" style="display:none;">
-                                    <span class="about-avatar-placeholder" id="avatarPlaceholder">📷</span>
-                                </div>
-                                <!-- <span class="avatar-hint">点击上传头像</span> -->
-                            </label>
-                            <input type="file" id="avatarInput" accept="image/*" style="display:none;">
+                            <div class="about-avatar">
+                                <img src="" alt="头像" class="avatar-preview" id="avatarPreview" style="display:none;">
+                                <span class="about-avatar-placeholder" id="avatarPlaceholder">📷</span>
+                            </div>
                         </div>
 
                         <!-- 名字和职位 -->
@@ -3353,29 +3325,20 @@
 
                     <!-- 自定义图片区域 -->
                     <div class="custom-images-section">
-                        <label class="custom-image-label" for="customImage1">
-                            <div class="custom-image-box">
-                                <img src="" alt="" class="custom-image-preview" id="customPreview1" style="display:none;">
-                                <span class="custom-image-placeholder" id="customPlaceholder1">+</span>
-                            </div>
-                        </label>
-                        <input type="file" id="customImage1" accept="image/*" style="display:none;">
+                        <div class="custom-image-box">
+                            <img src="" alt="" class="custom-image-preview" id="customPreview1" style="display:none;">
+                            <span class="custom-image-placeholder" id="customPlaceholder1">+</span>
+                        </div>
 
-                        <label class="custom-image-label" for="customImage2">
-                            <div class="custom-image-box">
-                                <img src="" alt="" class="custom-image-preview" id="customPreview2" style="display:none;">
-                                <span class="custom-image-placeholder" id="customPlaceholder2">+</span>
-                            </div>
-                        </label>
-                        <input type="file" id="customImage2" accept="image/*" style="display:none;">
+                        <div class="custom-image-box">
+                            <img src="" alt="" class="custom-image-preview" id="customPreview2" style="display:none;">
+                            <span class="custom-image-placeholder" id="customPlaceholder2">+</span>
+                        </div>
 
-                        <label class="custom-image-label" for="customImage3">
-                            <div class="custom-image-box">
-                                <img src="" alt="" class="custom-image-preview" id="customPreview3" style="display:none;">
-                                <span class="custom-image-placeholder" id="customPlaceholder3">+</span>
-                            </div>
-                        </label>
-                        <input type="file" id="customImage3" accept="image/*" style="display:none;">
+                        <div class="custom-image-box">
+                            <img src="" alt="" class="custom-image-preview" id="customPreview3" style="display:none;">
+                            <span class="custom-image-placeholder" id="customPlaceholder3">+</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3416,7 +3379,7 @@
                     <div class="showcase-card">
                         <div class="showcase-glow"></div>
                         <div class="showcase-image-wrapper">
-                            <img class="showcase-image" src="images/work-1.jpg" alt="Featured Work" id="showcaseImage">
+                            <img class="showcase-image" src="images/work-1.webp" alt="Featured Work" id="showcaseImage">
                         </div>
                         <div class="showcase-dots">
                             <span class="showcase-dot active" data-index="0"></span>
@@ -3614,16 +3577,16 @@
         // ========== Works Data ==========
         /*精选作品的内容*/
         let worksData = [
-            { id: 0, category: 'product', title: '香薰', desc: '产品设计作品展示', link: '#', img: 'images/work-1.jpg', detailLink: 'works/Work1.html' },
-            { id: 1, category: 'product', title: '洗面奶', desc: '产品设计作品展示', link: '#', img: 'images/work-2.jpg', detailLink: 'works/Work2.html' },
-            { id: 2, category: 'product', title: '作品标题 3', desc: '产品设计作品展示', link: '#', img: 'images/work-3.jpg' },
-            { id: 3, category: 'IP', title: '粉团', desc: 'IP设计作品展示', link: '#', img: 'images/work-4.jpg' },
-            { id: 4, category: 'IP', title: '作品标题 5', desc: 'IP设计作品展示', link: '#', img: 'images/work-5.jpg' },
-            { id: 6, category: 'MV', title: '往上走', desc: 'MV作品展示', link: '#', img: 'images/work-7.jpg', type: 'video', video: 'https://res.cloudinary.com/datarpybk/video/upload/f_auto,q_auto/v1782720171/mv1_gr0g5j.mp4' },
-            { id: 7, category: 'TVC', title: '作品标题 8', desc: 'TVC广告', link: '#', img: 'images/work-8.jpg' },
-            { id: 8, category: 'TVC', title: '作品标题 9', desc: 'TVC广告', link: '#', img: 'images/work-9.jpg' },
-            { id: 9, category: 'TVC', title: '作品标题 10', desc: 'TVC广告', link: '#', img: 'images/work-10.jpg' },
-            { id: 10, category: 'TVC', title: '作品标题 11', desc: 'TVC广告', link: '#', img: 'images/work-11.jpg' },
+            { id: 0, category: 'product', title: '香薰', desc: '产品设计作品展示', link: '#', img: 'images/work-1.webp', detailLink: 'works/Work1.html' },
+            { id: 1, category: 'product', title: '洗面奶', desc: '产品设计作品展示', link: '#', img: 'images/work-2.webp', detailLink: 'works/Work2.html' },
+            { id: 2, category: 'product', title: '作品标题 3', desc: '产品设计作品展示', link: '#', img: 'images/work-3.webp' },
+            { id: 3, category: 'IP', title: '粉团', desc: 'IP设计作品展示', link: '#', img: 'images/work-4.webp' },
+            { id: 4, category: 'IP', title: '作品标题 5', desc: 'IP设计作品展示', link: '#', img: 'images/work-5.webp' },
+            { id: 6, category: 'MV', title: '往上走', desc: 'MV作品展示', link: '#', img: 'images/work-7.webp', type: 'video', video: 'https://res.cloudinary.com/datarpybk/video/upload/f_auto,q_auto/v1782720171/mv1_gr0g5j.mp4' },
+            { id: 7, category: 'TVC', title: '作品标题 8', desc: 'TVC广告', link: '#', img: 'images/work-8.webp' },
+            { id: 8, category: 'TVC', title: '作品标题 9', desc: 'TVC广告', link: '#', img: 'images/work-9.webp' },
+            { id: 9, category: 'TVC', title: '作品标题 10', desc: 'TVC广告', link: '#', img: 'images/work-10.webp' },
+            { id: 10, category: 'TVC', title: '作品标题 11', desc: 'TVC广告', link: '#', img: 'images/work-11.webp' },
         ];
 
         // ========== Works Filter & Animation ==========
@@ -3975,18 +3938,18 @@
         // ========== Zodiac Series Carousel Functions ==========
         // 十二生肖数据
         const zodiacData = [
-            { name: '子鼠', animal: 'Rat', image: 'images/animals/1.jpg' },
-            { name: '丑牛', animal: 'Cattle', image: 'images/animals/2.jpg' },
-            { name: '寅虎', animal: 'Tiger', image: 'images/animals/3.jpg' },
-            { name: '卯兔', animal: 'Rabbit', image: 'images/animals/4.jpg' },
-            { name: '辰龙', animal: 'Dragon', image: 'images/animals/5.jpg' },
-            { name: '巳蛇', animal: 'Snake', image: 'images/animals/6.jpg' },
-            { name: '午马', animal: 'Horse', image: 'images/animals/7.jpg' },
-            { name: '未羊', animal: 'Sheep', image: 'images/animals/8.jpg' },
-            { name: '申猴', animal: 'Monkey', image: 'images/animals/9.jpg' },
-            { name: '酉鸡', animal: 'Rooster', image: 'images/animals/10.jpg' },
-            { name: '戌狗', animal: 'Dog', image: 'images/animals/11.jpg' },
-            { name: '亥猪', animal: 'Pig', image: 'images/animals/12.jpg' }
+            { name: '子鼠', animal: 'Rat', image: 'images/animals/1.webp' },
+            { name: '丑牛', animal: 'Cattle', image: 'images/animals/2.webp' },
+            { name: '寅虎', animal: 'Tiger', image: 'images/animals/3.webp' },
+            { name: '卯兔', animal: 'Rabbit', image: 'images/animals/4.webp' },
+            { name: '辰龙', animal: 'Dragon', image: 'images/animals/5.webp' },
+            { name: '巳蛇', animal: 'Snake', image: 'images/animals/6.webp' },
+            { name: '午马', animal: 'Horse', image: 'images/animals/7.webp' },
+            { name: '未羊', animal: 'Sheep', image: 'images/animals/8.webp' },
+            { name: '申猴', animal: 'Monkey', image: 'images/animals/9.webp' },
+            { name: '酉鸡', animal: 'Rooster', image: 'images/animals/10.webp' },
+            { name: '戌狗', animal: 'Dog', image: 'images/animals/11.webp' },
+            { name: '亥猪', animal: 'Pig', image: 'images/animals/12.webp' }
         ];
 
         let zodiacCurrentIndex = 0;
@@ -4206,10 +4169,10 @@
 
         // ========== 默认静态图片路径（部署后直接读取） ==========
         const defaultImages = {
-            avatar: 'images/me/avatar.jpg',
-            custom1: 'images/me/custom1.jpg',
-            custom2: 'images/me/custom2.jpg',
-            custom3: 'images/me/custom3.jpg'
+            avatar: 'images/me/avatar.webp',
+            custom1: 'images/me/custom1.webp',
+            custom2: 'images/me/custom2.webp',
+            custom3: 'images/me/custom3.webp'
         };
 
         // ========== 检查图片是否存在的辅助函数 ==========
@@ -4559,7 +4522,7 @@
             
             // 更新 worksData 中的图片（优先使用静态图片，如果没有则用 IndexedDB 缓存）
             for (let i = 0; i < worksData.length; i++) {
-                const staticImg = 'images/work-' + (worksData[i].id + 1) + '.jpg';
+                const staticImg = 'images/work-' + (worksData[i].id + 1) + '.webp';
                 // 如果静态图片不存在，且有缓存图片，则使用缓存
                 if (!worksData[i].img && savedImages[worksData[i].id]) {
                     worksData[i].img = savedImages[worksData[i].id];
@@ -4606,48 +4569,6 @@
                 }
             }
 
-            // 头像上传功能
-            const avatarInput = document.getElementById('avatarInput');
-            const avatarPreview = document.getElementById('avatarPreview');
-            const avatarPlaceholder = document.getElementById('avatarPlaceholder');
-
-            avatarInput.addEventListener('change', async function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = async function(event) {
-                        avatarPreview.src = event.target.result;
-                        avatarPreview.style.display = 'block';
-                        avatarPlaceholder.style.display = 'none';
-                        const hint = document.querySelector('.avatar-hint');
-                        if (hint) hint.textContent = '点击更换头像';
-                        await saveImage('avatar', event.target.result);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // 自定义图片上传功能
-            for (let i = 1; i <= 3; i++) {
-                const input = document.getElementById('customImage' + i);
-                const preview = document.getElementById('customPreview' + i);
-                const placeholder = document.getElementById('customPlaceholder' + i);
-
-                input.addEventListener('change', async function(e) {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = async function(event) {
-                            preview.src = event.target.result;
-                            preview.style.display = 'block';
-                            placeholder.style.display = 'none';
-                            await saveImage('custom' + i, event.target.result);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
-
             // 下载简历功能
             const downloadBtn = document.getElementById('downloadResumeBtn');
             if (downloadBtn) {
@@ -4665,11 +4586,11 @@
 
             // ========== Showcase Image Carousel ==========
             const showcaseImages = [
-                'images/work-1.jpg',
-                'images/work-2.jpg',
-                'images/work-3.jpg',
-                'images/work-4.jpg',
-                'images/work-5.jpg',
+                'images/work-1.webp',
+                'images/work-2.webp',
+                'images/work-3.webp',
+                'images/work-4.webp',
+                'images/work-5.webp',
             ];
             const showcaseImageEl = document.getElementById('showcaseImage');
             const showcaseDots = document.querySelectorAll('.showcase-dot');
