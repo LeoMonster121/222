@@ -712,7 +712,7 @@ function enterPortfolio() {
 
   const timeline = gsap.timeline({
     onComplete() {
-      window.location.href = 'index.html';
+      window.location.href = 'home.html';
     }
   });
 
