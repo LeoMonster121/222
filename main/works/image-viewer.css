@@ -1,0 +1,212 @@
+/**
+ * =====================================================
+ * 图片预览器样式 - Image Viewer Styles
+ * =====================================================
+ * 功能：全屏图片预览，支持缩放、拖拽、复原
+ */
+
+/* ========== 图片预览 Modal 容器 ========== */
+.image-viewer-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Modal 打开状态 */
+.image-viewer-modal.is-visible {
+    opacity: 1;
+}
+
+/* Modal 关闭状态 */
+.image-viewer-modal.is-closing {
+    opacity: 0;
+}
+
+/* ========== 图片容器 ========== */
+.image-viewer-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: grab;
+    position: relative;
+}
+
+/* 拖拽中样式 */
+.image-viewer-container.is-dragging {
+    cursor: grabbing;
+}
+
+/* 未放大时禁用拖拽光标 */
+.image-viewer-container.no-drag {
+    cursor: default;
+}
+
+/* ========== 预览图片 ========== */
+.image-viewer-img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    transform-origin: center center;
+    transition: none;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* 缩放过渡效果（用于复原按钮的平滑过渡） */
+.image-viewer-img.is-resetting {
+    transition: transform 0.3s ease-out;
+}
+
+/* ========== 底部工具栏 ========== */
+.image-viewer-toolbar {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 10;
+}
+
+/* 工具栏按钮通用样式 */
+.image-viewer-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.image-viewer-btn:hover {
+    background: rgba(99, 102, 241, 0.6);
+    border-color: rgba(99, 102, 241, 0.8);
+    transform: scale(1.05);
+}
+
+.image-viewer-btn:active {
+    transform: scale(0.98);
+}
+
+/* 按钮图标 */
+.image-viewer-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
+/* 缩放指示器 */
+.image-viewer-zoom-indicator {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    font-weight: 500;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* ========== 加载状态 ========== */
+.image-viewer-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #6366f1;
+    border-radius: 50%;
+    animation: image-viewer-spin 1s linear infinite;
+}
+
+@keyframes image-viewer-spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* ========== 提示文字 ========== */
+.image-viewer-hint {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.image-viewer-hint.is-hidden {
+    opacity: 0;
+}
+
+/* ========== 响应式适配 ========== */
+@media (max-width: 768px) {
+    .image-viewer-toolbar {
+        bottom: 20px;
+        padding: 10px 16px;
+        gap: 10px;
+    }
+
+    .image-viewer-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
+    .image-viewer-zoom-indicator {
+        padding: 6px 12px;
+        font-size: 12px;
+        min-width: 50px;
+    }
+
+    .image-viewer-hint {
+        top: 20px;
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .image-viewer-img {
+        max-width: 95%;
+        max-height: 85%;
+    }
+}

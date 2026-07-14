@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>作品 2 - 电商设计项目</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <link rel="stylesheet" href="image-viewer.css">
     <style>
         /* ========== CSS Variables ========== */
         :root {
@@ -38,14 +39,15 @@
             overflow-x: hidden;
         }
 
-        /* ========== Video Background ========== */
+        /* ========== Video Background (inside hero section) ========== */
         .video-bg {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: 0;
+            pointer-events: none;
         }
 
         .video-bg video {
@@ -58,19 +60,8 @@
             opacity: 0.7;
         }
 
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                180deg,
-                rgba(0, 0, 0, 0.4) 0%,
-                rgba(0, 0, 0, 0.6) 50%,
-                rgba(0, 0, 0, 0.8) 100%
-            );
-            z-index: -1;
+        .section-dark-bg {
+            background: rgba(0, 0, 0, 0.6);
         }
 
         /* ========== Navigation ========== */
@@ -144,6 +135,7 @@
 
         /* ========== Hero Section ========== */
         .hero {
+            position: relative;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -151,6 +143,7 @@
             align-items: center;
             padding: 120px 40px 80px;
             text-align: center;
+            z-index: 1;
         }
 
         .hero-badge {
@@ -319,6 +312,10 @@
             display: none;
         }
 
+        .poster-preview {
+            cursor: pointer;
+        }
+
         .delete-poster-btn {
             position: absolute;
             top: 15px;
@@ -400,6 +397,7 @@
             object-fit: contain;
             display: none;
             background: #111;
+            cursor: pointer;
         }
 
         .main-image-upload.has-image .upload-preview {
@@ -457,6 +455,7 @@
             height: 100%;
             object-fit: cover;
             display: none;
+            cursor: pointer;
         }
 
         .banner-image-upload.has-image .banner-preview {
@@ -564,6 +563,7 @@
             height: 100%;
             object-fit: cover;
             display: none;
+            cursor: pointer;
         }
 
         .gallery-item-upload.has-image .gallery-preview {
@@ -627,8 +627,8 @@
 
         .details-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(790px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(580px, 1fr));
+            gap: 20px;
         }
 
         .details-item-wrapper {
@@ -639,7 +639,7 @@
         .details-item-upload {
             position: relative;
             width: 100%;
-            min-height: 400px;
+            min-height: 300px;
             border-radius: 16px;
             overflow: hidden;
             background: var(--glass-bg);
@@ -656,6 +656,34 @@
             border: none;
         }
 
+        /* ========== View Details Button ========== */
+        .view-details-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+        }
+
+        .details-item-upload.has-image:hover .view-details-btn {
+            opacity: 1;
+        }
+
+        .view-details-btn:hover {
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+            transform: scale(1.05);
+        }
+
         .details-item-upload input[type="file"] {
             display: none;
         }
@@ -664,6 +692,8 @@
             width: 100%;
             height: auto;
             display: none;
+            z-index: 1;
+            cursor: pointer;
         }
 
         .details-item-upload.has-image .details-preview {
@@ -676,7 +706,7 @@
 
         .details-placeholder {
             width: 100%;
-            height: 400px;
+            height: 267px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -984,14 +1014,6 @@
     </style>
 </head>
 <body>
-    <!-- Video Background -->
-    <div class="video-bg">
-        <video autoplay muted loop playsinline>
-            <source src="../video/video2.mp4" type="video/mp4">
-        </video>
-    </div>
-    <div class="overlay"></div>
-
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-logo">
@@ -1002,6 +1024,12 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <!-- Video Background -->
+        <div class="video-bg">
+            <video autoplay muted loop playsinline>
+                <source src="../video/video2.mp4" type="video/mp4">
+            </video>
+        </div>
         <div class="hero-badge">
             <span>✨</span>
             <span>产品设计项目</span>
@@ -1026,73 +1054,45 @@
     </section>
 
     <!-- Poster Section -->
-    <section class="poster-section">
+    <section class="poster-section section-dark-bg">
         <div class="container">
             <h2 class="section-title">海报展示</h2>
             <div class="poster-grid">
                 <div class="poster-upload-wrapper">
-                    <label class="poster-image-upload" id="posterUpload1">
-                        <input type="file" accept="image/*" onchange="handlePosterUpload(this, 1)">
+                    <div class="poster-image-upload has-image" id="posterUpload1">
                         <img class="poster-preview" id="posterPreview1">
-                        <div class="upload-placeholder">
-                            <span class="icon">🖼️</span>
-                            <span class="text">点击上传海报 1</span>
-                            <span class="hint">尺寸：1080像素 x 1920像素</span>
-                        </div>
-                    </label>
-                    <button class="delete-poster-btn" onclick="deletePosterImage(event, 1)">✕</button>
+                    </div>
                 </div>
                 <div class="poster-upload-wrapper">
-                    <label class="poster-image-upload" id="posterUpload2">
-                        <input type="file" accept="image/*" onchange="handlePosterUpload(this, 2)">
+                    <div class="poster-image-upload has-image" id="posterUpload2">
                         <img class="poster-preview" id="posterPreview2">
-                        <div class="upload-placeholder">
-                            <span class="icon">🖼️</span>
-                            <span class="text">点击上传海报 2</span>
-                            <span class="hint">尺寸：1080像素 x 1920像素</span>
-                        </div>
-                    </label>
-                    <button class="delete-poster-btn" onclick="deletePosterImage(event, 2)">✕</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Banner Section -->
-    <section class="image-section">
+    <section class="image-section section-dark-bg">
         <div class="container">
             <h2 class="section-title">Banner展示</h2>
             <div class="banner-grid" id="bannerGrid">
                 <div class="banner-upload-wrapper" id="bannerWrapper1">
-                    <label class="banner-image-upload" id="bannerUpload1">
-                        <input type="file" accept="image/*" onchange="handleBannerUpload(this, 1)">
+                    <div class="banner-image-upload has-image" id="bannerUpload1">
                         <img class="banner-preview" id="bannerPreview1">
-                        <div class="upload-placeholder">
-                            <span class="icon">📷</span>
-                            <span class="text">点击上传Banner 1</span>
-                            <span class="hint">尺寸：1920像素 x 600像素</span>
-                        </div>
-                    </label>
-                    <button class="delete-banner-btn" onclick="deleteBannerImage(event, 1)">✕</button>
+                    </div>
                 </div>
                 <div class="banner-upload-wrapper" id="bannerWrapper2">
-                    <label class="banner-image-upload" id="bannerUpload2">
-                        <input type="file" accept="image/*" onchange="handleBannerUpload(this, 2)">
+                    <div class="banner-image-upload has-image" id="bannerUpload2">
                         <img class="banner-preview" id="bannerPreview2">
-                        <div class="upload-placeholder">
-                            <span class="icon">📷</span>
-                            <span class="text">点击上传Banner 2</span>
-                            <span class="hint">尺寸：1920像素 x 600像素</span>
-                        </div>
-                    </label>
-                    <button class="delete-banner-btn" onclick="deleteBannerImage(event, 2)">✕</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Gallery Section -->
-    <section class="gallery-section">
+    <section class="gallery-section section-dark-bg">
         <div class="container">
             <h2 class="section-title">主图展示</h2>
             <div class="gallery-grid" id="galleryGrid">
@@ -1101,7 +1101,7 @@
     </section>
 
     <!-- Details Section -->
-    <section class="details-section">
+    <section class="details-section section-dark-bg">
         <div class="container">
             <h2 class="section-title">详情页展示</h2>
             <div class="details-grid" id="detailsGrid"></div>
@@ -1361,23 +1361,28 @@
                         data = await loadImageFromDB(detailsKey);
                     }
                     
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'details-item-wrapper';
+                    
                     if (data) {
-                        const wrapper = document.createElement('div');
-                        wrapper.className = 'details-item-wrapper';
                         wrapper.innerHTML = `
-                            <label class="details-item-upload has-image" id="detailsItem${i + 1}">
-                                <input type="file" accept="image/*" onchange="handleDetailsUpload(this, ${i + 1})">
+                            <div class="details-item-upload has-image" id="detailsItem${i + 1}">
                                 <img class="details-preview" id="detailsPreview${i + 1}" src="${data}">
+                                <button class="view-details-btn" onclick="viewDetailImage('${data}')">查看详情</button>
+                            </div>
+                        `;
+                    } else {
+                        wrapper.innerHTML = `
+                            <div class="details-item-upload" id="detailsItem${i + 1}">
+                                <img class="details-preview" id="detailsPreview${i + 1}">
                                 <div class="details-placeholder">
                                     <span class="icon">📄</span>
-                                    <span class="text">点击上传详情页图片</span>
-                                    <span class="hint">建议宽度：790像素</span>
+                                    <span class="text">详情页 ${i + 1}</span>
                                 </div>
-                            </label>
-                            <button class="delete-image-btn" onclick="deleteDetailsImage(event, ${i + 1})">✕</button>
+                            </div>
                         `;
-                        document.getElementById('detailsGrid').appendChild(wrapper);
                     }
+                    document.getElementById('detailsGrid').appendChild(wrapper);
                 }
             } catch (e) {
                 console.warn('加载图片失败', e);
@@ -1452,17 +1457,11 @@
             if (galleryGrid.children.length > 0) return;
             
             for (let i = 1; i <= 6; i++) {
-                const item = document.createElement('label');
-                item.className = 'gallery-item-upload';
+                const item = document.createElement('div');
+                item.className = 'gallery-item-upload has-image';
                 item.id = `galleryItem${i}`;
                 item.innerHTML = `
-                    <input type="file" accept="image/*" onchange="handleGalleryUpload(this, ${i})">
                     <img class="gallery-preview" id="galleryPreview${i}">
-                    <div class="gallery-placeholder">
-                        <span class="icon">🖼️</span>
-                        <span class="text">图片 ${i}</span>
-                    </div>
-                    <button class="delete-image-btn" onclick="deleteGalleryImage(event, ${i})">✕</button>
                 `;
                 galleryGrid.appendChild(item);
             }
@@ -1472,17 +1471,11 @@
         function addGalleryItem() {
             galleryCount++;
             const galleryGrid = document.getElementById('galleryGrid');
-            const item = document.createElement('label');
-            item.className = 'gallery-item-upload';
+            const item = document.createElement('div');
+            item.className = 'gallery-item-upload has-image';
             item.id = `galleryItem${galleryCount}`;
             item.innerHTML = `
-                <input type="file" accept="image/*" onchange="handleGalleryUpload(this, ${galleryCount})">
                 <img class="gallery-preview" id="galleryPreview${galleryCount}">
-                <div class="gallery-placeholder">
-                    <span class="icon">🖼️</span>
-                    <span class="text">图片 ${galleryCount}</span>
-                </div>
-                <button class="delete-image-btn" onclick="deleteGalleryImage(event, ${galleryCount})">✕</button>
             `;
             galleryGrid.appendChild(item);
         }
@@ -1575,16 +1568,13 @@
             const wrapper = document.createElement('div');
             wrapper.className = 'details-item-wrapper';
             wrapper.innerHTML = `
-                <label class="details-item-upload" id="detailsItem${detailsCount}">
-                    <input type="file" accept="image/*" onchange="handleDetailsUpload(this, ${detailsCount})">
+                <div class="details-item-upload" id="detailsItem${detailsCount}">
                     <img class="details-preview" id="detailsPreview${detailsCount}">
                     <div class="details-placeholder">
                         <span class="icon">📄</span>
-                        <span class="text">点击上传详情页图片</span>
-                        <span class="hint">建议宽度：790像素</span>
+                        <span class="text">详情页 ${detailsCount}</span>
                     </div>
-                </label>
-                <button class="delete-image-btn" onclick="deleteDetailsImage(event, ${detailsCount})">✕</button>
+                </div>
             `;
             detailsGrid.appendChild(wrapper);
         }
@@ -1622,7 +1612,59 @@
                 btn.classList.remove('visible');
             }
         });
+
+        // 查看详情图片功能（支持缩放和拖拽）
+        function viewDetailImage(imageSrc) {
+            ImageViewer.open(imageSrc);
+        }
+
+        // 为详情页图片添加点击打开预览功能
+        document.addEventListener('DOMContentLoaded', () => {
+            // 监听详情页区域的点击事件
+            document.getElementById('detailsGrid')?.addEventListener('click', (e) => {
+                const preview = e.target.closest('.details-preview');
+                if (preview && preview.src && preview.src !== window.location.href) {
+                    ImageViewer.open(preview.src);
+                }
+            });
+
+            // 监听主图展示区域的点击事件
+            document.getElementById('galleryGrid')?.addEventListener('click', (e) => {
+                const preview = e.target.closest('.gallery-preview');
+                if (preview && preview.src && preview.src !== window.location.href) {
+                    ImageViewer.open(preview.src);
+                }
+            });
+
+            // 监听海报区域的点击事件
+            document.querySelectorAll('.poster-preview').forEach(preview => {
+                preview.addEventListener('click', (e) => {
+                    if (preview.src && preview.src !== window.location.href) {
+                        ImageViewer.open(preview.src);
+                    }
+                });
+            });
+
+            // 监听 Banner 区域的点击事件
+            document.querySelectorAll('.banner-preview').forEach(preview => {
+                preview.addEventListener('click', (e) => {
+                    if (preview.src && preview.src !== window.location.href) {
+                        ImageViewer.open(preview.src);
+                    }
+                });
+            });
+
+            // 监听主图上传预览的点击事件
+            document.querySelectorAll('.upload-preview').forEach(preview => {
+                preview.addEventListener('click', (e) => {
+                    if (preview.src && preview.src !== window.location.href) {
+                        ImageViewer.open(preview.src);
+                    }
+                });
+            });
+        });
     </script>
+    <script src="image-viewer.js"></script>
 
     <!-- 返回按钮 -->
     <a href="../index.html#works" class="back-to-portfolio" title="返回精选作品">
