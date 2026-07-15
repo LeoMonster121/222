@@ -1592,9 +1592,27 @@
         document.addEventListener('DOMContentLoaded', async () => {
             await loadFromStorage();
             initGallery();
-            // 如果没有详情页，初始化一个
             if (document.getElementById('detailsGrid').children.length === 0) {
                 addDetailsItem();
+            }
+
+            // 滚动监听：延迟执行，不阻塞首屏
+            const initScrollListener = () => {
+                window.addEventListener('scroll', () => {
+                    const btn = document.querySelector('.back-to-top');
+                    if (btn) {
+                        if (window.scrollY > 300) {
+                            btn.classList.add('visible');
+                        } else {
+                            btn.classList.remove('visible');
+                        }
+                    }
+                });
+            };
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(initScrollListener, { timeout: 3000 });
+            } else {
+                setTimeout(initScrollListener, 500);
             }
         });
 
@@ -1603,24 +1621,13 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 滚动监听：显示/隐藏回到顶部按钮
-        window.addEventListener('scroll', () => {
-            const btn = document.querySelector('.back-to-top');
-            if (window.scrollY > 300) {
-                btn.classList.add('visible');
-            } else {
-                btn.classList.remove('visible');
-            }
-        });
-
         // 查看详情图片功能（支持缩放和拖拽）
         function viewDetailImage(imageSrc) {
             ImageViewer.open(imageSrc);
         }
 
-        // 为详情页图片添加点击打开预览功能
-        document.addEventListener('DOMContentLoaded', () => {
-            // 监听详情页区域的点击事件
+        // 为详情页图片添加点击打开预览功能 — 延迟执行
+        const initImagePreviewListeners = () => {
             document.getElementById('detailsGrid')?.addEventListener('click', (e) => {
                 const preview = e.target.closest('.details-preview');
                 if (preview && preview.src && preview.src !== window.location.href) {
@@ -1628,7 +1635,6 @@
                 }
             });
 
-            // 监听主图展示区域的点击事件
             document.getElementById('galleryGrid')?.addEventListener('click', (e) => {
                 const preview = e.target.closest('.gallery-preview');
                 if (preview && preview.src && preview.src !== window.location.href) {
@@ -1636,7 +1642,6 @@
                 }
             });
 
-            // 监听海报区域的点击事件
             document.querySelectorAll('.poster-preview').forEach(preview => {
                 preview.addEventListener('click', (e) => {
                     if (preview.src && preview.src !== window.location.href) {
@@ -1645,7 +1650,6 @@
                 });
             });
 
-            // 监听 Banner 区域的点击事件
             document.querySelectorAll('.banner-preview').forEach(preview => {
                 preview.addEventListener('click', (e) => {
                     if (preview.src && preview.src !== window.location.href) {
@@ -1654,7 +1658,6 @@
                 });
             });
 
-            // 监听主图上传预览的点击事件
             document.querySelectorAll('.upload-preview').forEach(preview => {
                 preview.addEventListener('click', (e) => {
                     if (preview.src && preview.src !== window.location.href) {
@@ -1662,7 +1665,13 @@
                     }
                 });
             });
-        });
+        };
+
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(initImagePreviewListeners, { timeout: 2000 });
+        } else {
+            setTimeout(initImagePreviewListeners, 500);
+        }
     </script>
     <script src="image-viewer.js"></script>
 

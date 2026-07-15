@@ -105,6 +105,8 @@
         state.currentImage.className = 'iv-image';
         state.currentImage.src = imageSrc;
         state.currentImage.alt = 'Preview Image';
+        state.currentImage.loading = 'lazy';
+        state.currentImage.decoding = 'async';
         state.currentImage.draggable = false;
         state.currentImage.style.pointerEvents = 'auto';
         

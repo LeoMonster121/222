@@ -1389,20 +1389,25 @@
         document.addEventListener('DOMContentLoaded', async () => {
             await loadFromStorage();
             initGallery();
-        });
 
-        // 回到顶部按钮
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+            // 滚动监听：延迟到 idle 时期执行，不阻塞首屏
+            const initScrollListener = () => {
+                window.addEventListener('scroll', () => {
+                    const btn = document.querySelector('.back-to-top');
+                    if (btn) {
+                        if (window.scrollY > 300) {
+                            btn.classList.add('visible');
+                        } else {
+                            btn.classList.remove('visible');
+                        }
+                    }
+                });
+            };
 
-        // 滚动监听：显示/隐藏回到顶部按钮
-        window.addEventListener('scroll', () => {
-            const btn = document.querySelector('.back-to-top');
-            if (window.scrollY > 300) {
-                btn.classList.add('visible');
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(initScrollListener, { timeout: 3000 });
             } else {
-                btn.classList.remove('visible');
+                setTimeout(initScrollListener, 500);
             }
         });
     </script>

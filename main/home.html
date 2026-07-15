@@ -3207,7 +3207,7 @@
                         <!-- 头像区域 -->
                         <div class="avatar-upload-wrapper">
                             <div class="about-avatar">
-                                <img src="" alt="头像" class="avatar-preview" id="avatarPreview" style="display:none;">
+                                <img src="" alt="头像" class="avatar-preview" id="avatarPreview" style="display:none;" loading="lazy" decoding="async">
                                 <span class="about-avatar-placeholder" id="avatarPlaceholder">📷</span>
                             </div>
                         </div>
@@ -3326,17 +3326,17 @@
                     <!-- 自定义图片区域 -->
                     <div class="custom-images-section">
                         <div class="custom-image-box">
-                            <img src="" alt="" class="custom-image-preview" id="customPreview1" style="display:none;">
+                            <img src="" alt="" class="custom-image-preview" id="customPreview1" style="display:none;" loading="lazy" decoding="async">
                             <span class="custom-image-placeholder" id="customPlaceholder1">+</span>
                         </div>
 
                         <div class="custom-image-box">
-                            <img src="" alt="" class="custom-image-preview" id="customPreview2" style="display:none;">
+                            <img src="" alt="" class="custom-image-preview" id="customPreview2" style="display:none;" loading="lazy" decoding="async">
                             <span class="custom-image-placeholder" id="customPlaceholder2">+</span>
                         </div>
 
                         <div class="custom-image-box">
-                            <img src="" alt="" class="custom-image-preview" id="customPreview3" style="display:none;">
+                            <img src="" alt="" class="custom-image-preview" id="customPreview3" style="display:none;" loading="lazy" decoding="async">
                             <span class="custom-image-placeholder" id="customPlaceholder3">+</span>
                         </div>
                     </div>
@@ -3379,7 +3379,7 @@
                     <div class="showcase-card">
                         <div class="showcase-glow"></div>
                         <div class="showcase-image-wrapper">
-                            <img class="showcase-image" src="images/work-1.webp" alt="Featured Work" id="showcaseImage">
+                            <img class="showcase-image" src="images/work-1.webp" alt="Featured Work" id="showcaseImage" loading="eager" decoding="sync">
                         </div>
                         <div class="showcase-dots">
                             <span class="showcase-dot active" data-index="0"></span>
@@ -3538,6 +3538,15 @@
     </div>
 
     <script>
+        // ========== requestIdleCallback Polyfill ==========
+        const idle = window.requestIdleCallback || function(cb, opts) {
+            const start = Date.now();
+            return setTimeout(() => {
+                cb({ didTimeout: false, timeRemaining: () => Math.max(0, 50 - (Date.now() - start)), release: () => clearTimeout(tid) });
+            }, opts?.timeout || 1);
+        };
+        const cancelIdle = window.cancelIdleCallback || (id => clearTimeout(id));
+
         // ========== Loading Screen (开场动画) ==========
         function initLoadingScreen() {
             const loadingScreen = document.getElementById('loadingScreen');
@@ -3635,7 +3644,7 @@
                 <div class="carousel-card" data-index="${index}" onclick="handleCarouselCardClick(${index})">
                     <div class="carousel-card-inner">
                         <div class="carousel-card-image">
-                            ${work.img ? `<img src="${work.img}" alt="${work.title}">` : ''}
+                            ${work.img ? `<img src="${work.img}" alt="${work.title}" loading="lazy" decoding="async">` : ''}
                             <div class="carousel-card-overlay"></div>
                         </div>
                     </div>
@@ -3968,7 +3977,7 @@
             track.innerHTML = zodiacData.map((zodiac, index) => `
                 <div class="zodiac-card" data-index="${index}">
                     <div class="zodiac-card-image">
-                        <img src="${zodiac.image}" alt="${zodiac.name}" onerror="this.style.display='none'">
+                        <img src="${zodiac.image}" alt="${zodiac.name}" onerror="this.style.display='none'" loading="lazy" decoding="async">
                     </div>
                     <button class="zodiac-card-detail-btn" onclick="openZodiacDetail(${index})" aria-label="查看详情">
                         <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
@@ -4121,7 +4130,7 @@
                 const workItem = document.querySelector(`.works-grid-item[data-id="${workId}"]`);
                 if (workItem) {
                     const imgContainer = workItem.querySelector('.work-card-image');
-                    imgContainer.innerHTML = `<img src="${dataURL}" alt="">`;
+                    imgContainer.innerHTML = `<img src="${dataURL}" alt="" loading="lazy" decoding="async">`;
                 }
                 event.target.value = '';
             };
@@ -4280,6 +4289,8 @@
                 const modalImage = document.getElementById('modalImage');
                 if (modalImage) {
                     modalImage.src = work.image;
+                    modalImage.loading = 'lazy';
+                    modalImage.decoding = 'async';
                     modalImage.style.display = 'block';
                 }
             } else {
@@ -4341,7 +4352,7 @@
             const galleryItems = Array.isArray(work.gallery) ? work.gallery : [];
             const galleryHtml = galleryItems.length
                 ? galleryItems.map(item => `<div class="gallery-item">${item}</div>`).join('')
-                : `<div class="gallery-item">${work.img ? `<img src="${work.img}" style="width:100%;height:100%;object-fit:cover;border-radius:16px;">` : '暂无预览'}</div>`;
+                : `<div class="gallery-item">${work.img ? `<img src="${work.img}" style="width:100%;height:100%;object-fit:cover;border-radius:16px;" loading="lazy" decoding="async">` : '暂无预览'}</div>`;
             gallery.innerHTML = galleryHtml;
 
             const tags = document.getElementById('modalTags');
@@ -4502,34 +4513,20 @@
             observer.observe(carouselContainer);
         }
 
-        // Initialize
+        // Initialize — split into critical (blocking) and deferred (idle) phases
         document.addEventListener('DOMContentLoaded', async () => {
-            // ========== 处理从其他页面返回时的锚点跳转 ==========
+            // ========== CRITICAL: Must run before first paint ==========
+            // 清除 URL hash，避免浏览器自动滚动到锚点
             const targetHash = window.location.hash;
             const shouldScrollToWorks = targetHash === '#works' || targetHash === '#about' || targetHash === '#contact';
-
-            // 清除 URL hash，避免浏览器自动滚动到锚点
             if (targetHash) {
                 history.replaceState(null, '', window.location.pathname + window.location.search);
             }
-            // 强制滚动到页面顶部
             window.scrollTo(0, 0);
 
             initLoadingScreen();
 
-            // 先加载所有已保存的图片数据
-            const savedImages = await loadAllWorkImages();
-            
-            // 更新 worksData 中的图片（优先使用静态图片，如果没有则用 IndexedDB 缓存）
-            for (let i = 0; i < worksData.length; i++) {
-                const staticImg = 'images/work-' + (worksData[i].id + 1) + '.webp';
-                // 如果静态图片不存在，且有缓存图片，则使用缓存
-                if (!worksData[i].img && savedImages[worksData[i].id]) {
-                    worksData[i].img = savedImages[worksData[i].id];
-                }
-            }
-
-            // 初始化作品网格
+            // 初始化作品网格（首屏可见区域的动画依赖）
             initWorksFilter();
             initWorksScrollAnimation();
             
@@ -4539,7 +4536,184 @@
             // 观察轮播区域可见性，控制自动旋转
             observeCarouselVisibility();
 
-            // ========== 从其他页面返回时跳转到目标区域 ==========
+            // ========== CRITICAL: Load IndexedDB data (needed for content) ==========
+            const savedImages = await loadAllWorkImages();
+            for (let i = 0; i < worksData.length; i++) {
+                const staticImg = 'images/work-' + (worksData[i].id + 1) + '.webp';
+                if (!worksData[i].img && savedImages[worksData[i].id]) {
+                    worksData[i].img = savedImages[worksData[i].id];
+                }
+            }
+
+            // ========== DEFERRED: Non-critical initialization ==========
+            idle(() => {
+                // 加载头像
+                loadImage('avatar').then(savedAvatar => {
+                    if (savedAvatar) {
+                        const avatarEl = document.getElementById('avatarPreview');
+                        avatarEl.src = savedAvatar;
+                        avatarEl.loading = 'lazy';
+                        avatarEl.decoding = 'async';
+                        avatarEl.style.display = 'block';
+                        document.getElementById('avatarPlaceholder').style.display = 'none';
+                        const hint = document.querySelector('.avatar-hint');
+                        if (hint) hint.textContent = '点击更换头像';
+                    }
+                });
+
+                // 加载自定义图片
+                for (let i = 1; i <= 3; i++) {
+                    loadImage('custom' + i).then(saved => {
+                        if (saved) {
+                            const customEl = document.getElementById('customPreview' + i);
+                            customEl.src = saved;
+                            customEl.loading = 'lazy';
+                            customEl.decoding = 'async';
+                            customEl.style.display = 'block';
+                            document.getElementById('customPlaceholder' + i).style.display = 'none';
+                        }
+                    });
+                }
+            }, { timeout: 2000 });
+
+            // ========== DEFERRED: Showcase carousel ==========
+            idle(() => {
+                const showcaseImages = [
+                    'images/work-1.webp',
+                    'images/work-2.webp',
+                    'images/work-3.webp',
+                    'images/work-4.webp',
+                    'images/work-5.webp',
+                ];
+                const showcaseImageEl = document.getElementById('showcaseImage');
+                const showcaseDots = document.querySelectorAll('.showcase-dot');
+                let currentShowcaseIndex = 0;
+                let autoPlayInterval;
+
+                function updateShowcaseImage(index) {
+                    currentShowcaseIndex = index;
+                    if (showcaseImageEl && showcaseImages[index]) {
+                        showcaseImageEl.style.opacity = '0';
+                        setTimeout(() => {
+                            showcaseImageEl.src = showcaseImages[index];
+                            showcaseImageEl.onload = () => {
+                                showcaseImageEl.style.opacity = '1';
+                            };
+                        }, 200);
+                    }
+                    showcaseDots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                    });
+                }
+
+                function nextShowcaseImage() {
+                    const nextIndex = (currentShowcaseIndex + 1) % showcaseImages.length;
+                    updateShowcaseImage(nextIndex);
+                }
+
+                showcaseDots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        updateShowcaseImage(index);
+                        resetAutoPlay();
+                    });
+                });
+
+                function startAutoPlay() {
+                    autoPlayInterval = setInterval(nextShowcaseImage, 4000);
+                }
+
+                function resetAutoPlay() {
+                    clearInterval(autoPlayInterval);
+                    startAutoPlay();
+                }
+
+                if (showcaseDots.length > 0) {
+                    startAutoPlay();
+                }
+            }, { timeout: 3000 });
+
+            // ========== DEFERRED: Zodiac detail modal ==========
+            idle(() => {
+                let currentZodiacDetailIndex = 0;
+
+                window.openZodiacDetail = function(index) {
+                    currentZodiacDetailIndex = index;
+                    updateZodiacDetailModal();
+                    const modal = document.getElementById('zodiacDetailModal');
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                };
+
+                window.closeZodiacDetail = function() {
+                    const modal = document.getElementById('zodiacDetailModal');
+                    if (modal) {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                };
+
+                window.navigateZodiacDetail = function(direction) {
+                    currentZodiacDetailIndex += direction;
+                    if (currentZodiacDetailIndex < 0) {
+                        currentZodiacDetailIndex = zodiacData.length - 1;
+                    } else if (currentZodiacDetailIndex >= zodiacData.length) {
+                        currentZodiacDetailIndex = 0;
+                    }
+                    updateZodiacDetailModal();
+                };
+
+                function updateZodiacDetailModal() {
+                    const zodiac = zodiacData[currentZodiacDetailIndex];
+                    const image = document.getElementById('zodiacDetailImage');
+                    const name = document.getElementById('zodiacDetailName');
+                    const animal = document.getElementById('zodiacDetailAnimal');
+                    const number = document.getElementById('zodiacDetailNumber');
+
+                    if (zodiac) {
+                        image.src = zodiac.image;
+                        image.loading = 'lazy';
+                        image.decoding = 'async';
+                        image.alt = zodiac.name;
+                        name.textContent = zodiac.name;
+                        animal.textContent = zodiac.animal;
+                        number.textContent = `${currentZodiacDetailIndex + 1} / ${zodiacData.length}`;
+                    }
+                }
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        const modal = document.getElementById('zodiacDetailModal');
+                        if (modal && modal.classList.contains('active')) {
+                            closeZodiacDetail();
+                        }
+                    }
+                    if (document.getElementById('zodiacDetailModal')?.classList.contains('active')) {
+                        if (e.key === 'ArrowLeft') {
+                            navigateZodiacDetail(-1);
+                        } else if (e.key === 'ArrowRight') {
+                            navigateZodiacDetail(1);
+                        }
+                    }
+                });
+            }, { timeout: 4000 });
+
+            // ========== DEFERRED: Download button ==========
+            idle(() => {
+                const downloadBtn = document.getElementById('downloadResumeBtn');
+                if (downloadBtn) {
+                    downloadBtn.addEventListener('click', function() {
+                        const pdfPath = 'resume.pdf';
+                        window.open(pdfPath, '_blank');
+                        setTimeout(() => {
+                            alert('如果文件没有自动下载，请在打开的PDF页面按 Ctrl+S 保存');
+                        }, 500);
+                    });
+                }
+            }, { timeout: 5000 });
+
+            // ========== DEFERRED: Scroll to anchor on return ==========
             if (shouldScrollToWorks) {
                 setTimeout(() => {
                     const targetSection = document.querySelector(targetHash);
@@ -4548,163 +4722,6 @@
                     }
                 }, 100);
             }
-
-            // 加载头像
-            const savedAvatar = await loadImage('avatar');
-            if (savedAvatar) {
-                document.getElementById('avatarPreview').src = savedAvatar;
-                document.getElementById('avatarPreview').style.display = 'block';
-                document.getElementById('avatarPlaceholder').style.display = 'none';
-                const hint = document.querySelector('.avatar-hint');
-                if (hint) hint.textContent = '点击更换头像';
-            }
-
-            // 加载自定义图片
-            for (let i = 1; i <= 3; i++) {
-                const saved = await loadImage('custom' + i);
-                if (saved) {
-                    document.getElementById('customPreview' + i).src = saved;
-                    document.getElementById('customPreview' + i).style.display = 'block';
-                    document.getElementById('customPlaceholder' + i).style.display = 'none';
-                }
-            }
-
-            // 下载简历功能
-            const downloadBtn = document.getElementById('downloadResumeBtn');
-            if (downloadBtn) {
-                downloadBtn.addEventListener('click', function() {
-                    // 直接跳转到PDF文件，浏览器会自动处理下载
-                    const pdfPath = 'resume.pdf';
-                    window.open(pdfPath, '_blank');
-                    
-                    // 同时提供下载提示
-                    setTimeout(() => {
-                        alert('如果文件没有自动下载，请在打开的PDF页面按 Ctrl+S 保存');
-                    }, 500);
-                });
-            }
-
-            // ========== Showcase Image Carousel ==========
-            const showcaseImages = [
-                'images/work-1.webp',
-                'images/work-2.webp',
-                'images/work-3.webp',
-                'images/work-4.webp',
-                'images/work-5.webp',
-            ];
-            const showcaseImageEl = document.getElementById('showcaseImage');
-            const showcaseDots = document.querySelectorAll('.showcase-dot');
-            let currentShowcaseIndex = 0;
-            let autoPlayInterval;
-
-            function updateShowcaseImage(index) {
-                currentShowcaseIndex = index;
-                if (showcaseImageEl && showcaseImages[index]) {
-                    showcaseImageEl.style.opacity = '0';
-                    setTimeout(() => {
-                        showcaseImageEl.src = showcaseImages[index];
-                        showcaseImageEl.onload = () => {
-                            showcaseImageEl.style.opacity = '1';
-                        };
-                    }, 200);
-                }
-                showcaseDots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                });
-            }
-
-            function nextShowcaseImage() {
-                const nextIndex = (currentShowcaseIndex + 1) % showcaseImages.length;
-                updateShowcaseImage(nextIndex);
-            }
-
-            // 轮播点点击事件
-            showcaseDots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    updateShowcaseImage(index);
-                    resetAutoPlay();
-                });
-            });
-
-            // 自动播放
-            function startAutoPlay() {
-                autoPlayInterval = setInterval(nextShowcaseImage, 4000);
-            }
-
-            function resetAutoPlay() {
-                clearInterval(autoPlayInterval);
-                startAutoPlay();
-            }
-
-            // 初始化轮播
-            if (showcaseDots.length > 0) {
-                startAutoPlay();
-            }
-
-            // ========== Zodiac Detail Modal Functions ==========
-            let currentZodiacDetailIndex = 0;
-
-            window.openZodiacDetail = function(index) {
-                currentZodiacDetailIndex = index;
-                updateZodiacDetailModal();
-                const modal = document.getElementById('zodiacDetailModal');
-                if (modal) {
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-            };
-
-            window.closeZodiacDetail = function() {
-                const modal = document.getElementById('zodiacDetailModal');
-                if (modal) {
-                    modal.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            };
-
-            window.navigateZodiacDetail = function(direction) {
-                currentZodiacDetailIndex += direction;
-                if (currentZodiacDetailIndex < 0) {
-                    currentZodiacDetailIndex = zodiacData.length - 1;
-                } else if (currentZodiacDetailIndex >= zodiacData.length) {
-                    currentZodiacDetailIndex = 0;
-                }
-                updateZodiacDetailModal();
-            };
-
-            function updateZodiacDetailModal() {
-                const zodiac = zodiacData[currentZodiacDetailIndex];
-                const image = document.getElementById('zodiacDetailImage');
-                const name = document.getElementById('zodiacDetailName');
-                const animal = document.getElementById('zodiacDetailAnimal');
-                const number = document.getElementById('zodiacDetailNumber');
-
-                if (zodiac) {
-                    image.src = zodiac.image;
-                    image.alt = zodiac.name;
-                    name.textContent = zodiac.name;
-                    animal.textContent = zodiac.animal;
-                    number.textContent = `${currentZodiacDetailIndex + 1} / ${zodiacData.length}`;
-                }
-            }
-
-            // ESC key to close modal
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    const modal = document.getElementById('zodiacDetailModal');
-                    if (modal && modal.classList.contains('active')) {
-                        closeZodiacDetail();
-                    }
-                }
-                // Arrow keys for navigation when modal is open
-                if (document.getElementById('zodiacDetailModal')?.classList.contains('active')) {
-                    if (e.key === 'ArrowLeft') {
-                        navigateZodiacDetail(-1);
-                    } else if (e.key === 'ArrowRight') {
-                        navigateZodiacDetail(1);
-                    }
-                }
-            });
         });
     </script>
 
@@ -4714,7 +4731,7 @@
             <button class="zodiac-detail-close" onclick="closeZodiacDetail()" aria-label="关闭">
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
-            <img class="zodiac-detail-image" id="zodiacDetailImage" src="" alt="">
+            <img class="zodiac-detail-image" id="zodiacDetailImage" src="" alt="" loading="lazy" decoding="async">
             <div class="zodiac-detail-info">
                 <h2 class="zodiac-detail-name" id="zodiacDetailName"></h2>
                 <p class="zodiac-detail-animal" id="zodiacDetailAnimal"></p>
