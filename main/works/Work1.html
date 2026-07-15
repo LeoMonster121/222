@@ -1248,6 +1248,7 @@
                         const preview = document.getElementById(`posterPreview${i}`);
                         const uploadArea = document.getElementById(`posterUpload${i}`);
                         if (preview && uploadArea) {
+                            preview.loading = 'lazy';
                             preview.src = data;
                             uploadArea.classList.add('has-image');
                         }
@@ -1258,17 +1259,18 @@
                     const bannerKey = `banner${i}`;
                     const defaultPath = defaultImages[bannerKey];
                     let data = null;
-                    
+
                     if (await checkImageExists(defaultPath)) {
                         data = defaultPath;
                     } else {
                         data = await loadImageFromDB(bannerKey);
                     }
-                    
+
                     if (data) {
                         const preview = document.getElementById(`bannerPreview${i}`);
                         const uploadArea = document.getElementById(`bannerUpload${i}`);
                         if (preview && uploadArea) {
+                            preview.loading = 'lazy';
                             preview.src = data;
                             uploadArea.classList.add('has-image');
                         }
@@ -1277,22 +1279,23 @@
 
                 // 主图展示：先初始化空格子，再加载图片
                 initGallery();
-                
+
                 for (let i = 1; i <= 6; i++) {
                     const galleryKey = `gallery_${i - 1}`;
                     const galleryDefaultPath = defaultImages.gallery[i - 1];
                     let data = null;
-                    
+
                     if (await checkImageExists(galleryDefaultPath)) {
                         data = galleryDefaultPath;
                     } else {
                         data = await loadImageFromDB(galleryKey);
                     }
-                    
+
                     if (data) {
                         const preview = document.getElementById(`galleryPreview${i}`);
                         const uploadArea = document.getElementById(`galleryItem${i}`);
                         if (preview && uploadArea) {
+                            preview.loading = 'lazy';
                             preview.src = data;
                             uploadArea.classList.add('has-image');
                         }
@@ -1304,20 +1307,20 @@
                     const detailsKey = `details_${i}`;
                     const defaultPath = defaultImages.details[i];
                     let data = null;
-                    
+
                     if (await checkImageExists(defaultPath)) {
                         data = defaultPath;
                     } else {
                         data = await loadImageFromDB(detailsKey);
                     }
-                    
+
                     const wrapper = document.createElement('div');
                     wrapper.className = 'details-item-wrapper';
-                    
+
                     if (data) {
                         wrapper.innerHTML = `
                             <div class="details-item-upload has-image" id="detailsItem${i + 1}">
-                                <img class="details-preview" id="detailsPreview${i + 1}" src="${data}">
+                                <img class="details-preview" id="detailsPreview${i + 1}" src="${data}" loading="lazy">
                                 <button class="view-details-btn" data-src="${data}">查看详情</button>
                             </div>
                         `;
