@@ -3908,7 +3908,7 @@
                 { id: 7, title: '青春校园', desc: '校园青春剧，讲述友情、爱情与梦想的故事', img: 'images/drama-8.webp' },
             ],
             tvc: [
-                { id: 0, title: '啤酒', desc: '凝聚纯正酿造工艺，演绎自然清爽的欢聚时刻', img: 'images/tvc-1.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784210838/tvc1_znvadh.mp4' },
+                { id: 0, title: '啤酒', desc: '凝聚纯正酿造工艺，演绎自然清爽的欢聚时刻', img: 'images/tvc-1.webp',type:'video',video:'video/TVC/tvc-1.mp4' },
                 { id: 1, title: '香水', desc: '诠释法式奢华美学，彰显优雅迷人的高级魅力', img: 'images/tvc-2.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784210867/tvc2_i8pbhw.mp4' },
                 { id: 2, title: '美妆种草', desc: '美妆产品TVC，诠释美丽与自信的理念', img: 'images/tvc-3.webp' },
                 { id: 3, title: '运动风尚', desc: '运动品牌广告，倡导健康积极的生活方式', img: 'images/tvc-4.webp' },
@@ -4045,19 +4045,41 @@
                 // 显示加载动画
                 if (loadingOverlay) {
                     loadingOverlay.style.display = 'flex';
+                    loadingOverlay.innerHTML = '<div class="video-loading-spinner"></div><p>视频加载中...</p><p style="font-size:12px;color:#999;">' + item.title + '</p>';
                 }
 
                 // 视频加载完成后隐藏加载动画
                 videoPlayer.onloadeddata = function() {
+                    console.log('✅ 视频数据加载完成:', item.video);
                     if (loadingOverlay) loadingOverlay.style.display = 'none';
                 };
 
-                // 视频加载失败处理
-                videoPlayer.onerror = function() {
+                // 视频可以开始播放时
+                videoPlayer.oncanplay = function() {
+                    console.log('🎬 视频可以开始播放:', item.video);
+                };
+
+                // 视频加载失败处理 - 增强错误诊断
+                videoPlayer.onerror = function(e) {
+                    console.error('❌ 视频加载失败:', item.video);
+                    console.error('错误代码:', videoPlayer.error?.code);
+                    console.error('错误信息:', videoPlayer.error?.message);
+                    
+                    // 显示详细错误信息帮助调试
+                    let errorMsg = '视频加载失败';
+                    const errorCode = videoPlayer.error?.code;
+                    if (errorCode === 1) errorMsg = '视频加载被中断';
+                    else if (errorCode === 2) errorMsg = '网络错误，无法加载视频';
+                    else if (errorCode === 3) errorMsg = '视频解码失败，可能是格式问题';
+                    else if (errorCode === 4) errorMsg = '视频资源无效或不支持';
+                    
                     if (loadingOverlay) {
-                        loadingOverlay.innerHTML = '<p style="color: #ff4444;">视频加载失败，请检查文件路径: ' + item.video + '</p>';
+                        loadingOverlay.innerHTML = '<p style="color: #ff4444;">' + errorMsg + '</p><p style="font-size:12px;color:#999;max-width:300px;word-break:break-all;">' + item.video + '</p>';
                     }
                 };
+
+                // 添加加载开始日志
+                console.log('🔄 开始加载视频:', item.video);
 
                 // 尝试播放
                 videoPlayer.play().catch(e => {
