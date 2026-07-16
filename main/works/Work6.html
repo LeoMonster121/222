@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>粉团 | 作品详情</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;700&family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0D0D1A;
+            --bg-muted: #2D1B4E;
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.72);
+            --accent-magenta: #FF3AF2;
+            --accent-cyan: #00F5D4;
+            --accent-yellow: #FFE600;
+            --accent-orange: #FF6B35;
+            --accent-purple: #7B2FFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow: hidden;
+            line-height: 1.625;
+            touch-action: none;
+        }
+
+        .page {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(255, 58, 242, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(0, 245, 212, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(123, 47, 255, 0.1) 0%, transparent 60%);
+        }
+
+        .frame {
+            width: 100%;
+            height: 100%;
+            max-height: 92vh;
+            display: flex;
+            align-items: stretch;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .horizontal-container {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            will-change: transform;
+            transition: none;
+        }
+
+        .intro-wrapper {
+            flex-shrink: 0;
+            width: min(360px, 100%);
+            height: calc(100% - 60px);/*左侧详细信息最外层矩形框大小*/
+            margin-top: 30px;/*调整左侧详情信息整体位置*/
+            will-change: transform;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .intro {
+            padding: 120px 30px 36px;
+            height: 100%;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            background: rgba(45, 27, 78, 0.18);
+        }
+
+        .intro-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255, 58, 242, 0.14);
+            border: 1px solid rgba(255, 58, 242, 0.35);
+            color: var(--accent-magenta);
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .intro h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            word-break: keep-all;
+        }
+
+        .intro-lead {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            line-height: 1.75;
+        }
+
+        .intro-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 10px;
+        }
+
+        .meta-card {
+            padding: 14px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .meta-card .label {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.55);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .meta-card .value {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .intro-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 245, 212, 0.35);
+            color: var(--accent-cyan);
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(0, 245, 212, 0.08);
+        }
+
+        .intro-actions {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.92rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary {
+            color: var(--bg-primary);
+            background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange));
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 38px rgba(255, 107, 53, 0.5);
+        }
+
+        .btn-ghost {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.14);
+            transform: translateY(-2px);
+        }
+
+        .gallery-panel {
+            flex: 1;
+            position: relative;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        .gallery-hint {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            padding: 5px 28px 28px;
+            margin-bottom: 12px;
+        }
+
+        .gallery-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0 28px 5px;
+        }
+
+        .gallery-track {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+            overflow: visible;
+            border-radius: 22px;
+            background: transparent;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .gallery-inner {
+            display: flex;
+            gap: 0;
+            padding: 0 28px 34px;
+            height: 100%;
+            will-change: transform;
+            cursor: grab;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .gallery-inner.snap-mode .gallery-card {
+            scroll-snap-align: center;
+        }
+
+        .gallery-inner.grabbing {
+            cursor: grabbing;
+            user-select: none;
+        }
+
+        .gallery-card {
+            position: relative;
+            flex: 0 0 auto;
+            width: 420px;
+            margin-right: 60px;
+            border-radius: 22px;
+            overflow: hidden;
+            background: rgba(13, 13, 26, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.35s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        /*卡片错位排列*/
+        .gallery-card:nth-child(1) { height: auto; min-height: 100%; }
+        .gallery-card:nth-child(2) { height: auto; min-height: 60%; align-self: flex-end; }
+        .gallery-card:nth-child(3) { height: auto; min-height: 74%; align-self: flex-end; }
+        .gallery-card:nth-child(4) { height: auto; min-height: 74%; align-self: flex-end; }
+        .gallery-card:nth-child(5) { height: auto; min-height: 95%; align-self: flex-end; }
+        .gallery-card:nth-child(6) { height: auto; min-height: 58%; align-self: flex-end; }
+        /*
+        .gallery-card:nth-child(1) { height: 100%; }
+        .gallery-card:nth-child(2) { height: 88%; align-self: flex-end; }
+        .gallery-card:nth-child(3) { height: 96%; }
+        .gallery-card:nth-child(4) { height: 84%; align-self: flex-end; }
+        .gallery-card:nth-child(5) { height: 100%; }
+        .gallery-card:nth-child(6) { height: 90%; align-self: flex-end; }
+        */
+
+        .gallery-card:hover {
+            transform: translateY(-10px) scale(1.04);
+            box-shadow: 0 24px 50px rgba(255, 58, 242, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.18);
+        }
+
+        /* 查看详情按钮 */
+        .card-detail-btn {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 10;
+            padding: 8px 18px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent-magenta), var(--accent-purple));
+            border: none;
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 58, 242, 0.4);
+        }
+
+        .gallery-card:hover .card-detail-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-detail-btn:hover {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-magenta));
+            box-shadow: 0 6px 20px rgba(255, 58, 242, 0.6);
+        }
+
+        /* 模态窗口 */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: scale(0.9);
+            transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-image-wrapper {
+            width: 80vw;
+            height: 80vh;
+            overflow: hidden;
+            border-radius: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            position: relative;
+            cursor: grab;
+        }
+
+        .modal-image-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .modal-image-wrapper.dragging {
+            cursor: grabbing;
+        }
+
+        .modal-image-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-origin: center center;
+            will-change: transform;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            user-select: none;
+            -webkit-user-drag: none;
+            pointer-events: none;
+        }
+
+        .modal-caption {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .modal-caption h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+            margin-bottom: 6px;
+        }
+
+        .modal-caption p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-zoom-hint {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 16px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.78rem;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .modal-zoom-hint.hidden {
+            opacity: 0;
+        }
+
+        .modal-controls {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-controls {
+            opacity: 1;
+        }
+
+        .modal-reset-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .modal-reset-btn:hover {
+            background: rgba(255, 58, 242, 0.4);
+            transform: rotate(-45deg);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 58, 242, 0.4);
+            transform: rotate(90deg);
+        }
+
+        .card-image-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            background: #111118;
+        }
+
+        .card-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transform: scale(1);
+            transition: filter 0.45s ease, transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+            will-change: filter, transform;
+        }
+
+        .gallery-card:hover .card-image-wrap img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .card-caption {
+            padding: 14px 14px 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            background: linear-gradient(180deg, rgba(13,13,26,0.3), rgba(13,13,26,0.7));
+        }
+
+        .card-caption .card-num {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            letter-spacing: 0.1em;
+        }
+
+        .card-caption .card-text {
+            margin-top: 6px;
+            font-size: 0.9rem;
+            line-height: 1.55;
+            color: var(--text-secondary);
+        }
+
+        .scroll-bar {
+            position: absolute;
+            bottom: 10px;
+            left: 28px;
+            right: 28px;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .scroll-bar > span {
+            display: block;
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent-magenta), var(--accent-cyan));
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 60px;/*右上角按钮位置*/
+            right: 24px;
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.92rem;
+            text-decoration: none;
+            cursor: pointer;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--accent-magenta), var(--accent-purple));
+            box-shadow: 0 10px 30px rgba(123, 47, 255, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 38px rgba(123, 47, 255, 0.5);
+        }
+
+        @media (max-width: 900px) {
+            .frame {
+                overflow: auto;
+            }
+
+            .horizontal-container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .intro-wrapper {
+                width: 100% !important;
+                height: auto;
+            }
+
+            .intro {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .gallery-track {
+                min-height: 520px;
+            }
+
+            .gallery-inner {
+                scroll-snap-type: x mandatory;
+            }
+
+            .gallery-card {
+                scroll-snap-align: center;
+            }
+
+            .back-btn {
+                top: 16px;
+                right: 16px;
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="back-btn" href="../home.html#works">返回作品集</a>
+    <div class="page">
+        <div class="frame">
+            <div class="horizontal-container" id="horizontalContainer">
+                <div class="intro-wrapper" id="introWrapper">
+                    <aside class="intro">
+                        <div class="intro-pill">
+                            <span>✦</span>
+                            <span>作品详情</span>
+                        </div>
+
+                        <h1>「粉团」<br>视觉形象与延展设计</h1>
+                        <p class="intro-lead">
+                            这是一套以柔软质感、鲜明色彩与高饱和意象为核心的 IP 视觉作品。
+                            设计从情绪板出发，统一配色、图形与动态语言，用于线下周边、线上传播与活动物料。
+                        </p>
+
+                        <div class="intro-meta">
+                            <div class="meta-card">
+                                <div class="label">类型</div>
+                                <div class="value">IP / 视觉形象</div>
+                            </div>
+                            <div class="meta-card">
+                                <div class="label">年份</div>
+                                <div class="value">2026</div>
+                            </div>
+                            <div class="meta-card">
+                                <div class="label">设计师</div>
+                                <div class="value">XXX</div>
+                            </div>
+                            <div class="meta-card">
+                                <div class="label">状态</div>
+                                <div class="value">已发布</div>
+                            </div>
+                        </div>
+
+                        <div class="intro-tags">
+                            <span class="tag">IP展板</span>
+                            <span class="tag">衍生品</span>
+                            <span class="tag">服装造型</span>
+                            <span class="tag">表情包</span>
+                            <span class="tag">海报</span>
+                            <span class="tag">盲盒系列</span>
+                        </div>
+                        <!-- 再看介绍按钮
+                        <div class="intro-actions">
+                            <button class="btn btn-ghost" onclick="replayIntro()">再看介绍</button>
+                        </div>
+                        -->
+                    </aside>
+                </div>
+
+                <section class="gallery-panel">
+                    <div class="gallery-track" id="galleryTrack">
+                        <h2 class="gallery-title">Cards</h2>
+                        <div class="gallery-hint">滚轮横向浏览 · 悬停查看细节</div>
+                        <div class="gallery-inner" id="galleryInner">
+                            <article class="gallery-card" data-text="" data-image="../images/work6/1.webp">
+                                <button class="card-detail-btn" onclick="openModal(this)">
+                                    查看详情
+                                </button>
+                                <div class="card-image-wrap" style="aspect-ratio: 297/420;">
+                                    <img alt="粉团-01" src="../images/work6/1.webp" loading="lazy">
+                                </div>
+                                <div class="card-caption">
+                                    <div class="card-num">01 IP展板</div>
+                                    <div class="card-text">主视觉构图与角色气质定调，强调柔软体积与高饱和点缀。</div>
+                                </div>
+                            </article>
+
+                            <article class="gallery-card" data-image="../images/work6/2.webp">
+                                <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
+                                <div class="card-image-wrap" style="aspect-ratio: auto;">
+                                    <img alt="粉团-02" src="../images/work6/2.webp" loading="lazy">
+                                </div>
+                                <div class="card-caption">
+                                    <div class="card-num">02 衍生品</div>
+                                    <div class="card-text">色彩采样与情绪板整合，用于统一线上线下视觉情绪。</div>
+                                </div>
+                            </article>
+
+                            <article class="gallery-card" data-image="../images/work6/3.webp">
+                                <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
+                                <div class="card-image-wrap" style="aspect-ratio: 1/1;">
+                                    <img alt="粉团-03" src="../images/work6/3.webp" loading="lazy">
+                                </div>
+                                <div class="card-caption">
+                                    <div class="card-num">03 服装造型</div>
+                                    <div class="card-text">图形符号提炼，提炼可延展的核心图形用于周边与传播。</div>
+                                </div>
+                            </article>
+
+                            <article class="gallery-card" data-image="../images/work6/4.webp">
+                                <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
+                                <div class="card-image-wrap" style="aspect-ratio: 1/1;">
+                                    <img alt="粉团-04" src="../images/work6/4.webp" loading="lazy">
+                                </div>
+                                <div class="card-caption">
+                                    <div class="card-num">04 表情包</div>
+                                    <div class="card-text">动作与表情设定，建立角色在不同场景中的统一表现。</div>
+                                </div>
+                            </article>
+
+                            <article class="gallery-card" data-image="../images/work6/5.webp">
+                                <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
+                                <div class="card-image-wrap">
+                                    <img alt="粉团-05" src="../images/work6/5.webp" loading="lazy">
+                                </div>
+                                <div class="card-caption">
+                                    <div class="card-num">05 海报</div>
+                                    <div class="card-text">应用展示：海报、包装与线上开屏的组合落地。</div>
+                                </div>
+                            </article>
+
+                            <article class="gallery-card" data-image="../images/work6/6.webp">
+                                <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
+                                <div class="card-image-wrap" style="aspect-ratio: 4/3;">
+                                    <img alt="粉团-06" src="../images/work6/6.webp" loading="lazy">
+                                </div>
+                                <div class="card-caption">
+                                    <div class="card-num">06 盲盒系列</div>
+                                    <div class="card-text">活动主视觉与物料延展，强化整体氛围与记忆点。</div>
+                                </div>
+                            </article>
+                            <div class="scroll-bar"><span id="scrollBarThumb"></span></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- 详情模态窗口 -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="modal-image-wrapper" id="modalImageWrapper">
+                <div class="modal-image-inner" id="modalImageInner">
+                    <img class="modal-image" id="modalImage" src="" alt="">
+                </div>
+            </div>
+            <div class="modal-caption" id="modalCaption" style="display:none;">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDesc"></p>
+            </div>
+            <div class="modal-controls" id="modalControls">
+                <div class="modal-zoom-hint" id="modalZoomHint">滚轮缩放 · 拖拽平移</div>
+                <button class="modal-reset-btn" id="modalResetBtn" title="重置视图">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                        <path d="M3 3v5h5"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const frame = document.querySelector('.frame');
+        const container = document.getElementById('horizontalContainer');
+        const introWrapper = document.getElementById('introWrapper');
+        const track = document.getElementById('galleryTrack');
+        const inner = document.getElementById('galleryInner');
+        const thumb = document.getElementById('scrollBarThumb');
+
+        let targetScroll = 0;
+        let currentScroll = 0;
+        let maxScroll = 0;
+        let isPointerDown = false;
+        let pointerStartX = 0;
+        let pointerStartScroll = 0;
+        let velocity = 0;
+        let lastMoveX = 0;
+        let lastMoveTime = 0;
+        let rafId = null;
+
+        const friction = 0.88;
+        const stopThreshold = 0.08;
+        const snapStrength = 0.1;
+        const introParallaxFactor = 0.25;
+
+        function clamp(val, min, max) {
+            return Math.max(min, Math.min(max, val));
+        }
+
+        function updateBounds() {
+            const containerWidth = frame.clientWidth;
+            const introWidth = introWrapper.offsetWidth;
+            maxScroll = Math.max(0, inner.scrollWidth - track.clientWidth);
+            return { containerWidth, introWidth };
+        }
+
+        function setContainerTransform(x) {
+            container.style.transform = `translateX(${-x}px)`;
+        }
+
+        function setIntroParallax(scrollProgress) {
+            const parallaxOffset = scrollProgress * introParallaxFactor * 100;
+            introWrapper.style.transform = `translateY(${parallaxOffset}px)`;
+        }
+
+        function updateThumb() {
+            const ratio = maxScroll > 0 ? clamp(currentScroll / maxScroll, 0, 1) : 0;
+            thumb.style.width = `${ratio * 100}%`;
+        }
+
+        function scheduleFrame() {
+            if (rafId) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = null;
+                render();
+            });
+        }
+
+        function render() {
+            const { containerWidth, introWidth } = updateBounds();
+
+            if (!isPointerDown) {
+                targetScroll += velocity;
+                targetScroll += (clamp(currentScroll, 0, maxScroll) - targetScroll) * snapStrength;
+                velocity *= friction;
+                if (Math.abs(velocity) < stopThreshold && Math.abs(targetScroll - clamp(currentScroll, 0, maxScroll)) < 0.15) {
+                    targetScroll = clamp(currentScroll, 0, maxScroll);
+                    velocity = 0;
+                }
+            }
+
+            targetScroll = clamp(targetScroll, 0, maxScroll);
+            currentScroll += (targetScroll - currentScroll) * 0.14;
+            currentScroll = clamp(currentScroll, 0, maxScroll);
+
+            setContainerTransform(currentScroll);
+
+            const scrollProgress = maxScroll > 0 ? currentScroll / maxScroll : 0;
+            setIntroParallax(scrollProgress);
+
+            updateThumb();
+        }
+
+        function addWheelDelta(delta) {
+            targetScroll += delta * 1.4;
+            velocity += delta * 0.5;
+            scheduleFrame();
+        }
+
+        frame.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+            addWheelDelta(delta);
+        }, { passive: false });
+
+        frame.addEventListener('pointerdown', (e) => {
+            if (e.target.closest('.gallery-card')) return;
+            isPointerDown = true;
+            velocity = 0;
+            pointerStartX = e.clientX;
+            pointerStartScroll = targetScroll;
+            lastMoveX = e.clientX;
+            lastMoveTime = performance.now();
+            inner.classList.add('grabbing');
+            frame.setPointerCapture?.(e.pointerId);
+            scheduleFrame();
+        });
+
+        window.addEventListener('pointermove', (e) => {
+            if (!isPointerDown) return;
+            const now = performance.now();
+            const dx = pointerStartX - e.clientX;
+            targetScroll = clamp(pointerStartScroll + dx, 0, maxScroll);
+            const dt = now - lastMoveTime;
+            if (dt > 0) {
+                velocity = clamp((lastMoveX - e.clientX) / dt * 18, -40, 40);
+            }
+            lastMoveX = e.clientX;
+            lastMoveTime = now;
+            scheduleFrame();
+        });
+
+        window.addEventListener('pointerup', () => {
+            if (!isPointerDown) return;
+            isPointerDown = false;
+            inner.classList.remove('grabbing');
+            scheduleFrame();
+        });
+
+        window.addEventListener('resize', () => {
+            updateBounds();
+            targetScroll = clamp(targetScroll, 0, maxScroll);
+            currentScroll = clamp(currentScroll, 0, maxScroll);
+            scheduleFrame();
+        });
+
+        function replayIntro() {
+            frame.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            frame.style.opacity = '0';
+            frame.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                frame.style.opacity = '1';
+                frame.style.transform = 'scale(1)';
+                currentScroll = 0;
+                targetScroll = 0;
+                velocity = 0;
+                setContainerTransform(0);
+                setIntroParallax(0);
+                updateThumb();
+            }, 350);
+        }
+
+        updateBounds();
+        updateThumb();
+        scheduleFrame();
+
+        // 模态窗口功能 - Figma 风格缩放 + 拖拽平移
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalImage = document.getElementById('modalImage');
+        const modalImageWrapper = document.getElementById('modalImageWrapper');
+        const modalImageInner = document.getElementById('modalImageInner');
+        const modalClose = document.getElementById('modalClose');
+        const modalZoomHint = document.getElementById('modalZoomHint');
+        const modalResetBtn = document.getElementById('modalResetBtn');
+
+        let scale = 1;
+        let offsetX = 0;
+        let offsetY = 0;
+        const minScale = 1;
+        const maxScale = 3;
+        const zoomSensitivity = 0.001;
+
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let dragStartOffsetX = 0;
+        let dragStartOffsetY = 0;
+        let hintTimeout = null;
+
+        function applyTransform(animate = false) {
+            if (animate) {
+                modalImageInner.style.transition = 'transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)';
+            } else {
+                modalImageInner.style.transition = 'none';
+            }
+            modalImageInner.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+            if (animate) {
+                setTimeout(() => {
+                    modalImageInner.style.transition = '';
+                }, 250);
+            }
+        }
+
+        function clampOffset() {
+            if (scale <= 1) {
+                const wrapperRect = modalImageWrapper.getBoundingClientRect();
+                const wrapperW = wrapperRect.width;
+                const wrapperH = wrapperRect.height;
+                const imgW = modalImage.naturalWidth || wrapperW;
+                const imgH = modalImage.naturalHeight || wrapperH;
+                const scaledW = imgW;
+                const scaledH = imgH;
+                offsetX = Math.max((wrapperW - scaledW) / 2, Math.min((wrapperW + scaledW) / 2, offsetX + wrapperW / 2)) - wrapperW / 2;
+                offsetY = Math.max((wrapperH - scaledH) / 2, Math.min((wrapperH + scaledH) / 2, offsetY + wrapperH / 2)) - wrapperH / 2;
+            } else {
+                const wrapperRect = modalImageWrapper.getBoundingClientRect();
+                const imgW = modalImage.naturalWidth || wrapperRect.width;
+                const imgH = modalImage.naturalHeight || wrapperRect.height;
+                const scaledW = imgW * scale;
+                const scaledH = imgH * scale;
+                const maxOffsetX = Math.max(0, (scaledW - wrapperRect.width) / 2);
+                const maxOffsetY = Math.max(0, (scaledH - wrapperRect.height) / 2);
+                offsetX = Math.max(-maxOffsetX, Math.min(maxOffsetX, offsetX));
+                offsetY = Math.max(-maxOffsetY, Math.min(maxOffsetY, offsetY));
+            }
+        }
+
+        function openModal(btn) {
+            const card = btn.closest('.gallery-card');
+            const imageSrc = card.dataset.image;
+            const title = card.dataset.title;
+            const text = card.dataset.text;
+
+            // 显示标题和描述
+            const modalCaption = document.getElementById('modalCaption');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDesc = document.getElementById('modalDesc');
+
+            if (title || text) {
+                modalCaption.style.display = 'block';
+                modalTitle.textContent = title || '';
+                modalDesc.textContent = text || '';
+            } else {
+                modalCaption.style.display = 'none';
+            }
+
+            modalImage.src = imageSrc;
+            modalImage.onload = () => {
+                scale = 1;
+                offsetX = 0;
+                offsetY = 0;
+                applyTransform();
+            };
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            clearHintHideTimeout();
+            modalZoomHint.classList.remove('hidden');
+            hintTimeout = setTimeout(() => {
+                modalZoomHint.classList.add('hidden');
+            }, 1000);
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            scale = 1;
+            offsetX = 0;
+            offsetY = 0;
+            isDragging = false;
+        }
+
+        function clearHintHideTimeout() {
+            if (hintTimeout) {
+                clearTimeout(hintTimeout);
+                hintTimeout = null;
+            }
+        }
+
+        function showHint() {
+            clearHintHideTimeout();
+            modalZoomHint.classList.remove('hidden');
+            hintTimeout = setTimeout(() => {
+                modalZoomHint.classList.add('hidden');
+            }, 1000);
+        }
+
+        function resetView() {
+            scale = 1;
+            offsetX = 0;
+            offsetY = 0;
+            applyTransform(true);
+            showHint();
+        }
+
+        modalImageWrapper.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const rect = modalImageWrapper.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left - rect.width / 2;
+            const mouseY = e.clientY - rect.top - rect.height / 2;
+
+            const delta = -e.deltaY * zoomSensitivity;
+            const newScale = Math.max(minScale, Math.min(maxScale, scale * (1 + delta)));
+
+            const scaleRatio = newScale / scale;
+            offsetX = mouseX - scaleRatio * (mouseX - offsetX);
+            offsetY = mouseY - scaleRatio * (mouseY - offsetY);
+
+            scale = newScale;
+            clampOffset();
+            applyTransform();
+            showHint();
+        }, { passive: false });
+
+        modalImageWrapper.addEventListener('pointerdown', (e) => {
+            if (e.target === modalImage || e.target === modalImageInner || e.target === modalImageWrapper) {
+                isDragging = true;
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                dragStartOffsetX = offsetX;
+                dragStartOffsetY = offsetY;
+                modalImageWrapper.classList.add('dragging');
+                modalImageWrapper.setPointerCapture(e.pointerId);
+                e.preventDefault();
+            }
+        });
+
+        modalImageWrapper.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const dx = e.clientX - dragStartX;
+            const dy = e.clientY - dragStartY;
+            offsetX = dragStartOffsetX + dx;
+            offsetY = dragStartOffsetY + dy;
+            clampOffset();
+            applyTransform();
+        });
+
+        modalImageWrapper.addEventListener('pointerup', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            modalImageWrapper.classList.remove('dragging');
+            modalImageWrapper.releasePointerCapture(e.pointerId);
+        });
+
+        modalImageWrapper.addEventListener('pointercancel', () => {
+            isDragging = false;
+            modalImageWrapper.classList.remove('dragging');
+        });
+
+        // 双击重置
+        modalImageWrapper.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+            resetView();
+        });
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+        modalResetBtn.addEventListener('click', resetView);
+
+        document.addEventListener('keydown', (e) => {
+            if (!modalOverlay.classList.contains('active')) return;
+            if (e.key === 'Escape') {
+                closeModal();
+            } else if (e.key === '0' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                resetView();
+            }
+        });
+
+        // 拖拽文件支持
+        modalImageWrapper.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'none';
+        });
+    </script>
+</body>
+</html>

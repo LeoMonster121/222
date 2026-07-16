@@ -795,6 +795,274 @@
             opacity: 1;
         }
 
+        /* ========== Drama & TVC Section Styles ========== */
+        .drama-tvc-section {
+            width: 100%;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .drama-tvc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 0 10px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .drama-tvc-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .drama-tvc-emoji {
+            font-size: 2rem;
+        }
+
+        .drama-tvc-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-magenta), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+        }
+
+        .drama-tvc-subtitle {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .drama-tvc-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .drama-tvc-tab {
+            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .drama-tvc-tab:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .drama-tvc-tab.active {
+            background: linear-gradient(135deg, var(--accent-magenta), var(--accent-purple));
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 58, 242, 0.3);
+        }
+
+        .drama-tvc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .drama-tvc-card {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, rgba(30, 30, 50, 0.95), rgba(20, 20, 35, 0.98));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .drama-tvc-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+                        0 0 30px rgba(255, 58, 242, 0.2);
+            border-color: rgba(255, 58, 242, 0.3);
+        }
+
+        .drama-tvc-card-image {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .drama-tvc-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .drama-tvc-card:hover .drama-tvc-card-image img {
+            transform: scale(1.1);
+        }
+
+        .drama-tvc-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(15, 15, 28, 0.95) 0%,
+                rgba(15, 15, 28, 0.4) 40%,
+                transparent 100%
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px;
+        }
+
+        .drama-tvc-card-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 10px;
+            background: rgba(255, 58, 242, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .drama-tvc-card-badge.tvc {
+            background: rgba(0, 245, 212, 0.85);
+        }
+
+        .drama-tvc-card-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .drama-tvc-card:hover .drama-tvc-card-play {
+            opacity: 1;
+        }
+
+        .drama-tvc-card-play::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 14px solid var(--accent-purple);
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            margin-left: 4px;
+        }
+
+        .drama-tvc-card-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .drama-tvc-card-desc {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .drama-tvc-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 30px;
+        }
+
+        .drama-tvc-pagination-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .drama-tvc-pagination-dot:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .drama-tvc-pagination-dot.active {
+            background: linear-gradient(135deg, var(--accent-magenta), var(--accent-purple));
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .drama-tvc-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .drama-tvc-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .drama-tvc-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .drama-tvc-tabs {
+                width: 100%;
+            }
+
+            .drama-tvc-tab {
+                flex: 1;
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .drama-tvc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .drama-tvc-title {
+                font-size: 1.4rem;
+            }
+        }
+
         /* ========== Zodiac Series Carousel Styles ========== */
         .zodiac-carousel-section {
             position: relative;
@@ -2849,6 +3117,15 @@
             object-fit: contain;
         }
 
+        .video-modal-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         .video-loading-overlay {
             position: absolute;
             top: 0;
@@ -3403,6 +3680,27 @@
                 <div class="carousel-indicators" id="carouselIndicators"></div>
             </div>
 
+            <!-- 短剧和TVC模块 -->
+            <div class="drama-tvc-section">
+                <div class="drama-tvc-header">
+                    <div class="drama-tvc-header-left">
+                        <span class="drama-tvc-emoji">🎬</span>
+                        <h3 class="drama-tvc-title">短剧 & TVC</h3>
+                        <p class="drama-tvc-subtitle">Short Drama & TV Commercial</p>
+                    </div>
+                    <div class="drama-tvc-tabs">
+                        <button class="drama-tvc-tab active" data-tab="drama">短剧 Drama</button>
+                        <button class="drama-tvc-tab" data-tab="tvc">TVC广告</button>
+                    </div>
+                </div>
+                <div class="drama-tvc-grid" id="dramaTvcGrid">
+                    <!-- Cards will be dynamically inserted here -->
+                </div>
+                <div class="drama-tvc-pagination" id="dramaTvcPagination">
+                    <!-- Pagination dots will be inserted here -->
+                </div>
+            </div>
+
             <!-- 十二生肖套图系列轮播 -->
             <div class="zodiac-carousel-section" id="zodiacCarouselSection">
                 <div class="zodiac-carousel-header">
@@ -3589,14 +3887,188 @@
             { id: 0, category: 'product', title: '香薰', desc: '产品设计作品展示', link: '#', img: 'images/work-1.webp', detailLink: 'works/Work1.html' },
             { id: 1, category: 'product', title: '洗面奶', desc: '产品设计作品展示', link: '#', img: 'images/work-2.webp', detailLink: 'works/Work2.html' },
             { id: 2, category: 'product', title: '作品标题 3', desc: '产品设计作品展示', link: '#', img: 'images/work-3.webp' },
-            { id: 3, category: 'IP', title: '粉团', desc: 'IP设计作品展示', link: '#', img: 'images/work-4.webp' },
-            { id: 4, category: 'IP', title: '作品标题 5', desc: 'IP设计作品展示', link: '#', img: 'images/work-5.webp' },
-            { id: 6, category: 'MV', title: '往上走', desc: 'MV作品展示', link: '#', img: 'images/work-7.webp', type: 'video', video: 'https://res.cloudinary.com/datarpybk/video/upload/f_auto,q_auto/v1782720171/mv1_gr0g5j.mp4' },
-            { id: 7, category: 'TVC', title: '啤酒', desc: 'TVC广告', link: '#', img: 'images/work-8.webp', type: 'video', video: 'video/TVC/TVC1.mp4' },
-            { id: 8, category: 'TVC', title: '作品标题 9', desc: 'TVC广告', link: '#', img: 'images/work-9.webp' },
-            { id: 9, category: 'TVC', title: '作品标题 10', desc: 'TVC广告', link: '#', img: 'images/work-10.webp' },
-            { id: 10, category: 'TVC', title: '作品标题 11', desc: 'TVC广告', link: '#', img: 'images/work-11.webp' },
+            { id: 3, category: 'product', title: 'Solid State Drive', desc: '产品设计作品展示', link: '#', img: 'images/work-4.webp' },
+            { id: 4, category: 'product', title: 'Insulated Cup', desc: '产品设计作品展示', link: '#', img: 'images/work-5.webp' },
+            { id: 5, category: 'IP', title: '粉团', desc: 'IP设计作品展示', link: '#', img: 'images/work-6.webp' },
+            { id: 6, category: 'IP', title: '2211', desc: 'IP设计作品展示', link: '#', img: 'images/work-7.webp' },
+            { id: 7, category: 'MV', title: '往上走', desc: 'MV作品展示', link: '#', img: 'images/work-8.webp', type: 'video', video: 'https://res.cloudinary.com/datarpybk/video/upload/f_auto,q_auto/v1782720171/mv1_gr0g5j.mp4'  },
         ];
+
+        // ========== Drama & TVC Data ==========
+        /*短剧和TVC的内容 - 16个卡片，8个短剧 + 8个TVC*/
+        let dramaTvcData = {
+            drama: [
+                { id: 0, title: '混沌觉醒', desc: '开启混沌觉醒之旅，演绎热血少年逆袭成长的史诗篇章', img: 'images/drama-1.webp', type: 'video', video: 'https://www.bilibili.com/video/BV129K36tEgf/?spm_id_from=333.1387.homepage.video_card.click&vd_source=08e47495e48e139b9aea8021d253ed73' },
+                { id: 1, title: '混沌觉醒', desc: '构筑东方幻想世界，讲述觉醒者突破命运枷锁的传奇篇章', img: 'images/drama-2.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1SaK56uEEr/?vd_source=08e47495e48e139b9aea8021d253ed73' },
+                { id: 2, title: '混沌觉醒', desc: '东方玄幻史诗篇章，揭开宿命轮回与力量觉醒的神秘序幕', img: 'images/drama-3.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1nUK56tEBW/?vd_source=08e47495e48e139b9aea8021d253ed73' },
+                { id: 3, title: '混沌觉醒', desc: '沉浸式幻想世界，探索命运交织下的觉醒力量与未知真相', img: 'images/drama-4.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1H2K56fEJS/?vd_source=08e47495e48e139b9aea8021d253ed73' },
+                { id: 4, title: '逆风飞翔', desc: '体育竞技题材，挑战自我突破极限的热血故事', img: 'images/drama-5.webp' },
+                { id: 5, title: '深夜食堂', desc: '温情治愈系，美食与人生百味的交织故事', img: 'images/drama-6.webp' },
+                { id: 6, title: '梦幻西游', desc: '游戏改编奇幻剧，虚拟与现实交织的命运', img: 'images/drama-7.webp' },
+                { id: 7, title: '青春校园', desc: '校园青春剧，讲述友情、爱情与梦想的故事', img: 'images/drama-8.webp' },
+            ],
+            tvc: [
+                { id: 0, title: '啤酒', desc: '凝聚纯正酿造工艺，演绎自然清爽的欢聚时刻', img: 'images/tvc-1.webp',type:'video',video:'video/TVC/tvc1.mp4' },
+                { id: 1, title: '香水', desc: '诠释法式奢华美学，彰显优雅迷人的高级魅力', img: 'images/tvc-2.webp',type:'video',video:'video/TVC/tvc2.mp4' },
+                { id: 2, title: '美妆种草', desc: '美妆产品TVC，诠释美丽与自信的理念', img: 'images/tvc-3.webp' },
+                { id: 3, title: '运动风尚', desc: '运动品牌广告，倡导健康积极的生活方式', img: 'images/tvc-4.webp' },
+                { id: 4, title: '家居美学', desc: '家居品牌TVC，呈现温馨舒适的生活空间', img: 'images/tvc-5.webp' },
+                { id: 5, title: '美食诱惑', desc: '食品广告片，唤醒味蕾的极致体验', img: 'images/tvc-6.webp' },
+                { id: 6, title: '汽车大片', desc: '汽车品牌广告，极致速度与优雅的融合', img: 'images/tvc-7.webp' },
+                { id: 7, title: '金融信赖', desc: '金融服务品牌，建立信任与专业形象', img: 'images/tvc-8.webp' },
+            ]
+        };
+
+        let currentDramaTvcTab = 'drama';
+        let currentDramaTvcPage = 0;
+        const cardsPerPage = 16;
+
+        function initDramaTvcSection() {
+            const tabs = document.querySelectorAll('.drama-tvc-tab');
+            const grid = document.getElementById('dramaTvcGrid');
+            const pagination = document.getElementById('dramaTvcPagination');
+
+            if (!grid) return;
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentDramaTvcTab = tab.dataset.tab;
+                    currentDramaTvcPage = 0;
+                    renderDramaTvcCards();
+                });
+            });
+
+            renderDramaTvcCards();
+        }
+
+        function renderDramaTvcCards() {
+            const grid = document.getElementById('dramaTvcGrid');
+            const pagination = document.getElementById('dramaTvcPagination');
+            if (!grid) return;
+
+            const data = dramaTvcData[currentDramaTvcTab];
+            const isTvc = currentDramaTvcTab === 'tvc';
+
+            grid.innerHTML = data.map((item, index) => `
+                <div class="drama-tvc-card" onclick="handleDramaTvcClick('${currentDramaTvcTab}', ${index})">
+                    <div class="drama-tvc-card-image">
+                        <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                        <div class="drama-tvc-card-overlay">
+                            <span class="drama-tvc-card-badge ${isTvc ? 'tvc' : ''}">${isTvc ? 'TVC' : 'Drama'}</span>
+                            <div class="drama-tvc-card-play"></div>
+                            <h4 class="drama-tvc-card-title">${item.title}</h4>
+                            <p class="drama-tvc-card-desc">${item.desc}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            if (pagination) {
+                pagination.innerHTML = `
+                    <div class="drama-tvc-pagination-dot active" onclick="goToDramaTvcPage(0)"></div>
+                `;
+            }
+        }
+
+        function handleDramaTvcClick(type, index) {
+            const data = dramaTvcData[type][index];
+            if (data.video) {
+                openDramaTvcVideo(data);
+            }
+        }
+
+        function openDramaTvcVideo(item) {
+            const videoModal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoContainer = videoPlayer ? videoPlayer.parentElement : null;
+
+            if (!videoModal) return;
+
+            // 判断是否为哔哩哔哩或其他外部嵌入链接
+            const isExternalEmbed = item.video.includes('bilibili.com') || 
+                                    item.video.includes('youtube.com') || 
+                                    item.video.includes('youtu.be') ||
+                                    item.video.includes('vimeo.com') ||
+                                    item.video.includes('player.bilibili.com');
+
+            if (isExternalEmbed) {
+                // 哔哩哔哩嵌入处理 - 将链接转换为嵌入URL
+                let embedUrl = item.video;
+                
+                // 处理哔哩哔哩链接
+                if (embedUrl.includes('bilibili.com')) {
+                    // 提取BV号
+                    const bvMatch = embedUrl.match(/BV([a-zA-Z0-9]+)/);
+                    if (bvMatch && bvMatch[0]) {
+                        embedUrl = 'https://player.bilibili.com/player.html?bvid=' + bvMatch[0] + '&page=1&autoplay=1';
+                    }
+                }
+
+                // 隐藏原生视频，显示嵌入iframe
+                videoPlayer.style.display = 'none';
+                
+                // 隐藏加载动画（iframe不需要）
+                const loadingOverlay = document.getElementById('videoLoadingOverlay');
+                if (loadingOverlay) loadingOverlay.style.display = 'none';
+                
+                let iframe = videoContainer.querySelector('iframe');
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    iframe.setAttribute('allowfullscreen', '');
+                    iframe.setAttribute('scrolling', 'no');
+                    iframe.setAttribute('frameborder', '0');
+                    iframe.setAttribute('allow', 'autoplay; fullscreen');
+                    videoContainer.insertBefore(iframe, videoPlayer);
+                }
+                iframe.src = '';
+                setTimeout(() => {
+                    iframe.src = embedUrl;
+                }, 50);
+                iframe.style.display = 'block';
+            } else {
+                // 本地视频处理
+                const videoSource = videoPlayer.querySelector('source');
+                const loadingOverlay = document.getElementById('videoLoadingOverlay');
+
+                // 移除可能存在的iframe
+                const iframe = videoContainer.querySelector('iframe');
+                if (iframe) iframe.style.display = 'none';
+
+                videoPlayer.style.display = 'block';
+
+                // 设置视频源
+                videoSource.src = item.video;
+                videoPlayer.load();
+
+                // 显示加载动画
+                if (loadingOverlay) {
+                    loadingOverlay.style.display = 'flex';
+                }
+
+                // 视频加载完成后隐藏加载动画
+                videoPlayer.onloadeddata = function() {
+                    if (loadingOverlay) loadingOverlay.style.display = 'none';
+                };
+
+                // 视频加载失败处理
+                videoPlayer.onerror = function() {
+                    if (loadingOverlay) {
+                        loadingOverlay.innerHTML = '<p style="color: #ff4444;">视频加载失败，请检查文件路径: ' + item.video + '</p>';
+                    }
+                };
+
+                // 尝试播放
+                videoPlayer.play().catch(e => {
+                    console.log('自动播放被阻止，需要用户点击播放');
+                });
+            }
+
+            // 显示视频弹窗
+            videoModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
         // ========== Works Filter & Animation ==========
         const categoryOrder = ['product', 'IP', 'MV', 'TVC', 'motion'];
@@ -4383,14 +4855,41 @@
                     actionLink.style.display = 'inline-flex';
                     document.getElementById('modalDate').textContent = 'Facial Cleanser';
                     document.getElementById('modalAuthor').textContent = '';
-                } else if (work.id === 3) {
+                } else if (work.id === 5) {
                     // 粉团：隐藏标签，显示"查看详情"按钮
                     tags.style.display = 'none';
                     actionContainer.style.display = 'flex';
-                    actionLink.href = 'works/Work4.html';
+                    actionLink.href = 'works/Work6.html';
                     actionLink.textContent = '查看详情';
                     actionLink.style.display = 'inline-flex';
                     document.getElementById('modalDate').textContent = 'Fen Tuan';
+                    document.getElementById('modalAuthor').textContent = '';
+                } else if (work.id === 2) {
+                    // 作品标题 3：隐藏标签，显示"查看详情"按钮
+                    tags.style.display = 'none';
+                    actionContainer.style.display = 'flex';
+                    actionLink.href = work.detailLink || '#';
+                    actionLink.textContent = '查看详情';
+                    actionLink.style.display = 'inline-flex';
+                    document.getElementById('modalDate').textContent = 'Product Design 3';
+                    document.getElementById('modalAuthor').textContent = '';
+                } else if (work.id === 3) {
+                    // 固态硬盘：隐藏标签，显示"查看详情"按钮
+                    tags.style.display = 'none';
+                    actionContainer.style.display = 'flex';
+                    actionLink.href = work.detailLink || 'works/Work4.html';
+                    actionLink.textContent = '查看详情';
+                    actionLink.style.display = 'inline-flex';
+                    document.getElementById('modalDate').textContent = '固态硬盘';
+                    document.getElementById('modalAuthor').textContent = '';
+                } else if (work.id === 4) {
+                    // 保温杯：隐藏标签，显示"查看详情"按钮
+                    tags.style.display = 'none';
+                    actionContainer.style.display = 'flex';
+                    actionLink.href = work.detailLink || 'works/Work5.html';
+                    actionLink.textContent = '查看详情';
+                    actionLink.style.display = 'inline-flex';
+                    document.getElementById('modalDate').textContent = '保温杯';
                     document.getElementById('modalAuthor').textContent = '';
                 } else if (work.link && work.link !== '#') {
                     // 其他有链接的作品：显示标签和按钮
@@ -4462,6 +4961,13 @@
             videoPlayer.pause();
             videoPlayer.currentTime = 0;
             
+            // 清理iframe（如果是嵌入视频）
+            const iframe = videoPlayer.parentElement.querySelector('iframe');
+            if (iframe) {
+                iframe.src = '';
+                iframe.style.display = 'none';
+            }
+            
             // 隐藏弹窗
             videoModal.classList.remove('active');
             document.body.style.overflow = '';
@@ -4529,6 +5035,7 @@
             // 初始化作品网格（首屏可见区域的动画依赖）
             initWorksFilter();
             initWorksScrollAnimation();
+            initDramaTvcSection();
             
             // 初始化十二生肖轮播
             initZodiacCarousel();
@@ -4583,7 +5090,7 @@
                     'images/work-2.webp',
                     'images/work-3.webp',
                     'images/work-4.webp',
-                    'images/work-5.webp',
+                    'images/work-6.webp',
                 ];
                 const showcaseImageEl = document.getElementById('showcaseImage');
                 const showcaseDots = document.querySelectorAll('.showcase-dot');
