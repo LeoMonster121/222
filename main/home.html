@@ -1063,6 +1063,304 @@
             }
         }
 
+        /* ========== Poster Section Styles ========== */
+        .poster-section {
+            width: 100%;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .poster-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 20px;
+        }
+
+        .poster-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .poster-emoji {
+            font-size: 2rem;
+        }
+
+        .poster-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .poster-subtitle {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .poster-grid {
+            display: flex;
+            gap: 16px;
+        }
+
+        .poster-card {
+            flex: 0 0 auto;
+            width: calc((100% - 96px) / 7);
+            min-width: 140px;
+            max-width: 200px;
+            aspect-ratio: 9 / 16;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .poster-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4),
+                        0 0 20px rgba(255, 58, 242, 0.2);
+            border-color: rgba(255, 58, 242, 0.3);
+        }
+
+        .poster-card-image {
+            width: 100%;
+            height: 100%;
+        }
+
+        .poster-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .poster-card:hover .poster-card-image img {
+            transform: scale(1.08);
+        }
+
+        .poster-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.85) 0%,
+                rgba(0, 0, 0, 0.2) 40%,
+                transparent 70%
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 12px;
+        }
+
+        .poster-card-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: white;
+            margin-bottom: 4px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .poster-card-desc {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.3;
+        }
+
+        .poster-view-all {
+            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .poster-view-all:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 1200px) {
+            .poster-card {
+                width: calc((100% - 80px) / 7);
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .poster-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .poster-card {
+                width: calc((100% - 48px) / 5);
+                min-width: 100px;
+            }
+
+            .poster-title {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .poster-card {
+                width: 140px;
+                min-width: 140px;
+            }
+        }
+
+        /* ========== Poster Modal Styles ========== */
+        .poster-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 10000;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .poster-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .poster-modal-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            max-width: 680px;
+        }
+
+        .poster-modal-close {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .poster-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .poster-modal-nav {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .poster-modal-nav:hover {
+            background: rgba(255, 58, 242, 0.6);
+            border-color: var(--accent-magenta);
+        }
+
+        .poster-modal-image {
+            flex: 1;
+            max-height: calc(100vh - 200px);
+            aspect-ratio: 9 / 16;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .poster-modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .poster-modal-footer {
+            margin-top: 16px;
+            text-align: center;
+            display: inline-block;
+            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .poster-modal-counter {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 600px) {
+            .poster-modal-container {
+                width: 100%;
+                gap: 8px;
+            }
+
+            .poster-modal-nav {
+                width: 32px;
+                height: 32px;
+            }
+
+            .poster-modal-close {
+                top: -40px;
+                right: 5px;
+                width: 32px;
+                height: 32px;
+            }
+
+            .poster-modal-footer {
+                padding: 10px 16px;
+            }
+        }
+
         /* ========== Zodiac Series Carousel Styles ========== */
         .zodiac-carousel-section {
             position: relative;
@@ -3532,7 +3830,7 @@
                             <div class="detail-box">
                                 <span class="detail-icon">🔗</span>
                             </div>
-                            <span class="detail-text">github.com/username</span>
+                            <span class="detail-text">github.com/LeoMonster121</span>
                         </div>
 
                         <!-- 技能工具 -->
@@ -3646,8 +3944,6 @@
                         <button class="filter-btn" data-filter="product">产品</button>
                         <button class="filter-btn" data-filter="IP">IP设计</button>
                         <button class="filter-btn" data-filter="MV">MV</button>
-                        <button class="filter-btn" data-filter="motion">TVC广告</button>
-                        <button class="filter-btn" data-filter="TVC">短剧/漫剧</button>
                     </div>
                 </div>
 
@@ -3664,6 +3960,9 @@
                             <span class="showcase-dot" data-index="2"></span>
                             <span class="showcase-dot" data-index="3"></span>
                             <span class="showcase-dot" data-index="4"></span>
+                            <span class="showcase-dot" data-index="5"></span>
+                            <span class="showcase-dot" data-index="6"></span>
+                            <span class="showcase-dot" data-index="7"></span>
                         </div>
                     </div>
                 </div>
@@ -3698,6 +3997,21 @@
                 </div>
                 <div class="drama-tvc-pagination" id="dramaTvcPagination">
                     <!-- Pagination dots will be inserted here -->
+                </div>
+            </div>
+
+            <!-- 海报模块 -->
+            <div class="poster-section">
+                <div class="poster-header">
+                    <div class="poster-header-left">
+                        <span class="poster-emoji">🎨</span>
+                        <h3 class="poster-title">精选海报</h3>
+                        <p class="poster-subtitle">Poster Collection</p>
+                    </div>
+                    <button class="poster-view-all" onclick="openPosterModal(0)">查看全部 →</button>
+                </div>
+                <div class="poster-grid" id="posterGrid">
+                    <!-- Poster cards will be dynamically inserted here -->
                 </div>
             </div>
 
@@ -3790,6 +4104,29 @@
             <path d="M18 15l-6-6-6 6"/>
         </svg>
     </button>
+
+    <!-- 海报查看模态框 -->
+    <div class="poster-modal-overlay" id="posterModal">
+        <button class="poster-modal-close" onclick="closePosterModal()">✕</button>
+        <div class="poster-modal-container">
+            <button class="poster-modal-nav prev" onclick="navigatePoster(-1)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            </button>
+            <div class="poster-modal-image">
+                <img id="posterModalImage" src="" alt="">
+            </div>
+            <button class="poster-modal-nav next" onclick="navigatePoster(1)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="poster-modal-footer">
+            <p class="poster-modal-counter" id="posterModalCounter"></p>
+        </div>
+    </div>
 
     <!-- Modal -->
     <div class="modal-overlay" id="modal">
@@ -3890,7 +4227,7 @@
             { id: 3, category: 'product', title: 'Solid State Drive', desc: '产品设计作品展示', link: '#', img: 'images/work-4.webp' },
             { id: 4, category: 'product', title: 'Insulated Cup', desc: '产品设计作品展示', link: '#', img: 'images/work-5.webp' },
             { id: 5, category: 'IP', title: '粉团', desc: 'IP设计作品展示', link: '#', img: 'images/work-6.webp' },
-            { id: 6, category: 'IP', title: '2211', desc: 'IP设计作品展示', link: '#', img: 'images/work-7.webp' },
+            { id: 6, category: 'IP', title: '榴芒', desc: 'IP设计作品展示', link: '#', img: 'images/work-7.webp' },
             { id: 7, category: 'MV', title: '往上走', desc: 'MV作品展示', link: '#', img: 'images/work-8.webp', type: 'video', video: 'https://res.cloudinary.com/datarpybk/video/upload/f_auto,q_auto/v1782720171/mv1_gr0g5j.mp4'  },
         ];
 
@@ -3910,14 +4247,96 @@
             tvc: [
                 { id: 0, title: '啤酒', desc: '凝聚纯正酿造工艺，演绎自然清爽的欢聚时刻', img: 'images/tvc-1.webp',type:'video',video:'video/TVC/tvc1.mp4' },
                 { id: 1, title: '香水', desc: '诠释法式奢华美学，彰显优雅迷人的高级魅力', img: 'images/tvc-2.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784210867/tvc2_i8pbhw.mp4' },
-                { id: 2, title: '美妆种草', desc: '美妆产品TVC，诠释美丽与自信的理念', img: 'images/tvc-3.webp' },
-                { id: 3, title: '运动风尚', desc: '运动品牌广告，倡导健康积极的生活方式', img: 'images/tvc-4.webp' },
-                { id: 4, title: '家居美学', desc: '家居品牌TVC，呈现温馨舒适的生活空间', img: 'images/tvc-5.webp' },
+                { id: 2, title: '固态硬盘', desc: '极速存储，释放高效创作与无限可能', img: 'images/tvc-3.webp' },
+                { id: 3, title: '保温杯', desc: '锁住温度，传递品质生活的温暖', img: 'images/tvc-4.webp' },
+                { id: 4, title: '无线鼠标', desc: '科技产品，诠释高效精准的操控体验', img: 'images/tvc-5.webp' },
                 { id: 5, title: '美食诱惑', desc: '食品广告片，唤醒味蕾的极致体验', img: 'images/tvc-6.webp' },
                 { id: 6, title: '汽车大片', desc: '汽车品牌广告，极致速度与优雅的融合', img: 'images/tvc-7.webp' },
                 { id: 7, title: '金融信赖', desc: '金融服务品牌，建立信任与专业形象', img: 'images/tvc-8.webp' },
             ]
         };
+
+        // ========== Poster Data ==========
+        const posterData = [
+            { id: 0, title: '夏日音乐节', desc: '音浪席卷夏日星空', img: 'images/poster/1.webp' },
+            { id: 1, title: '立春', desc: '万物初醒春意盎然', img: 'images/poster/2.webp' },
+            { id: 2, title: '冬至', desc: '雪落山河团圆之时', img: 'images/poster/3.webp' },
+            { id: 3, title: '端午节', desc: '粽香满溢古韵新生', img: 'images/poster/4.webp' },
+            { id: 4, title: '西瓜', desc: '数字科技与创新融合', img: 'images/poster/5.webp' },
+            { id: 5, title: '艺术抽象', desc: '抽象艺术视觉表达', img: 'images/poster/6.webp' },
+            { id: 6, title: '东方美学', desc: '东方传统与现代设计', img: 'images/poster/7.webp' },
+        ];
+
+        function initPosterSection() {
+            const grid = document.getElementById('posterGrid');
+            if (!grid) return;
+
+            grid.innerHTML = posterData.map((item, index) => `
+                <div class="poster-card" onclick="handlePosterClick(${index})">
+                    <div class="poster-card-image">
+                        <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                    </div>
+                    <div class="poster-card-overlay">
+                        <h4 class="poster-card-title">${item.title}</h4>
+                        <p class="poster-card-desc">${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handlePosterClick(index) {
+            openPosterModal(index);
+        }
+
+        let currentPosterIndex = 0;
+
+        function openPosterModal(index) {
+            currentPosterIndex = index;
+            updatePosterModal();
+            const modal = document.getElementById('posterModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePosterModal() {
+            const modal = document.getElementById('posterModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function navigatePoster(direction) {
+            const total = posterData.length;
+            currentPosterIndex = (currentPosterIndex + direction + total) % total;
+            updatePosterModal();
+        }
+
+        function updatePosterModal() {
+            const item = posterData[currentPosterIndex];
+            document.getElementById('posterModalImage').src = item.img;
+            document.getElementById('posterModalImage').alt = item.title;
+            document.getElementById('posterModalCounter').textContent = `${currentPosterIndex + 1} / ${posterData.length}`;
+        }
+
+        // 键盘导航支持
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('posterModal');
+            if (!modal.classList.contains('active')) return;
+
+            if (e.key === 'Escape') {
+                closePosterModal();
+            } else if (e.key === 'ArrowLeft') {
+                navigatePoster(-1);
+            } else if (e.key === 'ArrowRight') {
+                navigatePoster(1);
+            }
+        });
+
+        // 点击模态框外部关闭
+        document.getElementById('posterModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePosterModal();
+            }
+        });
 
         let currentDramaTvcTab = 'drama';
         let currentDramaTvcPage = 0;
@@ -4093,11 +4512,9 @@
         }
 
         // ========== Works Filter & Animation ==========
-        const categoryOrder = ['product', 'IP', 'MV', 'TVC', 'motion'];
+        const categoryOrder = ['product', 'IP', 'MV'];
         const categoryNames = {
             'IP': 'IP设计',
-            'TVC': 'TVC广告',
-            'motion': '短剧/漫剧',
             'MV': 'MV',
             'product': '产品设计'
         };
@@ -4886,6 +5303,15 @@
                     actionLink.style.display = 'inline-flex';
                     document.getElementById('modalDate').textContent = 'Fen Tuan';
                     document.getElementById('modalAuthor').textContent = '';
+                } else if (work.id === 6) {
+                    // 榴芒：隐藏标签，显示"查看详情"按钮
+                    tags.style.display = 'none';
+                    actionContainer.style.display = 'flex';
+                    actionLink.href = 'works/Work7.html';
+                    actionLink.textContent = '查看详情';
+                    actionLink.style.display = 'inline-flex';
+                    document.getElementById('modalDate').textContent = 'Durian Mang';
+                    document.getElementById('modalAuthor').textContent = '';
                 } else if (work.id === 2) {
                     // 作品标题 3：隐藏标签，显示"查看详情"按钮
                     tags.style.display = 'none';
@@ -5058,6 +5484,7 @@
             initWorksFilter();
             initWorksScrollAnimation();
             initDramaTvcSection();
+            initPosterSection();
             
             // 初始化十二生肖轮播
             initZodiacCarousel();
@@ -5112,7 +5539,10 @@
                     'images/work-2.webp',
                     'images/work-3.webp',
                     'images/work-4.webp',
+                    'images/work-5.webp',
                     'images/work-6.webp',
+                    'images/work-7.webp',
+                    'images/work-8.webp',
                 ];
                 const showcaseImageEl = document.getElementById('showcaseImage');
                 const showcaseDots = document.querySelectorAll('.showcase-dot');

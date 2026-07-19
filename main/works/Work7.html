@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>粉团 | 作品详情</title>
+    <title>榴芒 | 作品详情</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;700&family=Bangers&display=swap" rel="stylesheet">
@@ -74,15 +74,15 @@
         .intro-wrapper {
             flex-shrink: 0;
             width: min(360px, 100%);
-            height: calc(100% - 70px);/*左侧详细信息最外层矩形框大小*/
-            margin-top: 40px;/*调整左侧详情信息整体位置*/
+            height: calc(100% - 60px);
+            margin-top: 30px;
             will-change: transform;
             display: flex;
             align-items: flex-start;
         }
 
         .intro {
-            padding: 80px 30px 36px;/*左侧矩形框内的内容位置，80px为高度*/
+            padding: 85px 30px 36px;
             height: 100%;
             border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 24px;
@@ -167,7 +167,6 @@
             background: rgba(0, 245, 212, 0.08);
         }
 
-        /* 工具卡片样式 */
         .intro-tools {
             display: flex;
             flex-wrap: wrap;
@@ -357,28 +356,23 @@
             display: flex;
             flex-direction: column;
         }
-        /*卡片错位排列*/
+
         .gallery-card:nth-child(1) { height: auto; min-height: 100%; }
-        .gallery-card:nth-child(2) { height: auto; min-height: 58%; align-self: flex-end; }
-        .gallery-card:nth-child(3) { height: auto; min-height: 72%; align-self: flex-end; }
-        .gallery-card:nth-child(4) { height: auto; min-height: 72%; align-self: flex-end; }
-        .gallery-card:nth-child(5) { height: auto; min-height: 90%; align-self: flex-end; }
-        .gallery-card:nth-child(6) { height: auto; min-height: 55%; align-self: flex-end; }
-        /*
-        .gallery-card:nth-child(1) { height: 100%; }
-        .gallery-card:nth-child(2) { height: 88%; align-self: flex-end; }
-        .gallery-card:nth-child(3) { height: 96%; }
-        .gallery-card:nth-child(4) { height: 84%; align-self: flex-end; }
-        .gallery-card:nth-child(5) { height: 100%; }
-        .gallery-card:nth-child(6) { height: 90%; align-self: flex-end; }
-        */
+        .gallery-card:nth-child(2) { height: auto; min-height: 60%; align-self: flex-end; }
+        .gallery-card:nth-child(3) { height: auto; min-height: 73%; align-self: flex-end; }
+        .gallery-card:nth-child(4) { height: auto; min-height: 74%; align-self: flex-end; }
+        .gallery-card:nth-child(5) { height: auto; min-height: 95%; align-self: flex-end; }
+        .gallery-card:nth-child(6) { height: auto; min-height: 58%; align-self: flex-end; }
+        .gallery-card:nth-child(7) { height: auto; min-height: 65%; align-self: flex-end; }
+        .gallery-card:nth-child(8) { height: auto; min-height: 57%; align-self: flex-end; }
+        .gallery-card:nth-child(9) { height: auto; min-height: 73%; align-self: flex-end; }
+        .gallery-card:nth-child(10) { height: auto; min-height: 65%; align-self: flex-end; }
 
         .gallery-card:hover {
             transform: translateY(-10px) scale(1.04);
             box-shadow: 0 24px 50px rgba(255, 58, 242, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.18);
         }
 
-        /* 查看详情按钮 */
         .card-detail-btn {
             position: absolute;
             top: 14px;
@@ -408,7 +402,6 @@
             box-shadow: 0 6px 20px rgba(255, 58, 242, 0.6);
         }
 
-        /* 模态窗口 */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -602,6 +595,19 @@
             background: #111118;
         }
 
+        .card-image-wrap.poster-9-16 {
+            aspect-ratio: 9/16;
+            max-height: 580px;
+        }
+
+        .poster-card {
+            width: 328px !important;
+        }
+
+        .card-image-wrap.poster-9-16 img {
+            object-fit: contain !important;
+        }
+
         .card-image-wrap img {
             width: 100%;
             height: 100%;
@@ -661,7 +667,7 @@
 
         .back-btn {
             position: fixed;
-            top: 60px;/*右上角按钮位置*/
+            top: 60px;
             right: 24px;
             z-index: 1000;
             display: inline-flex;
@@ -737,9 +743,9 @@
                             <span>作品详情</span>
                         </div>
 
-                        <h1>「粉团」<br>视觉形象与延展设计</h1>
+                        <h1>「榴芒」<br>视觉形象与延展设计</h1>
                         <p class="intro-lead">
-                            这是一套以柔软质感、鲜明色彩与高饱和意象为核心的 IP 视觉作品。
+                            这是一套以热带水果为灵感、鲜明色彩与高饱和意象为核心的 IP 视觉作品。
                             设计从情绪板出发，统一配色、图形与动态语言，用于线下周边、线上传播与活动物料。
                         </p>
 
@@ -765,7 +771,7 @@
                         <div class="intro-tools">
                             <div class="tool-card">
                                 <div class="tool-icon chatgpt">
-                                    <img src="../images/work6/chatgpt.png" alt="ChatGPT" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px;">
+                                    <img src="../images/work7/chatgpt.png" alt="ChatGPT" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px;">
                                 </div>
                                 <div class="tool-info">
                                     <span class="tool-name">ChatGPT</span>
@@ -775,7 +781,7 @@
 
                             <div class="tool-card">
                                 <div class="tool-icon photoshop">
-                                    <img src="../images/work6/photoshop.png" alt="Photoshop" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px;">
+                                    <img src="../images/work7/photoshop.png" alt="Photoshop" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px;">
                                 </div>
                                 <div class="tool-info">
                                     <span class="tool-name">Photoshop</span>
@@ -785,7 +791,7 @@
 
                             <div class="tool-card">
                                 <div class="tool-icon illustrator">
-                                    <img src="../images/work6/illustrator.png" alt="Illustrator" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px;">
+                                    <img src="../images/work7/illustrator.png" alt="Illustrator" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px;">
                                 </div>
                                 <div class="tool-info">
                                     <span class="tool-name">Illustrator</span>
@@ -793,11 +799,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- 再看介绍按钮
-                        <div class="intro-actions">
-                            <button class="btn btn-ghost" onclick="replayIntro()">再看介绍</button>
-                        </div>
-                        -->
                     </aside>
                 </div>
 
@@ -806,23 +807,23 @@
                         <h2 class="gallery-title">Cards</h2>
                         <div class="gallery-hint">滚轮横向浏览 · 悬停查看细节</div>
                         <div class="gallery-inner" id="galleryInner">
-                            <article class="gallery-card" data-text="" data-image="../images/work6/1.webp">
+                            <article class="gallery-card" data-image="../images/work7/1.webp">
                                 <button class="card-detail-btn" onclick="openModal(this)">
                                     查看详情
                                 </button>
                                 <div class="card-image-wrap" style="aspect-ratio: 297/420;">
-                                    <img alt="粉团-01" src="../images/work6/1.webp" loading="lazy">
+                                    <img alt="榴芒-01" src="../images/work7/1.webp" loading="lazy">
                                 </div>
                                 <div class="card-caption">
                                     <div class="card-num">01 IP展板</div>
-                                    <div class="card-text">角色设定与视觉体系展示，打造兼具温度感与辨识度的IP形象。</div>
+                                    <div class="card-text">主视觉构图与角色气质定调，强调热带风情与高饱和点缀。</div>
                                 </div>
                             </article>
 
-                            <article class="gallery-card" data-image="../images/work6/2.webp">
+                            <article class="gallery-card" data-image="../images/work7/2.webp">
                                 <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
-                                <div class="card-image-wrap" style="aspect-ratio: auto;">
-                                    <img alt="粉团-02" src="../images/work6/2.webp" loading="lazy">
+                                <div class="card-image-wrap" style="aspect-ratio: 1/1;">
+                                    <img alt="榴芒-02" src="../images/work7/2.webp" loading="lazy">
                                 </div>
                                 <div class="card-caption">
                                     <div class="card-num">02 衍生品</div>
@@ -830,10 +831,10 @@
                                 </div>
                             </article>
 
-                            <article class="gallery-card" data-image="../images/work6/3.webp">
+                            <article class="gallery-card" data-image="../images/work7/3.webp">
                                 <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
                                 <div class="card-image-wrap" style="aspect-ratio: 1/1;">
-                                    <img alt="粉团-03" src="../images/work6/3.webp" loading="lazy">
+                                    <img alt="榴芒-03" src="../images/work7/3.webp" loading="lazy">
                                 </div>
                                 <div class="card-caption">
                                     <div class="card-num">03 服装造型</div>
@@ -841,10 +842,10 @@
                                 </div>
                             </article>
 
-                            <article class="gallery-card" data-image="../images/work6/4.webp">
+                            <article class="gallery-card" data-image="../images/work7/4.webp">
                                 <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
                                 <div class="card-image-wrap" style="aspect-ratio: 1/1;">
-                                    <img alt="粉团-04" src="../images/work6/4.webp" loading="lazy">
+                                    <img alt="榴芒-04" src="../images/work7/4.webp" loading="lazy">
                                 </div>
                                 <div class="card-caption">
                                     <div class="card-num">04 表情包</div>
@@ -852,10 +853,10 @@
                                 </div>
                             </article>
 
-                            <article class="gallery-card" data-image="../images/work6/5.webp">
+                            <article class="gallery-card poster-card" data-image="../images/work7/5.webp">
                                 <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
-                                <div class="card-image-wrap">
-                                    <img alt="粉团-05" src="../images/work6/5.webp" loading="lazy">
+                                <div class="card-image-wrap poster-9-16" style="aspect-ratio: 9/16;">
+                                    <img alt="榴芒-05" src="../images/work7/5.webp" loading="lazy">
                                 </div>
                                 <div class="card-caption">
                                     <div class="card-num">05 海报</div>
@@ -863,14 +864,58 @@
                                 </div>
                             </article>
 
-                            <article class="gallery-card" data-image="../images/work6/6.webp">
+                            <article class="gallery-card" data-image="../images/work7/6.webp">
                                 <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
-                                <div class="card-image-wrap" style="aspect-ratio: 4/3;">
-                                    <img alt="粉团-06" src="../images/work6/6.webp" loading="lazy">
+                                <div class="card-image-wrap" style="aspect-ratio: 1/1;">
+                                    <img alt="榴芒-06" src="../images/work7/6.webp" loading="lazy">
                                 </div>
                                 <div class="card-caption">
                                     <div class="card-num">06 盲盒系列</div>
                                     <div class="card-text">形态创意延展，打造收藏级潮玩体验。</div>
+                                </div>
+                            </article>
+
+                            <article class="gallery-card" data-image="../images/work7/7.webp">
+                                <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
+                                <div class="card-image-wrap" style="aspect-ratio: 1/1;">
+                                    <img alt="榴芒-07" src="../images/work7/7.webp" loading="lazy">
+                                </div>
+                                <div class="card-caption">
+                                    <div class="card-num">07 季节限定系列</div>
+                                    <div class="card-text">产品包装延展设计，打造独特的视觉识别系统。</div>
+                                </div>
+                            </article>
+
+                            <article class="gallery-card" data-image="../images/work7/8.webp">
+                                <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
+                                <div class="card-image-wrap" style="aspect-ratio: 4/3;">
+                                    <img alt="榴芒-08" src="../images/work7/8.webp" loading="lazy">
+                                </div>
+                                <div class="card-caption">
+                                    <div class="card-num">08 甜果镇</div>
+                                    <div class="card-text">社交平台传播素材，统一线上视觉语言与调性。</div>
+                                </div>
+                            </article>
+
+                            <article class="gallery-card" data-image="../images/work7/9.webp">
+                                <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
+                                <div class="card-image-wrap" style="aspect-ratio: 1/1;">
+                                    <img alt="榴芒-09" src="../images/work7/9.webp" loading="lazy">
+                                </div>
+                                <div class="card-caption">
+                                    <div class="card-num">09 好朋友</div>
+                                    <div class="card-text">线下活动物料设计，包括易拉宝、X展架等。</div>
+                                </div>
+                            </article>
+
+                            <article class="gallery-card" data-image="../images/work7/10.webp">
+                                <button class="card-detail-btn" onclick="openModal(this)">查看详情</button>
+                                <div class="card-image-wrap" style="aspect-ratio: 1/1;">
+                                    <img alt="榴芒-10" src="../images/work7/10.webp" loading="lazy">
+                                </div>
+                                <div class="card-caption">
+                                    <div class="card-num">10 关系网</div>
+                                    <div class="card-text">品牌视觉规范手册，定义标准色彩、字体与使用规范。</div>
                                 </div>
                             </article>
                             <div class="scroll-bar"><span id="scrollBarThumb"></span></div>
@@ -881,7 +926,6 @@
         </div>
     </div>
 
-    <!-- 详情模态窗口 -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <button class="modal-close" id="modalClose">
@@ -1065,7 +1109,6 @@
         updateThumb();
         scheduleFrame();
 
-        // 模态窗口功能 - Figma 风格缩放 + 拖拽平移
         const modalOverlay = document.getElementById('modalOverlay');
         const modalImage = document.getElementById('modalImage');
         const modalImageWrapper = document.getElementById('modalImageWrapper');
@@ -1132,7 +1175,6 @@
             const title = card.dataset.title;
             const text = card.dataset.text;
 
-            // 显示标题和描述
             const modalCaption = document.getElementById('modalCaption');
             const modalTitle = document.getElementById('modalTitle');
             const modalDesc = document.getElementById('modalDesc');
@@ -1250,7 +1292,6 @@
             modalImageWrapper.classList.remove('dragging');
         });
 
-        // 双击重置
         modalImageWrapper.addEventListener('dblclick', (e) => {
             e.preventDefault();
             resetView();
@@ -1274,7 +1315,6 @@
             }
         });
 
-        // 拖拽文件支持
         modalImageWrapper.addEventListener('dragover', (e) => {
             e.preventDefault();
             e.dataTransfer.dropEffect = 'none';
