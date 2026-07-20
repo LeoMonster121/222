@@ -4447,7 +4447,7 @@
                 }, 50);
                 iframe.style.display = 'block';
             } else {
-                // 本地视频处理
+                // 本地视频处理 - Cloudinary f_auto视频
                 const videoSource = videoPlayer.querySelector('source');
                 const loadingOverlay = document.getElementById('videoLoadingOverlay');
 
@@ -4455,9 +4455,13 @@
                 const iframe = videoContainer.querySelector('iframe');
                 if (iframe) iframe.style.display = 'none';
 
+                // 先显示弹窗（让用户看到界面）
+                videoModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
                 videoPlayer.style.display = 'block';
 
-                // 设置视频源
+                // 设置视频源并加载
                 videoSource.src = item.video;
                 videoPlayer.load();
 
@@ -4467,15 +4471,13 @@
                     loadingOverlay.innerHTML = '<div class="video-loading-spinner"></div><p>视频加载中...</p><p style="font-size:12px;color:#999;">' + item.title + '</p>';
                 }
 
-                // 视频加载完成后隐藏加载动画
-                videoPlayer.onloadeddata = function() {
-                    console.log('✅ 视频数据加载完成:', item.video);
-                    if (loadingOverlay) loadingOverlay.style.display = 'none';
-                };
-
-                // 视频可以开始播放时
-                videoPlayer.oncanplay = function() {
+                // 视频可以开始播放时隐藏加载动画（使用canplaythrough而非loadeddata）
+                videoPlayer.oncanplaythrough = function() {
                     console.log('🎬 视频可以开始播放:', item.video);
+                    if (loadingOverlay) loadingOverlay.style.display = 'none';
+                    videoPlayer.play().catch(e => {
+                        console.log('自动播放被阻止');
+                    });
                 };
 
                 // 视频加载失败处理 - 增强错误诊断
@@ -4499,16 +4501,7 @@
 
                 // 添加加载开始日志
                 console.log('🔄 开始加载视频:', item.video);
-
-                // 尝试播放
-                videoPlayer.play().catch(e => {
-                    console.log('自动播放被阻止，需要用户点击播放');
-                });
             }
-
-            // 显示视频弹窗
-            videoModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
         // ========== Works Filter & Animation ==========
