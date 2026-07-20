@@ -1258,9 +1258,7 @@
             position: relative;
             display: flex;
             align-items: center;
-            gap: 16px;
-            width: 100%;
-            max-width: 680px;
+            justify-content: center;
         }
 
         .poster-modal-close {
@@ -1288,9 +1286,9 @@
         }
 
         .poster-modal-nav {
+            position: absolute;
             width: 40px;
             height: 40px;
-            flex-shrink: 0;
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
@@ -1300,6 +1298,15 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            z-index: 5;
+        }
+
+        .poster-modal-nav.prev {
+            left: -60px;
+        }
+
+        .poster-modal-nav.next {
+            right: -60px;
         }
 
         .poster-modal-nav:hover {
@@ -1308,18 +1315,42 @@
         }
 
         .poster-modal-image {
+            position: relative;
             flex: 1;
             max-height: calc(100vh - 200px);
-            aspect-ratio: 9 / 16;
             border-radius: 12px;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.05);
         }
 
         .poster-modal-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+            display: block;
+            max-height: calc(100vh - 200px);
+            width: auto;
+            height: auto;
+        }
+
+        .poster-modal-close-image {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 5;
+            font-size: 1.2rem;
+        }
+
+        .poster-modal-close-image:hover {
+            background: rgba(220, 38, 38, 0.8);
+            border-color: #dc2626;
         }
 
         .poster-modal-footer {
@@ -1354,6 +1385,14 @@
                 right: 5px;
                 width: 32px;
                 height: 32px;
+            }
+
+            .poster-modal-nav.prev {
+                left: 8px;
+            }
+
+            .poster-modal-nav.next {
+                right: 8px;
             }
 
             .poster-modal-footer {
@@ -4072,9 +4111,9 @@
                             <span class="skill-label-text">技能工具</span>
                         </div>
                         <div class="skill-tags">
-                            <span class="skill-tag-item">Figma</span>
-                            <span class="skill-tag-item">Sketch</span>
-                            <span class="skill-tag-item">Adobe XD</span>
+                            <span class="skill-tag-item">Python</span>
+                            <span class="skill-tag-item">JavaScript</span>
+                            <span class="skill-tag-item">HTML/CSS</span>
                             <span class="skill-tag-item">Photoshop</span>
                             <span class="skill-tag-item">Illustrator</span>
                             <span class="skill-tag-item">HTML/CSS</span>
@@ -4115,6 +4154,9 @@
                 </svg>
             </button>
             <div class="poster-modal-image">
+                <button class="poster-modal-close-image" onclick="deletePoster()" title="关闭">
+                    ✕
+                </button>
                 <img id="posterModalImage" src="" alt="">
             </div>
             <button class="poster-modal-nav next" onclick="navigatePoster(1)">
@@ -4302,6 +4344,12 @@
             const modal = document.getElementById('posterModal');
             modal.classList.remove('active');
             document.body.style.overflow = '';
+        }
+
+        function deletePoster() {
+            posterData.splice(currentPosterIndex, 1);
+            closePosterModal();
+            initPosterSection();
         }
 
         function navigatePoster(direction) {
