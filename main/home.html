@@ -6,7 +6,8 @@
     <title>AIGC 作品集 | AIGC Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;700&family=Bangers&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&amp;family=DM+Sans:wght@400;500;700&amp;family=Bangers&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&amp;family=DM+Sans:wght@400;500;700&amp;family=Bangers&amp;display=swap"></noscript>
     <style>
         /* ========== CSS Variables ========== */
         :root {
@@ -3999,7 +4000,7 @@
                     <div class="showcase-card">
                         <div class="showcase-glow"></div>
                         <div class="showcase-image-wrapper">
-                            <img class="showcase-image" src="images/work-1.webp" alt="Featured Work" id="showcaseImage" loading="eager" decoding="sync">
+                            <img class="showcase-image" src="images/work-1.webp" alt="Featured Work" id="showcaseImage" loading="eager" decoding="async">
                         </div>
                         <div class="showcase-dots">
                             <span class="showcase-dot active" data-index="0"></span>
@@ -4165,7 +4166,7 @@
                 <button class="poster-modal-close-image" onclick="closePosterModal()" title="关闭">
                     ✕
                 </button>
-                <img id="posterModalImage" src="" alt="">
+                <img id="posterModalImage" src="" alt="" loading="lazy" decoding="async">
             </div>
             <button class="poster-modal-nav next" onclick="navigatePoster(1)">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
