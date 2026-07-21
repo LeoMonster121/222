@@ -193,7 +193,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 10px;
         }
 
         .meta-label {
@@ -206,6 +206,54 @@
         .meta-value {
             font-size: 1.1rem;
             font-weight: 600;
+        }
+
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tool-tag {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .tool-tag:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tag-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .tag-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .tag-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .tag-desc {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.2;
         }
 
         /* ========== Main Content ========== */
@@ -805,16 +853,30 @@
         </h1>
         <div class="hero-meta">
             <div class="meta-item">
-                <span class="meta-label">Type</span>
-                <span class="meta-value" contenteditable="true">Design</span>
-            </div>
-            <div class="meta-item">
-                <span class="meta-label">Year</span>
-                <span class="meta-value" contenteditable="true">2026</span>
-            </div>
-            <div class="meta-item">
-                <span class="meta-label">Status</span>
-                <span class="meta-value">Completed</span>
+                <span class="meta-label">使用工具</span>
+                <div class="tool-tags">
+                    <div class="tool-tag">
+                        <img src="../images/work4/chatgpt.png" alt="ChatGPT" class="tag-icon">
+                        <div class="tag-info">
+                            <span class="tag-name">ChatGPT</span>
+                            <span class="tag-desc">Generate image from text</span>
+                        </div>
+                    </div>
+                    <div class="tool-tag">
+                        <img src="../images/work4/photoshop.png" alt="Photoshop" class="tag-icon">
+                        <div class="tag-info">
+                            <span class="tag-name">Photoshop</span>
+                            <span class="tag-desc">Image processing</span>
+                        </div>
+                    </div>
+                    <div class="tool-tag">
+                        <img src="../images/work4/illustrator.png" alt="Illustrator" class="tag-icon">
+                        <div class="tag-info">
+                            <span class="tag-name">Illustrator</span>
+                            <span class="tag-desc">Image layout</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1145,6 +1207,14 @@
             }
             document.removeEventListener('click', init);
         }, { once: true });
+
+        // ========== 回到顶部 ==========
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
 
         // 初始化
         document.addEventListener('DOMContentLoaded', async () => {

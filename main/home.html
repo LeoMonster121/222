@@ -3454,6 +3454,14 @@
             object-fit: contain;
         }
 
+        .video-modal-container .video-element {
+            display: none;
+        }
+
+        .video-modal-container .video-element.loaded {
+            display: block;
+        }
+
         .video-modal-container iframe {
             position: absolute;
             top: 0;
@@ -3469,8 +3477,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -4154,7 +4162,7 @@
                 </svg>
             </button>
             <div class="poster-modal-image">
-                <button class="poster-modal-close-image" onclick="deletePoster()" title="关闭">
+                <button class="poster-modal-close-image" onclick="closePosterModal()" title="关闭">
                     ✕
                 </button>
                 <img id="posterModalImage" src="" alt="">
@@ -4202,7 +4210,7 @@
         <div class="video-modal-content">
             <button class="video-delete-btn" onclick="closeVideoModal()" title="关闭">✕</button>
             <div class="video-modal-container">
-                <video id="videoPlayer" controls controlsList="nodownload" style="display:none;">
+                <video id="videoPlayer" class="video-element" controls controlsList="nodownload">
                     <source src="" type="video/mp4">
                     您的浏览器不支持视频播放
                 </video>
@@ -4265,7 +4273,7 @@
         let worksData = [
             { id: 0, category: 'product', title: '香薰', desc: '产品设计作品展示', link: '#', img: 'images/work-1.webp', detailLink: 'works/Work1.html' },
             { id: 1, category: 'product', title: '洗面奶', desc: '产品设计作品展示', link: '#', img: 'images/work-2.webp', detailLink: 'works/Work2.html' },
-            { id: 2, category: 'product', title: '作品标题 3', desc: '产品设计作品展示', link: '#', img: 'images/work-3.webp' },
+            { id: 2, category: 'product', title: 'Vacuum cleaner robot', desc: '产品设计作品展示', link: '#', img: 'images/work-3.webp' },
             { id: 3, category: 'product', title: 'Solid State Drive', desc: '产品设计作品展示', link: '#', img: 'images/work-4.webp' },
             { id: 4, category: 'product', title: 'Insulated Cup', desc: '产品设计作品展示', link: '#', img: 'images/work-5.webp' },
             { id: 5, category: 'IP', title: '粉团', desc: 'IP设计作品展示', link: '#', img: 'images/work-6.webp' },
@@ -4281,20 +4289,24 @@
                 { id: 1, title: '混沌觉醒', desc: '构筑东方幻想世界，讲述觉醒者突破命运枷锁的传奇篇章', img: 'images/drama-2.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1SaK56uEEr/?vd_source=08e47495e48e139b9aea8021d253ed73' },
                 { id: 2, title: '混沌觉醒', desc: '东方玄幻史诗篇章，揭开宿命轮回与力量觉醒的神秘序幕', img: 'images/drama-3.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1nUK56tEBW/?vd_source=08e47495e48e139b9aea8021d253ed73' },
                 { id: 3, title: '混沌觉醒', desc: '沉浸式幻想世界，探索命运交织下的觉醒力量与未知真相', img: 'images/drama-4.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1H2K56fEJS/?vd_source=08e47495e48e139b9aea8021d253ed73' },
-                { id: 4, title: '逆风飞翔', desc: '体育竞技题材，挑战自我突破极限的热血故事', img: 'images/drama-5.webp' },
-                { id: 5, title: '深夜食堂', desc: '温情治愈系，美食与人生百味的交织故事', img: 'images/drama-6.webp' },
-                { id: 6, title: '梦幻西游', desc: '游戏改编奇幻剧，虚拟与现实交织的命运', img: 'images/drama-7.webp' },
-                { id: 7, title: '青春校园', desc: '校园青春剧，讲述友情、爱情与梦想的故事', img: 'images/drama-8.webp' },
+                { id: 4, title: '逆风飞翔', desc: '体育竞技题材，挑战自我突破极限的热血故事', img: 'images/drama-5.webp',type:'video',video:'' },
+                { id: 5, title: '深夜食堂', desc: '温情治愈系，美食与人生百味的交织故事', img: 'images/drama-6.webp',type:'video',video:'' },
+                { id: 6, title: '梦幻西游', desc: '游戏改编奇幻剧，虚拟与现实交织的命运', img: 'images/drama-7.webp',type:'video',video:'' },
+                { id: 7, title: '2026 世界杯', desc: '校园青春剧，讲述友情、爱情与梦想的故事', img: 'images/drama-8.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784534017/IP%E4%B8%96%E7%95%8C%E6%9D%AF_dhocut.mp4' },
             ],
             tvc: [
                 { id: 0, title: '啤酒', desc: '凝聚纯正酿造工艺，演绎自然清爽的欢聚时刻', img: 'images/tvc-1.webp',type:'video',video:'video/TVC/tvc1.mp4' },
-                { id: 1, title: '香水', desc: '诠释法式奢华美学，彰显优雅迷人的高级魅力', img: 'images/tvc-2.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/f_auto,q_auto/v1784210867/tvc2_i8pbhw.mp4' },
-                { id: 2, title: '固态硬盘', desc: '极速存储，释放高效创作与无限可能', img: 'images/tvc-3.webp' },
-                { id: 3, title: '保温杯', desc: '锁住温度，传递品质生活的温暖', img: 'images/tvc-4.webp' },
-                { id: 4, title: '无线鼠标', desc: '科技产品，诠释高效精准的操控体验', img: 'images/tvc-5.webp' },
-                { id: 5, title: '美食诱惑', desc: '食品广告片，唤醒味蕾的极致体验', img: 'images/tvc-6.webp' },
-                { id: 6, title: '汽车大片', desc: '汽车品牌广告，极致速度与优雅的融合', img: 'images/tvc-7.webp' },
-                { id: 7, title: '金融信赖', desc: '金融服务品牌，建立信任与专业形象', img: 'images/tvc-8.webp' },
+                { id: 1, title: '香水', desc: '诠释法式奢华美学，彰显优雅迷人的高级魅力', img: 'images/tvc-2.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784210867/tvc2_i8pbhw.mp4' },
+                { id: 2, title: '固态硬盘', desc: '极速存储，释放高效创作与无限可能', img: 'images/tvc-3.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784533956/%E6%88%90%E5%93%81_sms66s.mp4' },
+                { id: 3, title: '保温杯', desc: '锁住温度，传递品质生活的温暖', img: 'images/tvc-4.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784515478/tvc_xtljyl.mp4' },
+                { id: 4, title: '无线鼠标', desc: '科技产品，诠释高效精准的操控体验', img: 'images/tvc-5.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784533858/%E9%BC%A0%E6%A0%87_thnhzu.mp4' },
+                { id: 5, title: '洗面奶', desc: '开启净澈焕新的洁面体验', img: 'images/tvc-6.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784533632/download_2_zdjd8w.mp4' },
+                { id: 6, title: '车载香薰', desc: '营造清新愉悦的驾乘氛围', img: 'images/tvc-7.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784533866/video1_wjgalk.mp4' },
+                { id: 7, title: '精萃液', desc: '焕启年轻光采的奢养体验', img: 'images/tvc-8.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784533887/A_l9ojcq.mp4' },
+                { id: 8, title: '洗发水', desc: '科技与时尚的完美融合，掌控每一个精彩瞬间', img: 'images/tvc-9.webp', type:'video', video:'https://res.cloudinary.com/datarpybk/video/upload/v1784554290/%E6%88%90%E5%93%81_wij9e1.mp4' },
+                { id: 9, title: '咖啡机', desc: '醇香萃取，唤醒每一个清晨的美好时光', img: 'images/tvc-10.webp', type:'video', video:'' },
+                { id: 10, title: '运动鞋', desc: '轻盈缓震，释放无限运动潜能', img: 'images/tvc-11.webp', type:'video', video:'' },
+                { id: 11, title: '空气净化器', desc: '清新空气，守护家人的每一次呼吸', img: 'images/tvc-12.webp', type:'video', video:'' },
             ]
         };
 
@@ -4304,9 +4316,9 @@
             { id: 1, title: '立春', desc: '万物初醒春意盎然', img: 'images/poster/2.webp' },
             { id: 2, title: '冬至', desc: '雪落山河团圆之时', img: 'images/poster/3.webp' },
             { id: 3, title: '端午节', desc: '粽香满溢古韵新生', img: 'images/poster/4.webp' },
-            { id: 4, title: '西瓜', desc: '数字科技与创新融合', img: 'images/poster/5.webp' },
-            { id: 5, title: '艺术抽象', desc: '抽象艺术视觉表达', img: 'images/poster/6.webp' },
-            { id: 6, title: '东方美学', desc: '东方传统与现代设计', img: 'images/poster/7.webp' },
+            { id: 4, title: '中秋节', desc: '东方美学与节日文化共鸣', img: 'images/poster/5.webp' },
+            { id: 5, title: '西瓜', desc: '清新夏日与趣味视觉表达', img: 'images/poster/6.webp' },
+            { id: 6, title: '石榴', desc: '东方意境与自然美学融合', img: 'images/poster/7.webp' },
         ];
 
         function initPosterSection() {
@@ -4446,10 +4458,14 @@
             }
         }
 
+        // 保存当前正在播放的视频URL，用于判断事件是否过期
+        let currentVideoUrl = null;
+
         function openDramaTvcVideo(item) {
             const videoModal = document.getElementById('videoModal');
             const videoPlayer = document.getElementById('videoPlayer');
             const videoContainer = videoPlayer ? videoPlayer.parentElement : null;
+            const loadingOverlay = document.getElementById('videoLoadingOverlay');
 
             if (!videoModal) return;
 
@@ -4474,10 +4490,9 @@
                 }
 
                 // 隐藏原生视频，显示嵌入iframe
-                videoPlayer.style.display = 'none';
+                videoPlayer.classList.remove('loaded');
                 
                 // 隐藏加载动画（iframe不需要）
-                const loadingOverlay = document.getElementById('videoLoadingOverlay');
                 if (loadingOverlay) loadingOverlay.style.display = 'none';
                 
                 let iframe = videoContainer.querySelector('iframe');
@@ -4494,10 +4509,13 @@
                     iframe.src = embedUrl;
                 }, 50);
                 iframe.style.display = 'block';
+                
+                // 显示弹窗
+                videoModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
             } else {
-                // 本地视频处理 - Cloudinary f_auto视频
+                // 本地视频处理
                 const videoSource = videoPlayer.querySelector('source');
-                const loadingOverlay = document.getElementById('videoLoadingOverlay');
 
                 // 移除可能存在的iframe
                 const iframe = videoContainer.querySelector('iframe');
@@ -4507,10 +4525,15 @@
                 videoModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
 
-                videoPlayer.style.display = 'block';
+                // 重置视频状态
+                videoPlayer.classList.remove('loaded');
+                
+                // 记录当前视频URL
+                currentVideoUrl = item.video;
 
                 // 设置视频源并加载
                 videoSource.src = item.video;
+                videoSource.type = 'video/mp4';
                 videoPlayer.load();
 
                 // 显示加载动画
@@ -4519,22 +4542,33 @@
                     loadingOverlay.innerHTML = '<div class="video-loading-spinner"></div><p>视频加载中...</p><p style="font-size:12px;color:#999;">' + item.title + '</p>';
                 }
 
-                // 视频可以开始播放时隐藏加载动画（使用canplaythrough而非loadeddata）
-                videoPlayer.oncanplaythrough = function() {
-                    console.log('🎬 视频可以开始播放:', item.video);
-                    if (loadingOverlay) loadingOverlay.style.display = 'none';
-                    videoPlayer.play().catch(e => {
-                        console.log('自动播放被阻止');
+                // 使用 on* 属性，确保每次只处理最新的视频
+                videoPlayer.onloadedmetadata = function() {
+                    // 检查这是否是目前正在播放的视频
+                    if (currentVideoUrl !== item.video) {
+                        console.log('⏭️ 忽略过期视频的事件:', item.video);
+                        return;
+                    }
+                    console.log('📹 视频元数据加载完成，时长:', videoPlayer.duration, '秒');
+                    videoPlayer.classList.add('loaded');
+                    videoPlayer.play().then(() => {
+                        console.log('▶️ 视频开始播放');
+                        if (loadingOverlay) loadingOverlay.style.display = 'none';
+                    }).catch(e => {
+                        console.log('⚠️ 自动播放失败（可能是浏览器策略）:', e.message);
+                        if (loadingOverlay) loadingOverlay.style.display = 'none';
                     });
                 };
 
-                // 视频加载失败处理 - 增强错误诊断
-                videoPlayer.onerror = function(e) {
+                videoPlayer.onerror = function() {
+                    // 检查这是否是目前正在播放的视频
+                    if (currentVideoUrl !== item.video) {
+                        return;
+                    }
                     console.error('❌ 视频加载失败:', item.video);
                     console.error('错误代码:', videoPlayer.error?.code);
                     console.error('错误信息:', videoPlayer.error?.message);
                     
-                    // 显示详细错误信息帮助调试
                     let errorMsg = '视频加载失败';
                     const errorCode = videoPlayer.error?.code;
                     if (errorCode === 1) errorMsg = '视频加载被中断';
@@ -4547,7 +4581,16 @@
                     }
                 };
 
-                // 添加加载开始日志
+                // 使用 canplaythrough 作为备用，确保视频真的可以播放
+                videoPlayer.oncanplaythrough = function() {
+                    if (currentVideoUrl !== item.video) return;
+                    if (loadingOverlay && loadingOverlay.style.display !== 'none') {
+                        console.log('📹 canplaythrough 触发，确保加载动画隐藏');
+                        videoPlayer.classList.add('loaded');
+                        if (loadingOverlay) loadingOverlay.style.display = 'none';
+                    }
+                };
+
                 console.log('🔄 开始加载视频:', item.video);
             }
         }
@@ -5354,13 +5397,13 @@
                     document.getElementById('modalDate').textContent = 'Durian Mang';
                     document.getElementById('modalAuthor').textContent = '';
                 } else if (work.id === 2) {
-                    // 作品标题 3：隐藏标签，显示"查看详情"按钮
+                    // 扫地机器人：隐藏标签，显示"查看详情"按钮
                     tags.style.display = 'none';
                     actionContainer.style.display = 'flex';
-                    actionLink.href = work.detailLink || '#';
+                    actionLink.href = 'works/Work3.html';
                     actionLink.textContent = '查看详情';
                     actionLink.style.display = 'inline-flex';
-                    document.getElementById('modalDate').textContent = 'Product Design 3';
+                    document.getElementById('modalDate').textContent = '扫地机器人';
                     document.getElementById('modalAuthor').textContent = '';
                 } else if (work.id === 3) {
                     // 固态硬盘：隐藏标签，显示"查看详情"按钮
@@ -5445,13 +5488,36 @@
         function closeVideoModal() {
             const videoModal = document.getElementById('videoModal');
             const videoPlayer = document.getElementById('videoPlayer');
+            const loadingOverlay = document.getElementById('videoLoadingOverlay');
             
-            // 停止视频播放
+            // 清除当前视频URL标记
+            currentVideoUrl = null;
+            
+            // 停止视频播放并重置状态
             videoPlayer.pause();
-            videoPlayer.currentTime = 0;
+            videoPlayer.classList.remove('loaded');
             
-            // 清理iframe（如果是嵌入视频）
-            const iframe = videoPlayer.parentElement.querySelector('iframe');
+            // 清理视频源
+            const videoSource = videoPlayer.querySelector('source');
+            if (videoSource) {
+                videoSource.src = '';
+            }
+            videoPlayer.removeAttribute('src');
+            videoPlayer.load();
+            
+            // 清理事件处理器
+            videoPlayer.onloadedmetadata = null;
+            videoPlayer.oncanplaythrough = null;
+            videoPlayer.onerror = null;
+            
+            // 隐藏加载动画
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'none';
+                loadingOverlay.innerHTML = '<div class="video-loading-spinner"></div><p>视频加载中...</p>';
+            }
+            
+            // 清理iframe
+            const iframe = videoPlayer.parentElement?.querySelector('iframe');
             if (iframe) {
                 iframe.src = '';
                 iframe.style.display = 'none';

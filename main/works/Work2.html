@@ -184,17 +184,17 @@
 
         .hero-meta {
             display: flex;
-            gap: 40px;
             flex-wrap: wrap;
-            justify-content: center;
+            gap: 20px;
             animation: fadeInUp 0.8s ease 0.6s both;
+            justify-content: center;
         }
 
         .meta-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 10px;
         }
 
         .meta-label {
@@ -202,11 +202,55 @@
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-bottom: 8px;
         }
 
-        .meta-value {
-            font-size: 1.1rem;
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tool-tag {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .tool-tag:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tag-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .tag-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .tag-name {
+            font-size: 1.2rem;
             font-weight: 600;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .tag-desc {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.2;
         }
 
         /* ========== Main Content ========== */
@@ -1039,16 +1083,30 @@
         </h1>
         <div class="hero-meta">
             <div class="meta-item">
-                <span class="meta-label">类型</span>
-                <span class="meta-value" contenteditable="true">设计</span>
-            </div>
-            <div class="meta-item">
-                <span class="meta-label">年份</span>
-                <span class="meta-value" contenteditable="true">2026</span>
-            </div>
-            <div class="meta-item">
-                <span class="meta-label">状态</span>
-                <span class="meta-value">已完成</span>
+                <span class="meta-label">使用工具</span>
+                <div class="tool-tags">
+                    <div class="tool-tag">
+                        <img src="../images/work2/chatgpt.png" alt="ChatGPT" class="tag-icon">
+                        <div class="tag-info">
+                            <span class="tag-name">ChatGPT</span>
+                            <span class="tag-desc">文生图</span>
+                        </div>
+                    </div>
+                    <div class="tool-tag">
+                        <img src="../images/work2/photoshop.png" alt="Photoshop" class="tag-icon">
+                        <div class="tag-info">
+                            <span class="tag-name">Photoshop</span>
+                            <span class="tag-desc">图片处理</span>
+                        </div>
+                    </div>
+                    <div class="tool-tag">
+                        <img src="../images/work2/illustrator.png" alt="Illustrator" class="tag-icon">
+                        <div class="tag-info">
+                            <span class="tag-name">Illustrator</span>
+                            <span class="tag-desc">图片排版</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
