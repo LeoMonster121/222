@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI-2 - 金融理财</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <style>
+        /* ========== CSS Variables ========== */
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --text: #ffffff;
+            --text-secondary: #a1a1aa;
+            --glass-bg: rgba(0, 0, 0, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-hero: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        /* ========== Reset & Base ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #000 url('../images/ui2/0.png') no-repeat center center;
+            background-size: cover;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        @media (min-width: 769px) {
+            body {
+                background-attachment: fixed;
+            }
+        }
+
+        /* ========== Navigation ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        /* ========== Hero Section ========== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 40px 80px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        /* ========== 工具图标标签 ========== */
+        .tools-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 30px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .tool-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(135, 206, 250, 0.3);
+            border: 1px solid rgba(135, 206, 250, 0.5);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .tool-tag:hover {
+            background: rgba(99, 179, 237, 0.5);
+            border-color: rgba(99, 179, 237, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(135, 206, 250, 0.4);
+        }
+
+        .tool-tag img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .tool-tag span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-title .highlight {
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ========== Main Content ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ========== Gallery Section ========== */
+        .gallery-section {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .gallery-item-upload {
+            position: relative;
+            width: 375px;
+            height: 812px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 3px dashed rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .gallery-item-upload:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .gallery-item-upload.has-image {
+            border: none;
+        }
+
+        .gallery-item-upload input[type="file"] {
+            display: none;
+        }
+
+        .gallery-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .gallery-item-upload.has-image .gallery-preview {
+            display: block;
+        }
+
+        .gallery-item-upload.has-image .gallery-placeholder {
+            display: none;
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--text-secondary);
+        }
+
+        .gallery-placeholder .icon {
+            font-size: 3rem;
+            opacity: 0.5;
+        }
+
+        .gallery-placeholder .text {
+            font-size: 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            margin-left: 130px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background: var(--gradient-hero);
+            border-radius: 2px;
+        }
+
+        /* ========== Fullscreen Preview ========== */
+        .fullscreen-preview {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .fullscreen-preview.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .fullscreen-preview img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .fullscreen-close-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        .fullscreen-close-btn:hover {
+            background: #ff4757;
+            border-color: #ff4757;
+            transform: scale(1.1);
+        }
+
+        .preview-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        .preview-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .preview-nav-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .preview-prev-btn {
+            left: calc(50% - 250px);
+        }
+
+        .preview-next-btn {
+            right: calc(50% - 250px);
+        }
+
+        @media (max-width: 1100px) {
+            .preview-prev-btn {
+                left: 30px;
+            }
+            .preview-next-btn {
+                right: 30px;
+            }
+        }
+
+        /* ========== Footer ========== */
+        .footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 80px;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-text a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* ========== Animations ========== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .section-title {
+                margin-left: 0;
+            }
+
+            .gallery-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .gallery-item-upload {
+                width: 100%;
+                max-width: 375px;
+                height: 0;
+                padding-bottom: calc(812 / 375 * 100%);
+            }
+
+            .gallery-item-upload .gallery-preview {
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                display: block !important;
+            }
+        }
+
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        .back-to-top svg {
+            transform: rotate(0deg);
+        }
+
+        /* 返回按钮 */
+        .back-to-portfolio {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-portfolio:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        .back-to-portfolio svg {
+            transition: transform 0.3s ease;
+        }
+
+        .back-to-portfolio:hover svg {
+            transform: translateX(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <span>🚀</span>
+            <span>AIGC Portfolio</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span>✨</span>
+            <span>UI设计</span>
+        </div>
+        <h1 class="hero-title">
+            <span class="highlight">金融理财</span>
+        </h1>
+        <div class="tools-tags">
+            <div class="tool-tag">
+                <img src="../images/ui2/chatgpt.png" alt="ChatGPT" loading="lazy">
+                <span>ChatGPT</span>
+            </div>
+            <div class="tool-tag">
+                <img src="../images/ui2/photoshop.png" alt="Photoshop" loading="lazy">
+                <span>Photoshop</span>
+            </div>
+            <div class="tool-tag">
+                <img src="../images/ui2/illustrator.png" alt="Illustrator" loading="lazy">
+                <span>Illustrator</span>
+            </div>
+            <div class="tool-tag">
+                <img src="../images/ui2/mj.png" alt="Midjourney" loading="lazy">
+                <span>Midjourney</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">UI</h2>
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item-upload" id="galleryItem1">
+                    <img class="gallery-preview" id="galleryPreview1" src="../images/ui2/1.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 1</span>
+                    </div>
+                </div>
+                <div class="gallery-item-upload" id="galleryItem2">
+                    <img class="gallery-preview" id="galleryPreview2" src="../images/ui2/2.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 2</span>
+                    </div>
+                </div>
+                <div class="gallery-item-upload" id="galleryItem3">
+                    <img class="gallery-preview" id="galleryPreview3" src="../images/ui2/3.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 3</span>
+                    </div>
+                </div>
+                <div class="gallery-item-upload" id="galleryItem4">
+                    <img class="gallery-preview" id="galleryPreview4" src="../images/ui2/4.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 4</span>
+                    </div>
+                </div>
+                <div class="gallery-item-upload" id="galleryItem5">
+                    <img class="gallery-preview" id="galleryPreview5" src="../images/ui2/5.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 5</span>
+                    </div>
+                </div>
+                <div class="gallery-item-upload" id="galleryItem6">
+                    <img class="gallery-preview" id="galleryPreview6" src="../images/ui2/6.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 6</span>
+                    </div>
+                </div>
+                <div class="gallery-item-upload" id="galleryItem7">
+                    <img class="gallery-preview" id="galleryPreview7" src="../images/ui2/7.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 7</span>
+                    </div>
+                </div>
+                <div class="gallery-item-upload" id="galleryItem8">
+                    <img class="gallery-preview" id="galleryPreview8" src="../images/ui2/8.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 8</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ========== 默认静态图片路径 ==========
+        const defaultImages = {
+            gallery1: '../images/ui2/1.png',
+            gallery2: '../images/ui2/2.png',
+            gallery3: '../images/ui2/3.png',
+            gallery4: '../images/ui2/4.png',
+            gallery5: '../images/ui2/5.png',
+            gallery6: '../images/ui2/6.png',
+            gallery7: '../images/ui2/7.png',
+            gallery8: '../images/ui2/8.png'
+        };
+
+        // ========== IndexedDB 管理 ==========
+        const DB_NAME = 'ProductPageDB';
+        const DB_VERSION = 1;
+        const STORE_NAME = 'images';
+        let db = null;
+
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => {
+                    db = request.result;
+                    resolve(db);
+                };
+                
+                request.onupgradeneeded = (event) => {
+                    const database = event.target.result;
+                    if (!database.objectStoreNames.contains(STORE_NAME)) {
+                        database.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                    }
+                };
+            });
+        }
+
+        function loadImageFromDB(id) {
+            return new Promise((resolve, reject) => {
+                if (!db) {
+                    initDB().then(() => loadImageFromDB(id).then(resolve).catch(reject));
+                    return;
+                }
+                
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.get(id);
+                
+                request.onsuccess = () => resolve(request.result ? request.result.data : null);
+                request.onerror = () => reject(request.error);
+            });
+        }
+
+        // ========== 直接加载图片 ==========
+        async function loadFromStorage() {
+            try {
+                await initDB();
+
+                for (let i = 1; i <= 8; i++) {
+                    const galleryKey = `gallery${i}`;
+                    const defaultPath = defaultImages[galleryKey];
+                    const preview = document.getElementById(`galleryPreview${i}`);
+                    const uploadArea = document.getElementById(`galleryItem${i}`);
+
+                    if (!preview || !uploadArea) continue;
+
+                    preview.src = defaultPath;
+                    uploadArea.classList.add('has-image');
+                }
+            } catch (e) {
+                console.warn('加载图片失败', e);
+            }
+        }
+
+        // 图片加载失败时尝试从 IndexedDB 读取
+        function setupImageFallback() {
+            for (let i = 1; i <= 8; i++) {
+                const preview = document.getElementById(`galleryPreview${i}`);
+                if (preview) {
+                    preview.addEventListener('error', async function () {
+                        try {
+                            if (!db) await initDB();
+                            const data = await loadImageFromDB(`gallery${i}`);
+                            if (data) {
+                                this.src = data;
+                            }
+                        } catch (e) {
+                            console.warn(`加载图片 gallery${i} 失败`, e);
+                        }
+                    });
+                }
+            }
+        }
+
+        // 回到顶部
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadFromStorage();
+            setupImageFallback();
+
+            // 滚动监听
+            window.addEventListener('scroll', () => {
+                const btn = document.querySelector('.back-to-top');
+                if (btn) {
+                    if (window.scrollY > 300) {
+                        btn.classList.add('visible');
+                    } else {
+                        btn.classList.remove('visible');
+                    }
+                }
+            });
+
+            // ========== 全屏预览功能 ==========
+            const previewModal = document.getElementById('previewModal');
+            const previewImage = document.getElementById('previewImage');
+            const previewCounter = document.getElementById('previewCounter');
+            const closePreviewBtn = document.getElementById('closePreviewBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            let currentIndex = 0;
+            const totalImages = 8;
+            
+            // 点击图片打开全屏预览
+            document.querySelectorAll('.gallery-preview').forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    currentIndex = index;
+                    openPreview(index);
+                });
+            });
+            
+            function openPreview(index) {
+                const preview = document.getElementById(`galleryPreview${index + 1}`);
+                if (preview && preview.src) {
+                    previewImage.src = preview.src;
+                    previewCounter.textContent = `${currentIndex + 1} / ${totalImages}`;
+                    previewModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    document.querySelector('.back-to-portfolio').style.display = 'none';
+                    document.querySelector('.back-to-top').style.display = 'none';
+                }
+            }
+            
+            function closePreview() {
+                previewModal.classList.remove('active');
+                document.body.style.overflow = '';
+                document.querySelector('.back-to-portfolio').style.display = 'flex';
+                document.querySelector('.back-to-top').style.display = 'flex';
+            }
+            
+            function showPrev() {
+                currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+                openPreview(currentIndex);
+            }
+            
+            function showNext() {
+                currentIndex = (currentIndex + 1) % totalImages;
+                openPreview(currentIndex);
+            }
+            
+            closePreviewBtn.addEventListener('click', closePreview);
+            prevBtn.addEventListener('click', showPrev);
+            nextBtn.addEventListener('click', showNext);
+            
+            // 点击背景关闭
+            previewModal.addEventListener('click', (e) => {
+                if (e.target === previewModal) {
+                    closePreview();
+                }
+            });
+            
+            // 键盘控制
+            document.addEventListener('keydown', (e) => {
+                if (!previewModal.classList.contains('active')) return;
+                if (e.key === 'Escape') closePreview();
+                if (e.key === 'ArrowLeft') showPrev();
+                if (e.key === 'ArrowRight') showNext();
+            });
+        });
+    </script>
+
+    <!-- 全屏预览 Modal -->
+    <div class="fullscreen-preview" id="previewModal">
+        <button class="fullscreen-close-btn" id="closePreviewBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <button class="preview-nav-btn preview-prev-btn" id="prevBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+        <img id="previewImage" src="" alt="预览">
+        <button class="preview-nav-btn preview-next-btn" id="nextBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </button>
+        <div class="preview-counter" id="previewCounter">1 / 8</div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <a href="../home.html#works" class="back-to-portfolio" title="返回精选作品">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span>返回</span>
+    </a>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" onclick="scrollToTop()" title="回到顶部">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© 2026 Creative Portfolio. All rights reserved.</p>
+    </footer>
+</body>
+</html>
