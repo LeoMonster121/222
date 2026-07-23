@@ -194,11 +194,10 @@
         }
 
         .poster-grid {
-            display: flex;
-            flex-direction: row;
-            gap: 100px;/*图片框的间距*/
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            justify-items: center;
         }
 
         .poster-upload-wrapper {
@@ -426,6 +425,14 @@
             }
         }
 
+        @media (max-width: 500px) {
+            .preview-prev-btn,
+            .preview-next-btn {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
         /* ========== Footer ========== */
         .footer {
             padding: 60px 0;
@@ -481,9 +488,13 @@
                 padding: 0 20px;
             }
 
+            .section-title {
+                margin-left: 0;
+            }
+
             .poster-grid {
-                flex-direction: column;
-                align-items: center;
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
             .poster-image-upload {
@@ -501,6 +512,12 @@
                 height: 100% !important;
                 object-fit: cover !important;
                 display: block !important;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .poster-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
