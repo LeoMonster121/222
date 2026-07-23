@@ -41,6 +41,9 @@
     function handleViewerClick(e) {
         const btn = e.target.closest('.view-details-btn');
         const previewImg = e.target.closest('.details-preview');
+        const galleryImg = e.target.closest('.gallery-preview');
+        const posterImg = e.target.closest('.poster-preview');
+        const bannerImg = e.target.closest('.banner-preview');
 
         if (btn) {
             e.preventDefault();
@@ -66,6 +69,27 @@
             e.stopPropagation();
             if (previewImg.src) {
                 openViewer(previewImg.src);
+            }
+        } else if (galleryImg) {
+            // 点击主图/副图展示图片也可以打开
+            e.preventDefault();
+            e.stopPropagation();
+            if (galleryImg.src) {
+                openViewer(galleryImg.src);
+            }
+        } else if (posterImg) {
+            // 点击海报图片也可以打开
+            e.preventDefault();
+            e.stopPropagation();
+            if (posterImg.src) {
+                openViewer(posterImg.src);
+            }
+        } else if (bannerImg) {
+            // 点击Banner图片也可以打开
+            e.preventDefault();
+            e.stopPropagation();
+            if (bannerImg.src) {
+                openViewer(bannerImg.src);
             }
         }
     }
@@ -119,6 +143,15 @@
         const loading = document.createElement('div');
         loading.className = 'iv-loading';
         
+        // 创建关闭按钮
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'iv-close-btn';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeViewer();
+        });
+        
         // 创建复原按钮
         const resetBtn = document.createElement('button');
         resetBtn.className = 'iv-reset-btn';
@@ -129,6 +162,7 @@
         state.container.appendChild(state.currentImage);
         state.modal.appendChild(loading);
         state.modal.appendChild(state.container);
+        state.modal.appendChild(closeBtn);
         state.modal.appendChild(resetBtn);
         document.body.appendChild(state.modal);
 

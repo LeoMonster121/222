@@ -59,6 +59,40 @@
     pointer-events: auto;
 }
 
+/* ========== Close Button ========== */
+.iv-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+    font-size: 28px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.iv-close-btn:hover {
+    background: rgba(239, 68, 68, 0.8);
+    border-color: rgba(239, 68, 68, 0.8);
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+.iv-close-btn:active {
+    transform: scale(0.95);
+}
+
 /* ========== Reset Button ========== */
 .iv-reset-btn {
     position: absolute;
@@ -114,6 +148,14 @@
     .iv-image {
         max-width: 95%;
         max-height: 85%;
+    }
+
+    .iv-close-btn {
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
     }
 
     .iv-reset-btn {
