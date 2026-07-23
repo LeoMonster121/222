@@ -489,8 +489,8 @@
             .poster-image-upload {
                 width: 100%;
                 max-width: 375px;
-                aspect-ratio: 375/812;
-                height: auto;
+                height: 0;
+                padding-bottom: calc(812 / 375 * 100%);
             }
 
             .poster-image-upload .poster-preview {
