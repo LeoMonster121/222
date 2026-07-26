@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UI-1 - 教育学习</title>
+    <title>UI-3 - 医疗健康</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
     <style>
         /* ========== CSS Variables ========== */
@@ -32,7 +32,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            background: #000 url('../images/ui1/0.png') no-repeat center center;
+            background: #000 url('../images/ui3/0.png') no-repeat center center;
             background-size: cover;
             color: var(--text);
             line-height: 1.6;
@@ -125,7 +125,7 @@
             align-items: center;
             gap: 8px;
             padding: 10px 20px;
-            background: rgba(135, 206, 250, 0.3); /* 浅蓝色背景 */
+            background: rgba(135, 206, 250, 0.3);
             border: 1px solid rgba(135, 206, 250, 0.5);
             border-radius: 50px;
             backdrop-filter: blur(10px);
@@ -187,24 +187,20 @@
             padding: 0 40px;
         }
 
-        /* ========== Poster Section ========== */
-        .poster-section {
+        /* ========== Gallery Section ========== */
+        .gallery-section {
             padding: 80px 0;
             background: rgba(0, 0, 0, 0.6);
         }
 
-        .poster-grid {
+        .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
             justify-items: center;
         }
 
-        .poster-upload-wrapper {
-            position: relative;
-        }
-
-        .poster-image-upload {
+        .gallery-item-upload {
             position: relative;
             width: 375px;
             height: 812px;
@@ -212,103 +208,62 @@
             overflow: hidden;
             background: var(--glass-bg);
             border: 3px dashed rgba(255, 255, 255, 0.3);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
         }
 
-        .poster-image-upload:hover {
-            border-color: var(--primary);
-            background: rgba(99, 102, 241, 0.1);
+        .gallery-item-upload:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
         }
 
-        .poster-image-upload.has-image {
+        .gallery-item-upload.has-image {
             border: none;
         }
 
-        .poster-image-upload input {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
+        .gallery-item-upload input[type="file"] {
+            display: none;
         }
 
-        .poster-image-upload img {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .gallery-preview {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            cursor: pointer;
+            display: none;
         }
 
-        .poster-image-upload .upload-placeholder {
+        .gallery-item-upload.has-image .gallery-preview {
+            display: block;
+        }
+
+        .gallery-item-upload.has-image .gallery-placeholder {
+            display: none;
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             color: var(--text-secondary);
         }
 
-        .poster-image-upload .icon {
+        .gallery-placeholder .icon {
             font-size: 3rem;
+            opacity: 0.5;
         }
 
-        .poster-image-upload .text {
+        .gallery-placeholder .text {
             font-size: 1rem;
-        }
-
-        .poster-image-upload .hint {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .poster-image-upload.has-image .poster-preview {
-            display: block;
-        }
-
-        .poster-image-upload.has-image .upload-placeholder {
-            display: none;
-        }
-
-        .delete-poster-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 0, 0, 0.8);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.3s;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .poster-upload-wrapper:hover .delete-poster-btn {
-            opacity: 1;
-        }
-
-        .delete-poster-btn:hover {
-            background: #ff0000;
-            transform: scale(1.1);
         }
 
         .section-title {
             font-size: 2rem;
             margin-bottom: 40px;
-            margin-left: 1px;/*ui位置*/
+            margin-left: 1px;
             display: flex;
             align-items: center;
             gap: 15px;
@@ -418,10 +373,10 @@
 
         @media (max-width: 1100px) {
             .preview-prev-btn {
-                left: 30px;
+                left: 80px;
             }
             .preview-next-btn {
-                right: 30px;
+                right: 80px;
             }
         }
 
@@ -492,19 +447,19 @@
                 margin-left: 0;
             }
 
-            .poster-grid {
+            .gallery-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
 
-            .poster-image-upload {
+            .gallery-item-upload {
                 width: 100%;
                 max-width: 375px;
                 height: 0;
                 padding-bottom: calc(812 / 375 * 100%);
             }
 
-            .poster-image-upload .poster-preview {
+            .gallery-item-upload .gallery-preview {
                 position: absolute !important;
                 top: 0 !important;
                 left: 0 !important;
@@ -516,7 +471,7 @@
         }
 
         @media (max-width: 1200px) {
-            .poster-grid {
+            .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -607,81 +562,115 @@
             <span>UI设计</span>
         </div>
         <h1 class="hero-title">
-            <span class="highlight">教育学习</span>
+            <span class="highlight">医疗健康</span>
         </h1>
         <div class="tools-tags">
             <div class="tool-tag">
-                <img src="../images/ui1/chatgpt.png" alt="ChatGPT" loading="lazy">
+                <img src="../images/ui3/chatgpt.png" alt="ChatGPT" loading="lazy">
                 <span>ChatGPT</span>
             </div>
             <div class="tool-tag">
-                <img src="../images/ui1/photoshop.png" alt="Photoshop" loading="lazy">
+                <img src="../images/ui3/photoshop.png" alt="Photoshop" loading="lazy">
                 <span>Photoshop</span>
             </div>
             <div class="tool-tag">
-                <img src="../images/ui1/illustrator.png" alt="Illustrator" loading="lazy">
+                <img src="../images/ui3/illustrator.png" alt="Illustrator" loading="lazy">
                 <span>Illustrator</span>
             </div>
             <div class="tool-tag">
-                <img src="../images/ui1/mj.png" alt="Midjourney" loading="lazy">
+                <img src="../images/ui3/mj.png" alt="Midjourney" loading="lazy">
                 <span>Midjourney</span>
             </div>
         </div>
     </section>
 
-    <!-- Poster Section -->
-    <section class="poster-section">
+    <!-- Gallery Section -->
+    <section class="gallery-section">
         <div class="container">
             <h2 class="section-title">UI</h2>
-            <div class="poster-grid">
-                <div class="poster-upload-wrapper">
-                    <div class="poster-image-upload has-image" id="posterUpload1">
-                        <img class="poster-preview" id="posterPreview1" src="../images/ui1/1.png" loading="lazy">
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item-upload" id="galleryItem1">
+                    <img class="gallery-preview" id="galleryPreview1" src="../images/ui3/1.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 1</span>
                     </div>
                 </div>
-                <div class="poster-upload-wrapper">
-                    <div class="poster-image-upload has-image" id="posterUpload2">
-                        <img class="poster-preview" id="posterPreview2" src="../images/ui1/2.png" loading="lazy">
+                <div class="gallery-item-upload" id="galleryItem2">
+                    <img class="gallery-preview" id="galleryPreview2" src="../images/ui3/2.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 2</span>
                     </div>
                 </div>
-                <div class="poster-upload-wrapper">
-                    <div class="poster-image-upload has-image" id="posterUpload3">
-                        <img class="poster-preview" id="posterPreview3" src="../images/ui1/3.png" loading="lazy">
+                <div class="gallery-item-upload" id="galleryItem3">
+                    <img class="gallery-preview" id="galleryPreview3" src="../images/ui3/3.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 3</span>
                     </div>
                 </div>
-                <div class="poster-upload-wrapper">
-                    <div class="poster-image-upload has-image" id="posterUpload4">
-                        <img class="poster-preview" id="posterPreview4" src="../images/ui1/4.png" loading="lazy">
+                <div class="gallery-item-upload" id="galleryItem4">
+                    <img class="gallery-preview" id="galleryPreview4" src="../images/ui3/4.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 4</span>
                     </div>
                 </div>
-                <div class="poster-upload-wrapper">
-                    <div class="poster-image-upload has-image" id="posterUpload5">
-                        <img class="poster-preview" id="posterPreview5" src="../images/ui1/5.png" loading="lazy">
+                <div class="gallery-item-upload" id="galleryItem5">
+                    <img class="gallery-preview" id="galleryPreview5" src="../images/ui3/5.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 5</span>
                     </div>
                 </div>
-                <div class="poster-upload-wrapper">
-                    <div class="poster-image-upload has-image" id="posterUpload6">
-                        <img class="poster-preview" id="posterPreview6" src="../images/ui1/6.png" loading="lazy">
+                <div class="gallery-item-upload" id="galleryItem6">
+                    <img class="gallery-preview" id="galleryPreview6" src="../images/ui3/6.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 6</span>
                     </div>
                 </div>
-                <div class="poster-upload-wrapper">
-                    <div class="poster-image-upload has-image" id="posterUpload7">
-                        <img class="poster-preview" id="posterPreview7" src="../images/ui1/7.png" loading="lazy">
+                <div class="gallery-item-upload" id="galleryItem7">
+                    <img class="gallery-preview" id="galleryPreview7" src="../images/ui3/7.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 7</span>
                     </div>
                 </div>
-                <div class="poster-upload-wrapper">
-                    <div class="poster-image-upload has-image" id="posterUpload8">
-                        <img class="poster-preview" id="posterPreview8" src="../images/ui1/8.png" loading="lazy">
+                <div class="gallery-item-upload" id="galleryItem8">
+                    <img class="gallery-preview" id="galleryPreview8" src="../images/ui3/8.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 8</span>
                     </div>
                 </div>
-                <div class="poster-upload-wrapper">
-                    <div class="poster-image-upload has-image" id="posterUpload9">
-                        <img class="poster-preview" id="posterPreview9" src="../images/ui1/9.png" loading="lazy">
+                <div class="gallery-item-upload" id="galleryItem9">
+                    <img class="gallery-preview" id="galleryPreview9" src="../images/ui3/9.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 9</span>
                     </div>
                 </div>
-                <div class="poster-upload-wrapper">
-                    <div class="poster-image-upload has-image" id="posterUpload10">
-                        <img class="poster-preview" id="posterPreview10" src="../images/ui1/10.png" loading="lazy">
+                <div class="gallery-item-upload" id="galleryItem10">
+                    <img class="gallery-preview" id="galleryPreview10" src="../images/ui3/10.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 10</span>
+                    </div>
+                </div>
+                <div class="gallery-item-upload" id="galleryItem11">
+                    <img class="gallery-preview" id="galleryPreview11" src="../images/ui3/11.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 11</span>
+                    </div>
+                </div>
+                <div class="gallery-item-upload" id="galleryItem12">
+                    <img class="gallery-preview" id="galleryPreview12" src="../images/ui3/12.png" loading="lazy">
+                    <div class="gallery-placeholder">
+                        <span class="icon">🖼️</span>
+                        <span class="text">图片 12</span>
                     </div>
                 </div>
             </div>
@@ -689,18 +678,20 @@
     </section>
 
     <script>
-        // ========== 默认静态图片路径（部署后直接读取） ==========
+        // ========== 默认静态图片路径 ==========
         const defaultImages = {
-            poster1: '../images/ui1/1.png',
-            poster2: '../images/ui1/2.png',
-            poster3: '../images/ui1/3.png',
-            poster4: '../images/ui1/4.png',
-            poster5: '../images/ui1/5.png',
-            poster6: '../images/ui1/6.png',
-            poster7: '../images/ui1/7.png',
-            poster8: '../images/ui1/8.png',
-            poster9: '../images/ui1/9.png',
-            poster10: '../images/ui1/10.png'
+            gallery1: '../images/ui3/1.png',
+            gallery2: '../images/ui3/2.png',
+            gallery3: '../images/ui3/3.png',
+            gallery4: '../images/ui3/4.png',
+            gallery5: '../images/ui3/5.png',
+            gallery6: '../images/ui3/6.png',
+            gallery7: '../images/ui3/7.png',
+            gallery8: '../images/ui3/8.png',
+            gallery9: '../images/ui3/9.png',
+            gallery10: '../images/ui3/10.png',
+            gallery11: '../images/ui3/11.png',
+            gallery12: '../images/ui3/12.png'
         };
 
         // ========== IndexedDB 管理 ==========
@@ -744,21 +735,21 @@
             });
         }
 
-        // ========== 直接加载图片（兼容移动端） ==========
+        // ========== 直接加载图片 ==========
         async function loadFromStorage() {
             try {
                 await initDB();
 
-                for (let i = 1; i <= 10; i++) {
-                    const posterKey = `poster${i}`;
-                    const defaultPath = defaultImages[posterKey];
-                    const preview = document.getElementById(`posterPreview${i}`);
-                    const uploadArea = document.getElementById(`posterUpload${i}`);
+                for (let i = 1; i <= 12; i++) {
+                    const galleryKey = `gallery${i}`;
+                    const defaultPath = defaultImages[galleryKey];
+                    const preview = document.getElementById(`galleryPreview${i}`);
+                    const uploadArea = document.getElementById(`galleryItem${i}`);
 
                     if (!preview || !uploadArea) continue;
 
-                    // 先尝试直接设置静态图片路径
                     preview.src = defaultPath;
+                    uploadArea.classList.add('has-image');
                 }
             } catch (e) {
                 console.warn('加载图片失败', e);
@@ -767,18 +758,18 @@
 
         // 图片加载失败时尝试从 IndexedDB 读取
         function setupImageFallback() {
-            for (let i = 1; i <= 10; i++) {
-                const preview = document.getElementById(`posterPreview${i}`);
+            for (let i = 1; i <= 12; i++) {
+                const preview = document.getElementById(`galleryPreview${i}`);
                 if (preview) {
                     preview.addEventListener('error', async function () {
                         try {
                             if (!db) await initDB();
-                            const data = await loadImageFromDB(`poster${i}`);
+                            const data = await loadImageFromDB(`gallery${i}`);
                             if (data) {
                                 this.src = data;
                             }
                         } catch (e) {
-                            console.warn(`加载图片 poster${i} 失败`, e);
+                            console.warn(`加载图片 gallery${i} 失败`, e);
                         }
                     });
                 }
@@ -819,10 +810,10 @@
             const nextBtn = document.getElementById('nextBtn');
             
             let currentIndex = 0;
-            const totalPosters = 10;
+            const totalImages = 12;
             
             // 点击图片打开全屏预览
-            document.querySelectorAll('.poster-preview').forEach((img, index) => {
+            document.querySelectorAll('.gallery-preview').forEach((img, index) => {
                 img.addEventListener('click', () => {
                     currentIndex = index;
                     openPreview(index);
@@ -830,13 +821,12 @@
             });
             
             function openPreview(index) {
-                const preview = document.getElementById(`posterPreview${index + 1}`);
+                const preview = document.getElementById(`galleryPreview${index + 1}`);
                 if (preview && preview.src) {
                     previewImage.src = preview.src;
-                    previewCounter.textContent = `${currentIndex + 1} / ${totalPosters}`;
+                    previewCounter.textContent = `${currentIndex + 1} / ${totalImages}`;
                     previewModal.classList.add('active');
                     document.body.style.overflow = 'hidden';
-                    // 隐藏返回按钮和回到顶部按钮
                     document.querySelector('.back-to-portfolio').style.display = 'none';
                     document.querySelector('.back-to-top').style.display = 'none';
                 }
@@ -845,18 +835,17 @@
             function closePreview() {
                 previewModal.classList.remove('active');
                 document.body.style.overflow = '';
-                // 显示返回按钮和回到顶部按钮
                 document.querySelector('.back-to-portfolio').style.display = 'flex';
                 document.querySelector('.back-to-top').style.display = 'flex';
             }
             
             function showPrev() {
-                currentIndex = (currentIndex - 1 + totalPosters) % totalPosters;
+                currentIndex = (currentIndex - 1 + totalImages) % totalImages;
                 openPreview(currentIndex);
             }
             
             function showNext() {
-                currentIndex = (currentIndex + 1) % totalPosters;
+                currentIndex = (currentIndex + 1) % totalImages;
                 openPreview(currentIndex);
             }
             
@@ -899,7 +888,7 @@
                 <path d="M9 18l6-6-6-6"/>
             </svg>
         </button>
-        <div class="preview-counter" id="previewCounter">1 / 10</div>
+        <div class="preview-counter" id="previewCounter">1 / 12</div>
     </div>
 
     <!-- 返回按钮 -->

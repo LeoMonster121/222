@@ -19,6 +19,7 @@
             --accent-yellow: #FFE600;
             --accent-orange: #FF6B35;
             --accent-purple: #7B2FFF;
+            --digital-human-glow: rgba(0, 245, 212, 0.4);
         }
 
         /* ========== Base Styles ========== */
@@ -185,6 +186,7 @@
             display: flex;
             gap: 32px;
             list-style: none;
+            transform: translateX(380px);/*关于、作品、联系按钮位置*/
         }
 
         nav a {
@@ -3220,6 +3222,815 @@
             }
         }
 
+        /* ========== Digital Human Section ========== */
+        .digital-human-section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .digital-human-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .digital-human-emoji {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            animation: bounce-subtle 2s ease-in-out infinite;
+        }
+
+        .digital-human-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .digital-human-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .digital-human-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .digital-human-card {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(145deg, rgba(30, 30, 50, 0.95), rgba(20, 20, 35, 0.98));
+            border: 2px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .digital-human-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta), var(--accent-purple));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .digital-human-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 50px var(--digital-human-glow);
+            border-color: var(--accent-cyan);
+        }
+
+        .digital-human-card:hover::before {
+            opacity: 1;
+        }
+
+        .digital-human-image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .digital-human-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .digital-human-card:hover .digital-human-image {
+            transform: scale(1.1);
+        }
+
+        .digital-human-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(13, 13, 26, 0.98) 0%,
+                rgba(13, 13, 26, 0.5) 30%,
+                transparent 60%
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+        }
+
+        .digital-human-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            padding: 6px 14px;
+            background: rgba(0, 245, 212, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--bg-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .digital-human-content {
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .digital-human-card:hover .digital-human-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .digital-human-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .digital-human-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .digital-human-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .digital-human-tag {
+            padding: 4px 12px;
+            background: rgba(123, 47, 255, 0.4);
+            border: 1px solid rgba(123, 47, 255, 0.5);
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--accent-cyan);
+        }
+
+        .digital-human-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .digital-human-play-btn::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 18px solid var(--accent-purple);
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            margin-left: 6px;
+        }
+
+        .digital-human-card:hover .digital-human-play-btn {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .digital-human-play-btn:hover {
+            background: var(--accent-magenta);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .digital-human-play-btn:hover::after {
+            border-left-color: white;
+        }
+
+        /* 卡片序号装饰 */
+        .digital-human-number {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background: rgba(13, 13, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--accent-yellow);
+            text-shadow: 0 0 10px rgba(255, 230, 0, 0.5);
+        }
+
+        /* 响应式布局 */
+        @media (max-width: 992px) {
+            .digital-human-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .digital-human-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+            
+            .digital-human-card {
+                aspect-ratio: 3 / 4;
+            }
+        }
+
+        /* ========== ComfyUI Section ========== */
+        .comfyui-section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .comfyui-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .comfyui-emoji {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            animation: bounce-subtle 2s ease-in-out infinite;
+        }
+
+        .comfyui-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d4ff, #7b2fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comfyui-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .comfyui-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .comfyui-card {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(145deg, rgba(30, 30, 50, 0.95), rgba(20, 20, 35, 0.98));
+            border: 2px solid rgba(255, 255, 255, 0.08);
+        }
+
+        @media (max-width: 600px) {
+            .comfyui-grid {
+                gap: 24px;
+            }
+        }
+
+        .comfyui-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, #00d4ff, #7b2fff, #ff2d92);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .comfyui-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 50px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .comfyui-card:hover::before {
+            opacity: 1;
+        }
+
+        .comfyui-image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .comfyui-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .comfyui-card:hover .comfyui-image {
+            transform: scale(1.1);
+        }
+
+        .comfyui-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(13, 13, 26, 0.98) 0%,
+                rgba(13, 13, 26, 0.5) 30%,
+                transparent 60%
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+        }
+
+        .comfyui-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            padding: 6px 14px;
+            background: rgba(0, 212, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--bg-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comfyui-number {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background: rgba(13, 13, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: #00d4ff;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        /* ComfyUI 模态框样式 */
+        .comfyui-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .comfyui-modal.active {
+            display: flex;
+        }
+
+        .comfyui-modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .comfyui-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .comfyui-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .comfyui-modal-close svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .comfyui-modal-reset {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 24px;
+            background: rgba(0, 212, 255, 0.85);
+            border: none;
+            border-radius: 24px;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .comfyui-modal-reset:hover {
+            background: rgba(0, 212, 255, 1);
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        .comfyui-modal-image-wrapper {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            cursor: zoom-in;
+        }
+
+        .comfyui-modal-image-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .comfyui-content {
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .comfyui-card:hover .comfyui-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .comfyui-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .comfyui-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .comfyui-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .comfyui-tag {
+            padding: 4px 12px;
+            background: rgba(0, 212, 255, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #00d4ff;
+        }
+
+        /* ========== LoRA Training Section ========== */
+        .lora-section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .lora-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .lora-emoji {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .lora-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b35, #ff3af2, #00f5d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .lora-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .lora-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .lora-card {
+            background: linear-gradient(145deg, rgba(40, 30, 60, 0.9), rgba(25, 20, 40, 0.95));
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .lora-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-magenta), var(--accent-cyan));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lora-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 107, 53, 0.15);
+            border-color: rgba(255, 107, 53, 0.3);
+        }
+
+        .lora-card:hover::before {
+            opacity: 1;
+        }
+
+        .lora-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(45, 27, 78, 0.5), rgba(13, 13, 26, 0.8));
+        }
+
+        .lora-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .lora-card:hover .lora-image {
+            transform: scale(1.08);
+        }
+
+        .lora-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(45, 27, 78, 0.6), rgba(20, 15, 35, 0.8));
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .lora-placeholder-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+
+        .lora-placeholder-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .lora-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 6px 14px;
+            background: rgba(255, 107, 53, 0.9);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            backdrop-filter: blur(10px);
+        }
+
+        .lora-number {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.15);
+            line-height: 1;
+        }
+
+        .lora-content {
+            padding: 24px;
+        }
+
+        .lora-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .lora-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .lora-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .lora-tag {
+            padding: 5px 12px;
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid rgba(255, 107, 53, 0.4);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #ff6b35;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 900px) {
+            .lora-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .lora-section {
+                padding: 60px 0;
+            }
+
+            .lora-header {
+                margin-bottom: 36px;
+            }
+
+            .lora-emoji {
+                font-size: 2.5rem;
+            }
+
+            .lora-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 0 16px;
+            }
+
+            .lora-image-wrapper {
+                height: 200px;
+            }
+
+            .lora-content {
+                padding: 20px;
+            }
+
+            .lora-name {
+                font-size: 1.15rem;
+            }
+
+            .lora-desc {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .lora-image-wrapper {
+                height: 180px;
+            }
+
+            .lora-badge {
+                font-size: 0.65rem;
+                padding: 4px 10px;
+            }
+
+            .lora-number {
+                font-size: 2.5rem;
+            }
+        }
+
         /* ========== Footer ========== */
         footer {
             padding: 40px 0;
@@ -4721,7 +5532,7 @@
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                     </svg>
                 </div>
-                <span>Portfolio</span>
+                <span>AIGC Portfolio</span>
             </a>
             <nav>
                 <ul>
@@ -4759,23 +5570,23 @@
 
         <div class="bg-text" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">WOW</div>
 
-        <div class="container hero-content">
+        <div class="container hero-content" style="margin-top: 80px;">
             <div class="hero-badge">
                 <span>✨</span>
                 <span>AIGC Portfolio</span>
             </div>
-            <h1 class="hero-title text-shadow-mega">
+            <h1 class="hero-title text-shadow-mega" style="margin-top: 15px;">
                 <!--
                 <span class="line1">我的</span>
                 -->
                 <span class="line2 gradient-text">AIGC</span>
                 <span class="line3">作品集</span>
             </h1>
-            <p class="hero-description">
+            <p class="hero-description" style="margin-top: 50px;">
                 探索我的设计世界，每一个作品都是灵感与技术的完美结合。
                 从概念到实现，用创意点亮每一个像素。
             </p>
-            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 60px;"><!--浏览作品按钮和联系我按钮位置-->
                 <a href="#works" class="btn btn-primary">
                     <span>浏览作品</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -4870,6 +5681,15 @@
                                 <span class="skill-tag">JavaScript</span>
                                 <span class="skill-tag">React</span>
                                 <span class="skill-tag">ComfyUI</span>
+                                <span class="skill-tag">ChatGPT</span>
+                                <span class="skill-tag">Nanobanana</span>
+                                <span class="skill-tag">LibTV</span>
+                                <span class="skill-tag">Minimax</span>
+                                <span class="skill-tag">LoRA Training</span>
+                                <span class="skill-tag">即梦</span>
+                                <span class="skill-tag">可灵</span>
+                                <span class="skill-tag">小云雀</span>
+                                <span class="skill-tag">剪映</span>
                             </div>
                         </div>
 
@@ -4988,6 +5808,8 @@
                             <span class="showcase-dot" data-index="5"></span>
                             <span class="showcase-dot" data-index="6"></span>
                             <span class="showcase-dot" data-index="7"></span>
+                            <span class="showcase-dot" data-index="8"></span>
+                            <span class="showcase-dot" data-index="9"></span>
                         </div>
                     </div>
                 </div>
@@ -5073,6 +5895,276 @@
                 </div>
             </div>
 
+            <!-- 数字人模块 -->
+            <div class="digital-human-section" id="digitalHumanSection">
+                <div class="digital-human-header">
+                    <div class="digital-human-emoji">🤖</div>
+                    <h2 class="digital-human-title">数字人创作</h2>
+                    <p class="digital-human-subtitle">探索AI数字人的无限可能，从虚拟主播到智能助手，创造栩栩如生的数字形象</p>
+                </div>
+                <div class="digital-human-grid">
+                    <!-- 数字人卡片 1 -->
+                    <div class="digital-human-card" onclick="openDigitalHumanModal(0)">
+                        <div class="digital-human-image-container">
+                            <img class="digital-human-image" src="images/p-1.webp" alt="虚拟主播形象">
+                            <span class="digital-human-badge">数字人</span>
+                            <span class="digital-human-number">01</span>
+                            <div class="digital-human-play-btn"></div>
+                        </div>
+                        <div class="digital-human-overlay">
+                            <div class="digital-human-content">
+                                <h3 class="digital-human-name">香薰</h3>
+                                <p class="digital-human-desc">一缕香气，打造高级生活氛围</p>
+                                <div class="digital-human-tags">
+                                    <span class="digital-human-tag">ChatGPT</span>
+                                    <span class="digital-human-tag">Minimax</span>
+                                    <span class="digital-human-tag">LibTV</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 数字人卡片 2 -->
+                    <div class="digital-human-card" onclick="openDigitalHumanModal(1)">
+                        <div class="digital-human-image-container">
+                            <img class="digital-human-image" src="images/p-2.webp" alt="智能助手形象">
+                            <span class="digital-human-badge">数字人</span>
+                            <span class="digital-human-number">02</span>
+                            <div class="digital-human-play-btn"></div>
+                        </div>
+                        <div class="digital-human-overlay">
+                            <div class="digital-human-content">
+                                <h3 class="digital-human-name">香水</h3>
+                                <p class="digital-human-desc">一喷入魂，释放你的独特魅力</p>
+                                <div class="digital-human-tags">
+                                    <span class="digital-human-tag">ChatGPT</span>
+                                    <span class="digital-human-tag">Minimax</span>
+                                    <span class="digital-human-tag">LibTV</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 数字人卡片 3 -->
+                    <div class="digital-human-card" onclick="openDigitalHumanModal(2)">
+                        <div class="digital-human-image-container">
+                            <img class="digital-human-image" src="images/p-3.webp" alt="虚拟代言人形象">
+                            <span class="digital-human-badge">数字人</span>
+                            <span class="digital-human-number">03</span>
+                            <div class="digital-human-play-btn"></div>
+                        </div>
+                        <div class="digital-human-overlay">
+                            <div class="digital-human-content">
+                                <h3 class="digital-human-name">坚果</h3>
+                                <p class="digital-human-desc">精选全球好坚果，开启健康美味生活</p>
+                                <div class="digital-human-tags">
+                                    <span class="digital-human-tag">ChatGPT</span>
+                                    <span class="digital-human-tag">Minimax</span>
+                                    <span class="digital-human-tag">LibTV</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ComfyUI模块 -->
+            <div class="comfyui-section" id="comfyuiSection">
+                <div class="comfyui-header">
+                    <div class="comfyui-emoji">⚡</div>
+                    <h2 class="comfyui-title">ComfyUI 工作流</h2>
+                    <p class="comfyui-subtitle">探索ComfyUI工作流的无限创意可能，从图像生成到风格迁移，创造独特的视觉作品</p>
+                </div>
+                <div class="comfyui-grid">
+                    <!-- ComfyUI卡片 1 -->
+                    <div class="comfyui-card" onclick="openComfyUIModal(0)">
+                        <div class="comfyui-image-container">
+                            <img class="comfyui-image" src="images/comfyui-1.webp" alt="ComfyUI工作流1">
+                            <span class="comfyui-badge">ComfyUI</span>
+                            <span class="comfyui-number">01</span>
+                        </div>
+                        <div class="comfyui-overlay">
+                            <div class="comfyui-content">
+                                <h3 class="comfyui-name">风格迁移</h3>
+                                <p class="comfyui-desc">AI驱动的图像风格迁移工作流</p>
+                                <div class="comfyui-tags">
+                                    <span class="comfyui-tag">Stable Diffusion</span>
+                                    <span class="comfyui-tag">ControlNet</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ComfyUI卡片 2 -->
+                    <div class="comfyui-card" onclick="openComfyUIModal(1)">
+                        <div class="comfyui-image-container">
+                            <img class="comfyui-image" src="images/comfyui-2.webp" alt="ComfyUI工作流2">
+                            <span class="comfyui-badge">ComfyUI</span>
+                            <span class="comfyui-number">02</span>
+                        </div>
+                        <div class="comfyui-overlay">
+                            <div class="comfyui-content">
+                                <h3 class="comfyui-name">人像生成</h3>
+                                <p class="comfyui-desc">精准控制的人像AI生成系统</p>
+                                <div class="comfyui-tags">
+                                    <span class="comfyui-tag">LoRA</span>
+                                    <span class="comfyui-tag">IP-Adapter</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ComfyUI卡片 3 -->
+                    <div class="comfyui-card" onclick="openComfyUIModal(2)">
+                        <div class="comfyui-image-container">
+                            <img class="comfyui-image" src="images/comfyui-3.webp" alt="ComfyUI工作流3">
+                            <span class="comfyui-badge">ComfyUI</span>
+                            <span class="comfyui-number">03</span>
+                        </div>
+                        <div class="comfyui-overlay">
+                            <div class="comfyui-content">
+                                <h3 class="comfyui-name">产品展示</h3>
+                                <p class="comfyui-desc">商业产品视觉呈现工作流</p>
+                                <div class="comfyui-tags">
+                                    <span class="comfyui-tag">SDXL</span>
+                                    <span class="comfyui-tag">Inpainting</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ComfyUI卡片 4 -->
+                    <div class="comfyui-card" onclick="openComfyUIModal(3)">
+                        <div class="comfyui-image-container">
+                            <img class="comfyui-image" src="images/comfyui-4.webp" alt="ComfyUI工作流4">
+                            <span class="comfyui-badge">ComfyUI</span>
+                            <span class="comfyui-number">04</span>
+                        </div>
+                        <div class="comfyui-overlay">
+                            <div class="comfyui-content">
+                                <h3 class="comfyui-name">场景合成</h3>
+                                <p class="comfyui-desc">多元素组合的创意场景生成</p>
+                                <div class="comfyui-tags">
+                                    <span class="comfyui-tag">ComfyUI</span>
+                                    <span class="comfyui-tag">Blender</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ComfyUI卡片 5 -->
+                    <div class="comfyui-card" onclick="openComfyUIModal(4)">
+                        <div class="comfyui-image-container">
+                            <img class="comfyui-image" src="images/comfyui-5.webp" alt="ComfyUI工作流5">
+                            <span class="comfyui-badge">ComfyUI</span>
+                            <span class="comfyui-number">05</span>
+                        </div>
+                        <div class="comfyui-overlay">
+                            <div class="comfyui-content">
+                                <h3 class="comfyui-name">海报设计</h3>
+                                <p class="comfyui-desc">一键生成创意海报设计</p>
+                                <div class="comfyui-tags">
+                                    <span class="comfyui-tag">Midjourney</span>
+                                    <span class="comfyui-tag">Photoshop</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ComfyUI卡片 6 -->
+                    <div class="comfyui-card" onclick="openComfyUIModal(5)">
+                        <div class="comfyui-image-container">
+                            <img class="comfyui-image" src="images/comfyui-6.webp" alt="ComfyUI工作流6">
+                            <span class="comfyui-badge">ComfyUI</span>
+                            <span class="comfyui-number">06</span>
+                        </div>
+                        <div class="comfyui-overlay">
+                            <div class="comfyui-content">
+                                <h3 class="comfyui-name">艺术插画</h3>
+                                <p class="comfyui-desc">AI辅助的数字艺术插画创作</p>
+                                <div class="comfyui-tags">
+                                    <span class="comfyui-tag">DALL-E</span>
+                                    <span class="comfyui-tag">Illustrator</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LoRA训练模块 -->
+            <div class="lora-section" id="loraSection">
+                <div class="lora-header">
+                    <div class="lora-emoji">🎨</div>
+                    <h2 class="lora-title">LoRA 训练成果</h2>
+                    <p class="lora-subtitle">自定义训练LoRA模型，打造专属风格，从传统服饰到商业产品</p>
+                </div>
+                <div class="lora-grid">
+                    <!-- LoRA卡片 1 - 齐腰襦裙 -->
+                    <a href="lora/Lora1.html" class="lora-card">
+                        <div class="lora-image-wrapper">
+                            <div class="lora-placeholder">
+                                <div class="lora-placeholder-icon">👘</div>
+                                <div class="lora-placeholder-text">齐腰襦裙 LoRA</div>
+                            </div>
+                            <span class="lora-badge">LoRA</span>
+                            <span class="lora-number">01</span>
+                        </div>
+                        <div class="lora-content">
+                            <h3 class="lora-name">齐腰襦裙风格</h3>
+                            <p class="lora-desc">深度学习中国传统服饰美学，精准还原唐代至宋代襦裙的飘逸质感与色彩搭配</p>
+                            <div class="lora-tags">
+                                <span class="lora-tag">传统服饰</span>
+                                <span class="lora-tag">汉服</span>
+                                <span class="lora-tag">文化传承</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- LoRA卡片 2 - IP形象 -->
+                    <div class="lora-card">
+                        <div class="lora-image-wrapper">
+                            <div class="lora-placeholder">
+                                <div class="lora-placeholder-icon">🎭</div>
+                                <div class="lora-placeholder-text">IP LoRA</div>
+                            </div>
+                            <span class="lora-badge">LoRA</span>
+                            <span class="lora-number">02</span>
+                        </div>
+                        <div class="lora-content">
+                            <h3 class="lora-name">IP形象定制</h3>
+                            <p class="lora-desc">为品牌和角色打造独特的视觉风格，保持IP形象在不同场景下的一致性与辨识度</p>
+                            <div class="lora-tags">
+                                <span class="lora-tag">品牌IP</span>
+                                <span class="lora-tag">角色设计</span>
+                                <span class="lora-tag">形象一致</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LoRA卡片 3 - 产品 -->
+                    <div class="lora-card">
+                        <div class="lora-image-wrapper">
+                            <div class="lora-placeholder">
+                                <div class="lora-placeholder-icon">📦</div>
+                                <div class="lora-placeholder-text">产品 LoRA</div>
+                            </div>
+                            <span class="lora-badge">LoRA</span>
+                            <span class="lora-number">03</span>
+                        </div>
+                        <div class="lora-content">
+                            <h3 class="lora-name">产品商业风格</h3>
+                            <p class="lora-desc">融合商业摄影美学与AI生成技术，为电商产品提供高质量、风格统一视觉方案</p>
+                            <div class="lora-tags">
+                                <span class="lora-tag">电商产品</span>
+                                <span class="lora-tag">商业摄影</span>
+                                <span class="lora-tag">品牌调性</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -5113,7 +6205,7 @@
                         <div class="skill-tags">
                             <span class="skill-tag-item">Python</span>
                             <span class="skill-tag-item">JavaScript</span>
-                            <span class="skill-tag-item">HTML/CSS</span>
+                            <span class="skill-tag-item">React</span>
                             <span class="skill-tag-item">Photoshop</span>
                             <span class="skill-tag-item">Illustrator</span>
                             <span class="skill-tag-item">HTML/CSS</span>
@@ -5121,6 +6213,15 @@
                             <span class="skill-tag-item">Midjourney</span>
                             <span class="skill-tag-item">Stable Diffusion</span>
                             <span class="skill-tag-item">ComfyUI</span>
+                            <span class="skill-tag-item">ChatGPT</span>
+                            <span class="skill-tag-item">Nanobanana</span>
+                            <span class="skill-tag-item">LibTV</span>
+                            <span class="skill-tag-item">Minimax</span>
+                            <span class="skill-tag-item">LoRA Training</span>
+                            <span class="skill-tag-item">即梦</span>
+                            <span class="skill-tag-item">可灵</span>
+                            <span class="skill-tag-item">小云雀</span>
+                            <span class="skill-tag-item">剪映</span>
                         </div>
                         <h4 class="cooperation-title">开放合作 <span>+</span></h4>
                         <p class="cooperation-desc">欢迎各类设计合作与职位机会，期待与优秀的团队一起成长。</p>
@@ -5283,14 +6384,14 @@
                 { id: 1, title: '混沌觉醒', desc: '构筑东方幻想世界，讲述觉醒者突破命运枷锁的传奇篇章', img: 'images/drama-2.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1SaK56uEEr/?vd_source=08e47495e48e139b9aea8021d253ed73' },
                 { id: 2, title: '混沌觉醒', desc: '东方玄幻史诗篇章，揭开宿命轮回与力量觉醒的神秘序幕', img: 'images/drama-3.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1nUK56tEBW/?vd_source=08e47495e48e139b9aea8021d253ed73' },
                 { id: 3, title: '混沌觉醒', desc: '沉浸式幻想世界，探索命运交织下的觉醒力量与未知真相', img: 'images/drama-4.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1H2K56fEJS/?vd_source=08e47495e48e139b9aea8021d253ed73' },
-                { id: 4, title: '芒芒仔', desc: '体育竞技题材，挑战自我突破极限的热血故事', img: 'images/drama-5.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784621792/%E7%AC%AC%E4%B8%80%E9%9B%86_kec9hr.mp4' },
-                { id: 5, title: '椰椰妹', desc: '温情治愈系，美食与人生百味的交织故事', img: 'images/drama-6.webp',type:'video',video:'' },
-                { id: 6, title: '山竹君', desc: '游戏改编奇幻剧，虚拟与现实交织的命运', img: 'images/drama-7.webp',type:'video',video:'' },
-                { id: 7, title: '草莓队长', desc: '校园青春剧，讲述友情、爱情与梦想的故事', img: 'images/drama-8.webp',type:'video',video:'' },
-                { id: 8, title: '星际迷航', desc: '太空科幻题材，探索未知星系与人类命运的史诗旅程', img: 'images/drama-9.webp', type: 'video', video: '' },
-                { id: 9, title: '时光旅人', desc: '穿越时空的爱情故事，见证命运交织的感人瞬间', img: 'images/drama-10.webp', type: 'video', video: '' },
-                { id: 10, title: '都市传说', desc: '悬疑推理剧情，揭开隐藏在都市背后的神秘真相', img: 'images/drama-11.webp', type: 'video', video: '' },
-                { id: 11, title: '2026 世界杯', desc: '怀旧青春剧，重温校园时代的美好回忆', img: 'images/drama-12.webp', type: 'video', video: 'https://res.cloudinary.com/datarpybk/video/upload/v1784534017/IP%E4%B8%96%E7%95%8C%E6%9D%AF_dhocut.mp4' },
+                { id: 4, title: '芒芒仔', desc: '探索成长、勇气与梦想的奇妙旅程', img: 'images/drama-5.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784621792/%E7%AC%AC%E4%B8%80%E9%9B%86_kec9hr.mp4' },
+                { id: 5, title: '椰椰妹', desc: '传递陪伴、友情与生活中的美好瞬间', img: 'images/drama-6.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784945861/%E7%AC%AC%E4%BA%8C%E9%9B%86_ideh1u.mp4' },
+                { id: 6, title: '山竹君', desc: '演绎水果世界中的友情与成长羁绊', img: 'images/drama-7.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784809150/%E6%88%90%E5%93%81_hq8qsi.mp4' },
+                { id: 7, title: '草莓队长', desc: '友情陪伴与追逐梦想的美好旅程', img: 'images/drama-8.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784945717/%E7%AC%AC%E4%B8%89%E9%9B%86_tbkobl.mp4' },
+                { id: 8, title: '月蚀', desc: '', img: 'images/drama-9.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1YCgQ6cEmD/?vd_source=08e47495e48e139b9aea8021d253ed73' },
+                { id: 9, title: '时光旅人', desc: '', img: 'images/drama-10.webp', type: 'video', video: '' },
+                { id: 10, title: '都市传说', desc: '', img: 'images/drama-11.webp', type: 'video', video: '' },
+                { id: 11, title: '2026 世界杯', desc: '', img: 'images/drama-12.webp', type: 'video', video: 'https://res.cloudinary.com/datarpybk/video/upload/v1784534017/IP%E4%B8%96%E7%95%8C%E6%9D%AF_dhocut.mp4' },
             ],
             tvc: [
                 { id: 0, title: '啤酒', desc: '凝聚纯正酿造工艺，演绎自然清爽的欢聚时刻', img: 'images/tvc-1.webp',type:'video',video:'video/TVC/tvc1.mp4' },
@@ -5304,16 +6405,204 @@
                 { id: 8, title: '洗发水', desc: '焕现柔顺光泽的秀发魅力', img: 'images/tvc-9.webp', type:'video', video:'https://res.cloudinary.com/datarpybk/video/upload/v1784620678/%E6%88%90%E5%93%81_ufafvu.mp4' },
                 { id: 9, title: '咖啡', desc: '唤醒品质生活的每一刻', img: 'images/tvc-10.webp', type:'video', video:'https://res.cloudinary.com/datarpybk/video/upload/v1784791321/%E6%88%90%E5%93%81_cf1uy8.mp4' },
                 { id: 10, title: '手表', desc: '演绎精准与潮流的融合', img: 'images/tvc-11.webp',type:'video',video:'video/TVC/tvc11.mp4' },
-                { id: 11, title: '扫地机器人', desc: '打造洁净舒适的智慧生活', img: 'images/tvc-12.webp', type:'video', video:'' },
+                { id: 11, title: '扫地机器人', desc: '打造洁净舒适的智慧生活', img: 'images/tvc-12.webp', type:'video', video:'video/TVC/tvc12.mp4' },
             ]
         };
 
         // ========== UI Design Data ==========
         const uiDesignData = [
             { id: 0, title: '教育学习UI设计', desc: '打造高效便捷的学习体验', img: 'images/ui-1.webp', badge: 'UI', link: 'ui/ui1.html' },
-            { id: 1, title: '医疗健康UI设计', desc: '构建专业可信的健康服务体验', img: 'images/ui-2.webp', badge: 'UI', link: 'ui/ui2.html' },
-            { id: 2, title: '金融理财UI设计', desc: '塑造安全智能的财富管理体验', img: 'images/ui-3.webp', badge: 'UI', link: 'ui/ui3.html' },
+            { id: 1, title: '金融理财UI设计', desc: '塑造安全智能的财富管理体验', img: 'images/ui-2.webp', badge: 'UI', link: 'ui/ui2.html' },
+            { id: 2, title: '医疗健康UI设计', desc: '构建专业可信的健康服务体验', img: 'images/ui-3.webp', badge: 'UI', link: 'ui/ui3.html' },
         ];
+
+        // ========== Digital Human Data ==========
+        const digitalHumanData = [
+            {
+                id: 0,
+                name: '香薰',
+                badge: '数字人',
+                desc: '24小时不间断直播的虚拟主播，具备智能对话和实时互动能力',
+                tags: ['实时渲染', '语音合成', '情感计算'],
+                img: 'images/p-1.webp',
+                video: 'https://res.cloudinary.com/datarpybk/video/upload/v1784962535/%E6%95%B0%E5%AD%97%E4%BA%BA_q0mvyw.mp4'
+            },
+            {
+                id: 1,
+                name: '香水',
+                badge: '数字人',
+                desc: '企业级智能助手，专业的形象设计和多场景服务能力',
+                tags: ['ChatGPT', 'Minimax', 'LibTV'],
+                img: 'images/p-2.webp',
+                video: 'https://res.cloudinary.com/datarpybk/video/upload/v1784962539/%E9%A6%99%E6%B0%B4%E6%95%B0%E5%AD%97%E4%BA%BA_hcujuu.mp4'
+            },
+            {
+                id: 2,
+                name: '坚果',
+                badge: '数字人',
+                desc: '品牌专属虚拟代言人，打造独特的视觉识别和情感连接',
+                tags: ['风格定制', 'IP孵化', '全链路'],
+                img: 'images/p-3.webp',
+                video: 'https://res.cloudinary.com/datarpybk/video/upload/v1784962544/%E5%9D%9A%E6%9E%9C%E6%95%B0%E5%AD%97%E4%BA%BA_olrmmt.mp4'
+            }
+        ];
+
+        // ========== ComfyUI Data ==========
+        const comfyuiData = [
+            {
+                id: 0,
+                name: '风格迁移',
+                badge: 'ComfyUI',
+                desc: 'AI驱动的图像风格迁移工作流，将艺术风格智能应用到任意图像',
+                tags: ['Stable Diffusion', 'ControlNet'],
+                img: 'images/comfyui-1.webp'
+            },
+            {
+                id: 1,
+                name: '人像生成',
+                badge: 'ComfyUI',
+                desc: '精准控制的人像AI生成系统，支持姿态、表情、肤色等多维度控制',
+                tags: ['LoRA', 'IP-Adapter'],
+                img: 'images/comfyui-2.webp'
+            },
+            {
+                id: 2,
+                name: '产品展示',
+                badge: 'ComfyUI',
+                desc: '商业产品视觉呈现工作流，快速生成高质量产品展示图',
+                tags: ['SDXL', 'Inpainting'],
+                img: 'images/comfyui-3.webp'
+            },
+            {
+                id: 3,
+                name: '场景合成',
+                badge: 'ComfyUI',
+                desc: '多元素组合的创意场景生成，打造沉浸式视觉体验',
+                tags: ['ComfyUI', 'Blender'],
+                img: 'images/comfyui-4.webp'
+            },
+            {
+                id: 4,
+                name: '海报设计',
+                badge: 'ComfyUI',
+                desc: '一键生成创意海报设计，支持多种风格和尺寸',
+                tags: ['Midjourney', 'Photoshop'],
+                img: 'images/comfyui-5.webp'
+            },
+            {
+                id: 5,
+                name: '艺术插画',
+                badge: 'ComfyUI',
+                desc: 'AI辅助的数字艺术插画创作，激发无限创意可能',
+                tags: ['DALL-E', 'Illustrator'],
+                img: 'images/comfyui-6.webp'
+            }
+        ];
+
+        function openDigitalHumanModal(index) {
+            const data = digitalHumanData[index];
+            if (data && data.video) {
+                window.open(data.video, '_blank');
+            } else {
+                console.log('查看数字人详情:', data.name);
+            }
+        }
+
+        let comfyuiScale = 1;
+        let comfyuiIsDragging = false;
+        let comfyuiStartX = 0;
+        let comfyuiStartY = 0;
+        let comfyuiTranslateX = 0;
+        let comfyuiTranslateY = 0;
+
+        function openComfyUIModal(index) {
+            const data = comfyuiData[index];
+            if (data) {
+                const img = document.getElementById('comfyuiModalImage');
+                img.src = data.img;
+                img.alt = data.name;
+                img.style.transform = 'scale(1) translate(0, 0)';
+                comfyuiScale = 1;
+                comfyuiTranslateX = 0;
+                comfyuiTranslateY = 0;
+                document.getElementById('comfyuiModal').classList.add('active');
+            }
+        }
+
+        function closeComfyUIModal() {
+            document.getElementById('comfyuiModal').classList.remove('active');
+            resetComfyUIImage();
+        }
+
+        function resetComfyUIImage() {
+            const img = document.getElementById('comfyuiModalImage');
+            const imgWrapper = document.querySelector('.comfyui-modal-image-wrapper');
+            if (img && imgWrapper) {
+                comfyuiScale = 1;
+                comfyuiTranslateX = 0;
+                comfyuiTranslateY = 0;
+                img.style.transform = 'scale(1)';
+                imgWrapper.style.cursor = 'zoom-in';
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeComfyUIModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('comfyuiModal');
+            const imgWrapper = document.querySelector('.comfyui-modal-image-wrapper');
+            const img = document.getElementById('comfyuiModalImage');
+
+            if (imgWrapper && img) {
+                imgWrapper.addEventListener('wheel', function(e) {
+                    e.preventDefault();
+                    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                    comfyuiScale = Math.min(Math.max(comfyuiScale * delta, 0.5), 5);
+                    img.style.transform = `scale(${comfyuiScale}) translate(${comfyuiTranslateX}px, ${comfyuiTranslateY}px)`;
+                    imgWrapper.style.cursor = comfyuiScale > 1 ? 'grab' : 'zoom-in';
+                });
+
+                imgWrapper.addEventListener('mousedown', function(e) {
+                    if (comfyuiScale > 1) {
+                        comfyuiIsDragging = true;
+                        comfyuiStartX = e.clientX - comfyuiTranslateX;
+                        comfyuiStartY = e.clientY - comfyuiTranslateY;
+                        imgWrapper.style.cursor = 'grabbing';
+                    }
+                });
+
+                document.addEventListener('mousemove', function(e) {
+                    if (comfyuiIsDragging) {
+                        comfyuiTranslateX = e.clientX - comfyuiStartX;
+                        comfyuiTranslateY = e.clientY - comfyuiStartY;
+                        img.style.transform = `scale(${comfyuiScale}) translate(${comfyuiTranslateX}px, ${comfyuiTranslateY}px)`;
+                    }
+                });
+
+                document.addEventListener('mouseup', function() {
+                    comfyuiIsDragging = false;
+                    if (imgWrapper) {
+                        imgWrapper.style.cursor = comfyuiScale > 1 ? 'grab' : 'zoom-in';
+                    }
+                });
+
+                imgWrapper.addEventListener('dblclick', function() {
+                    if (comfyuiScale > 1) {
+                        comfyuiScale = 1;
+                        comfyuiTranslateX = 0;
+                        comfyuiTranslateY = 0;
+                    } else {
+                        comfyuiScale = 2;
+                    }
+                    img.style.transform = `scale(${comfyuiScale}) translate(${comfyuiTranslateX}px, ${comfyuiTranslateY}px)`;
+                    imgWrapper.style.cursor = comfyuiScale > 1 ? 'grab' : 'zoom-in';
+                });
+            }
+        });
 
         function initUiDesignSection() {
             const grid = document.getElementById('uiDesignGrid');
@@ -6880,6 +8169,22 @@
             <button class="zodiac-detail-nav next" onclick="navigateZodiacDetail(1)" aria-label="下一张">
                 <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
             </button>
+        </div>
+    </div>
+
+    <!-- ComfyUI 模态框 -->
+    <div id="comfyuiModal" class="comfyui-modal">
+        <div class="comfyui-modal-overlay" onclick="closeComfyUIModal()"></div>
+        <button class="comfyui-modal-close" onclick="closeComfyUIModal()">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+        </button>
+        <button class="comfyui-modal-reset" onclick="resetComfyUIImage()">
+            复原
+        </button>
+        <div class="comfyui-modal-image-wrapper">
+            <img id="comfyuiModalImage" src="" alt="" draggable="false">
         </div>
     </div>
 </body>
