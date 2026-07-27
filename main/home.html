@@ -3510,6 +3510,7 @@
             color: rgba(255, 255, 255, 0.6);
             max-width: 600px;
             margin: 0 auto;
+            white-space: nowrap;
         }
 
         .comfyui-grid {
@@ -3705,6 +3706,56 @@
         .comfyui-modal-reset:hover {
             background: rgba(0, 212, 255, 1);
             transform: translateX(-50%) scale(1.05);
+        }
+
+        .comfyui-modal-nav {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .comfyui-modal-nav-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+        }
+
+        .comfyui-modal-nav-btn:hover {
+            background: rgba(0, 212, 255, 0.8);
+            border-color: rgba(0, 212, 255, 0.8);
+            transform: scale(1.1);
+        }
+
+        .comfyui-modal-nav-btn svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .comfyui-modal-nav-indicator {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            pointer-events: auto;
         }
 
         .comfyui-modal-image-wrapper {
@@ -5705,39 +5756,37 @@
                     </div>
                 </div>
 
-                <!-- 右侧工作经历 -->
+                <!-- 右侧实习经历 -->
                 <div class="about-right">
                     <div class="experience-card">
-                        <h4 class="experience-title">工作经历</h4>
-                        
                         <div class="timeline">
+                            <h4 class="experience-title">实习经历</h4>
+
                             <div class="timeline-item">
                                 <div class="timeline-marker"></div>
                                 <div class="timeline-content">
-                                    <span class="timeline-date">2024.06 - 2025.01</span>
-                                    <h5 class="timeline-company">XX科技有限公司</h5>
-                                    <p class="timeline-position">UI设计师</p>
-                                    <p class="timeline-desc">负责公司移动端产品UI设计，参与设计系统搭建，与开发团队协作完成产品迭代</p>
+                                    <span class="timeline-date">2025.10 - 2026.07</span>
+                                    <h5 class="timeline-company">厦门趣动文化传媒有限公司</h5>
+                                    <p class="timeline-position">AI视觉设计 / AI视频</p>
+                                    <p class="timeline-desc">负责 AI 商业视觉设计项目全流程制作，包括需求分析、创意策划、Prompt 设计、图片生成、后期精修及交付，确保设计方案兼具创意性与商业价值。</p>
+                                    <p class="timeline-desc">独立完成电商主图、详情页、品牌海报、KV 主视觉、产品广告图、社交媒体视觉等设计项目，满足品牌营销及商业推广需求。</p>
+                                    <p class="timeline-desc">负责原创 IP 形象设计及视觉体系搭建，包括角色设定、三视图设计、表情与动作设计、视觉规范及品牌延展物料设计，提升品牌辨识度与传播效果。</p>
+                                    <p class="timeline-desc">负责 AI 视频内容创作，包括脚本策划与撰写、分镜设计、镜头语言规划、视频生成及后期剪辑，输出符合品牌调性的宣传视频。</p>
+                                    <p class="timeline-desc">搭建标准化 Prompt 体系，优化 AI 生成流程，提升视觉产出质量与设计效率；持续探索 AIGC 技术应用与行业趋势，结合品牌需求打造创新型商业视觉方案。</p>
                                 </div>
                             </div>
-                            
+
+                            <h4 class="experience-title">项目经历</h4>
+
                             <div class="timeline-item">
                                 <div class="timeline-marker"></div>
                                 <div class="timeline-content">
-                                    <span class="timeline-date">2023.03 - 2024.05</span>
-                                    <h5 class="timeline-company">XX创意工作室</h5>
-                                    <p class="timeline-position">前端开发实习生</p>
-                                    <p class="timeline-desc">参与企业官网开发，负责页面切图和交互效果实现，熟练掌握HTML/CSS/JavaScript</p>
-                                </div>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <div class="timeline-marker"></div>
-                                <div class="timeline-content">
-                                    <span class="timeline-date">2022.06 - 2023.02</span>
-                                    <h5 class="timeline-company">学校融媒体中心</h5>
-                                    <p class="timeline-position">设计助理</p>
-                                    <p class="timeline-desc">负责校园活动宣传物料设计，积累了丰富的视觉设计经验</p>
+                                    <span class="timeline-date">2025.10 - 2026.07</span>
+                                    <h5 class="timeline-company">AI 视觉设计与视频创作</h5>
+                                    <p class="timeline-desc">1、电商视觉工作流搭建：主导基于 ComfyUI 的电商视觉生产工作流搭建，整合 LoRA、ControlNet、IPAdapter 等模型，实现商品海报、主图及营销物料的风格统一、构图精准可控，大幅提升批量化商业视觉生产效率。</p>
+                                    <p class="timeline-desc">2、高效商业素材生产：建立标准化 AI 出图流程，单月高效产出商业级电商视觉素材，涵盖商品主图、详情页、品牌海报及营销素材，提高整体设计效率，显著缩短项目交付周期。</p>
+                                    <p class="timeline-desc">3、AI 视频全流程制作：熟练运用 AI 视频创作工具完成视频剪辑、镜头衔接、智能字幕、配乐及特效制作，针对抖音、小红书等多平台进行内容适配，确保品牌视觉风格及 IP 形象统一。</p>
+                                    <p class="timeline-desc">4、品牌 IP 全案设计：主导"粉团"品牌 IP 从概念策划、角色设计、Prompt 工程到视觉规范搭建的全流程开发，基于 AI 工作流完成角色造型、表情包、主题场景及衍生品设计，构建完整 IP 视觉体系，大幅提升设计效率，降低制作成本。</p>
                                 </div>
                             </div>
                         </div>
@@ -5848,7 +5897,7 @@
             </div>
 
             <!-- UI设计模块 -->
-            <div class="ui-design-section">
+            <div class="ui-design-section" id="ui-design">
                 <div class="ui-design-header">
                     <div class="ui-design-header-left">
                         <span class="ui-design-emoji">💻</span>
@@ -5906,7 +5955,7 @@
                     <!-- 数字人卡片 1 -->
                     <div class="digital-human-card" onclick="openDigitalHumanModal(0)">
                         <div class="digital-human-image-container">
-                            <img class="digital-human-image" src="images/p-1.webp" alt="虚拟主播形象">
+                            <img class="digital-human-image" src="images/p-1.webp" alt="虚拟主播形象" loading="lazy" decoding="async">
                             <span class="digital-human-badge">数字人</span>
                             <span class="digital-human-number">01</span>
                             <div class="digital-human-play-btn"></div>
@@ -5927,7 +5976,7 @@
                     <!-- 数字人卡片 2 -->
                     <div class="digital-human-card" onclick="openDigitalHumanModal(1)">
                         <div class="digital-human-image-container">
-                            <img class="digital-human-image" src="images/p-2.webp" alt="智能助手形象">
+                            <img class="digital-human-image" src="images/p-2.webp" alt="智能助手形象" loading="lazy" decoding="async">
                             <span class="digital-human-badge">数字人</span>
                             <span class="digital-human-number">02</span>
                             <div class="digital-human-play-btn"></div>
@@ -5948,7 +5997,7 @@
                     <!-- 数字人卡片 3 -->
                     <div class="digital-human-card" onclick="openDigitalHumanModal(2)">
                         <div class="digital-human-image-container">
-                            <img class="digital-human-image" src="images/p-3.webp" alt="虚拟代言人形象">
+                            <img class="digital-human-image" src="images/p-3.webp" alt="虚拟代言人形象" loading="lazy" decoding="async">
                             <span class="digital-human-badge">数字人</span>
                             <span class="digital-human-number">03</span>
                             <div class="digital-human-play-btn"></div>
@@ -5979,17 +6028,16 @@
                     <!-- ComfyUI卡片 1 -->
                     <div class="comfyui-card" onclick="openComfyUIModal(0)">
                         <div class="comfyui-image-container">
-                            <img class="comfyui-image" src="images/comfyui-1.webp" alt="ComfyUI工作流1">
+                            <img class="comfyui-image" src="images/comfyui-1.webp" alt="Nano_Banana_Pro换装1" loading="lazy" decoding="async">
                             <span class="comfyui-badge">ComfyUI</span>
                             <span class="comfyui-number">01</span>
                         </div>
                         <div class="comfyui-overlay">
                             <div class="comfyui-content">
-                                <h3 class="comfyui-name">风格迁移</h3>
-                                <p class="comfyui-desc">AI驱动的图像风格迁移工作流</p>
+                                <h3 class="comfyui-name">Nano Banana换装</h3>
+                                <p class="comfyui-desc">基于Nano_Banana_Pro的人物换装工作流</p>
                                 <div class="comfyui-tags">
-                                    <span class="comfyui-tag">Stable Diffusion</span>
-                                    <span class="comfyui-tag">ControlNet</span>
+                                    <span class="comfyui-tag">Nano Banana</span>
                                 </div>
                             </div>
                         </div>
@@ -5998,17 +6046,18 @@
                     <!-- ComfyUI卡片 2 -->
                     <div class="comfyui-card" onclick="openComfyUIModal(1)">
                         <div class="comfyui-image-container">
-                            <img class="comfyui-image" src="images/comfyui-2.webp" alt="ComfyUI工作流2">
+                            <img class="comfyui-image" src="images/comfyui-2.webp" alt="ComfyUI工作流2" loading="lazy" decoding="async">
                             <span class="comfyui-badge">ComfyUI</span>
                             <span class="comfyui-number">02</span>
                         </div>
                         <div class="comfyui-overlay">
                             <div class="comfyui-content">
-                                <h3 class="comfyui-name">人像生成</h3>
-                                <p class="comfyui-desc">精准控制的人像AI生成系统</p>
+                                <h3 class="comfyui-name">线稿转3D</h3>
+                                <p class="comfyui-desc">从线稿智能生成3D模型的工作流</p>
                                 <div class="comfyui-tags">
+                                    <span class="comfyui-tag">Stable Diffusion</span>
+                                    <span class="comfyui-tag">Meshy</span>
                                     <span class="comfyui-tag">LoRA</span>
-                                    <span class="comfyui-tag">IP-Adapter</span>
                                 </div>
                             </div>
                         </div>
@@ -6017,17 +6066,18 @@
                     <!-- ComfyUI卡片 3 -->
                     <div class="comfyui-card" onclick="openComfyUIModal(2)">
                         <div class="comfyui-image-container">
-                            <img class="comfyui-image" src="images/comfyui-3.webp" alt="ComfyUI工作流3">
+                            <img class="comfyui-image" src="images/comfyui-3.png" alt="ComfyUI工作流3" loading="lazy" decoding="async">
                             <span class="comfyui-badge">ComfyUI</span>
                             <span class="comfyui-number">03</span>
                         </div>
                         <div class="comfyui-overlay">
                             <div class="comfyui-content">
-                                <h3 class="comfyui-name">产品展示</h3>
-                                <p class="comfyui-desc">商业产品视觉呈现工作流</p>
+                                <h3 class="comfyui-name">Kontext融图</h3>
+                                <p class="comfyui-desc">Kontext全能融图打光工作流</p>
                                 <div class="comfyui-tags">
-                                    <span class="comfyui-tag">SDXL</span>
-                                    <span class="comfyui-tag">Inpainting</span>
+                                    <span class="comfyui-tag">F.1</span>
+                                    <span class="comfyui-tag">LoRA</span>
+                                    <span class="comfyui-tag">ControlNet</span>
                                 </div>
                             </div>
                         </div>
@@ -6036,7 +6086,7 @@
                     <!-- ComfyUI卡片 4 -->
                     <div class="comfyui-card" onclick="openComfyUIModal(3)">
                         <div class="comfyui-image-container">
-                            <img class="comfyui-image" src="images/comfyui-4.webp" alt="ComfyUI工作流4">
+                            <img class="comfyui-image" src="images/comfyui-4.webp" alt="ComfyUI工作流4" loading="lazy" decoding="async">
                             <span class="comfyui-badge">ComfyUI</span>
                             <span class="comfyui-number">04</span>
                         </div>
@@ -6055,7 +6105,7 @@
                     <!-- ComfyUI卡片 5 -->
                     <div class="comfyui-card" onclick="openComfyUIModal(4)">
                         <div class="comfyui-image-container">
-                            <img class="comfyui-image" src="images/comfyui-5.webp" alt="ComfyUI工作流5">
+                            <img class="comfyui-image" src="images/comfyui-5.webp" alt="ComfyUI工作流5" loading="lazy" decoding="async">
                             <span class="comfyui-badge">ComfyUI</span>
                             <span class="comfyui-number">05</span>
                         </div>
@@ -6074,7 +6124,7 @@
                     <!-- ComfyUI卡片 6 -->
                     <div class="comfyui-card" onclick="openComfyUIModal(5)">
                         <div class="comfyui-image-container">
-                            <img class="comfyui-image" src="images/comfyui-6.webp" alt="ComfyUI工作流6">
+                            <img class="comfyui-image" src="images/comfyui-6.webp" alt="ComfyUI工作流6" loading="lazy" decoding="async">
                             <span class="comfyui-badge">ComfyUI</span>
                             <span class="comfyui-number">06</span>
                         </div>
@@ -6096,14 +6146,15 @@
             <div class="lora-section" id="loraSection">
                 <div class="lora-header">
                     <div class="lora-emoji">🎨</div>
-                    <h2 class="lora-title">LoRA 训练成果</h2>
-                    <p class="lora-subtitle">自定义训练LoRA模型，打造专属风格，从传统服饰到商业产品</p>
+                    <h2 class="lora-title">LoRA 训练</h2>
+                    <p class="lora-subtitle">自定义训练LoRA模型，打造专属风格</p>
                 </div>
                 <div class="lora-grid">
                     <!-- LoRA卡片 1 - 齐腰襦裙 -->
                     <a href="lora/Lora1.html" class="lora-card">
                         <div class="lora-image-wrapper">
-                            <div class="lora-placeholder">
+                            <img src="images/lora1.webp" alt="齐腰襦裙 LoRA" class="lora-image" style="display: block;" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="lora-placeholder" style="display: none;">
                                 <div class="lora-placeholder-icon">👘</div>
                                 <div class="lora-placeholder-text">齐腰襦裙 LoRA</div>
                             </div>
@@ -6122,9 +6173,10 @@
                     </a>
 
                     <!-- LoRA卡片 2 - IP形象 -->
-                    <div class="lora-card">
+                    <a href="lora/Lora2.html" class="lora-card">
                         <div class="lora-image-wrapper">
-                            <div class="lora-placeholder">
+                            <img src="images/lora2.webp" alt="IP LoRA" class="lora-image" style="display: block;" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="lora-placeholder" style="display: none;">
                                 <div class="lora-placeholder-icon">🎭</div>
                                 <div class="lora-placeholder-text">IP LoRA</div>
                             </div>
@@ -6140,28 +6192,29 @@
                                 <span class="lora-tag">形象一致</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
-                    <!-- LoRA卡片 3 - 产品 -->
-                    <div class="lora-card">
+                    <!-- LoRA卡片 3 - 亚洲女性人脸 -->
+                    <a href="lora/Lora3.html" class="lora-card">
                         <div class="lora-image-wrapper">
-                            <div class="lora-placeholder">
-                                <div class="lora-placeholder-icon">📦</div>
-                                <div class="lora-placeholder-text">产品 LoRA</div>
+                            <img src="images/lora3.webp" alt="亚洲女性人脸 LoRA" class="lora-image" style="display: block;" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="lora-placeholder" style="display: none;">
+                                <div class="lora-placeholder-icon">👤</div>
+                                <div class="lora-placeholder-text">亚洲女性人脸 LoRA</div>
                             </div>
                             <span class="lora-badge">LoRA</span>
                             <span class="lora-number">03</span>
                         </div>
                         <div class="lora-content">
-                            <h3 class="lora-name">产品商业风格</h3>
-                            <p class="lora-desc">融合商业摄影美学与AI生成技术，为电商产品提供高质量、风格统一视觉方案</p>
+                            <h3 class="lora-name">亚洲女性人脸</h3>
+                            <p class="lora-desc">精准捕捉亚洲女性面部特征，生成自然真实的东亚面孔形象，适用于人像摄影和角色创作</p>
                             <div class="lora-tags">
-                                <span class="lora-tag">电商产品</span>
-                                <span class="lora-tag">商业摄影</span>
-                                <span class="lora-tag">品牌调性</span>
+                                <span class="lora-tag">亚洲面孔</span>
+                                <span class="lora-tag">人像写真</span>
+                                <span class="lora-tag">自然真实</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -6187,12 +6240,12 @@
                                 <span>1972272923@qq.com</span>
                             </div>
                             <div class="contact-info-item">
-                                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-                                <span>中国 · 深圳</span>
+                                <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+                                <span>wx1972272923</span>
                             </div>
                             <div class="contact-info-item">
-                                <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                                <span>Behance / Dribbble / Pinterest</span>
+                                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                                <span>158-5980-0494</span>
                             </div>
                         </div>
                     </div>
@@ -6388,10 +6441,10 @@
                 { id: 5, title: '椰椰妹', desc: '传递陪伴、友情与生活中的美好瞬间', img: 'images/drama-6.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784945861/%E7%AC%AC%E4%BA%8C%E9%9B%86_ideh1u.mp4' },
                 { id: 6, title: '山竹君', desc: '演绎水果世界中的友情与成长羁绊', img: 'images/drama-7.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784809150/%E6%88%90%E5%93%81_hq8qsi.mp4' },
                 { id: 7, title: '草莓队长', desc: '友情陪伴与追逐梦想的美好旅程', img: 'images/drama-8.webp',type:'video',video:'https://res.cloudinary.com/datarpybk/video/upload/v1784945717/%E7%AC%AC%E4%B8%89%E9%9B%86_tbkobl.mp4' },
-                { id: 8, title: '月蚀', desc: '', img: 'images/drama-9.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1YCgQ6cEmD/?vd_source=08e47495e48e139b9aea8021d253ed73' },
-                { id: 9, title: '时光旅人', desc: '', img: 'images/drama-10.webp', type: 'video', video: '' },
-                { id: 10, title: '都市传说', desc: '', img: 'images/drama-11.webp', type: 'video', video: '' },
-                { id: 11, title: '2026 世界杯', desc: '', img: 'images/drama-12.webp', type: 'video', video: 'https://res.cloudinary.com/datarpybk/video/upload/v1784534017/IP%E4%B8%96%E7%95%8C%E6%9D%AF_dhocut.mp4' },
+                { id: 8, title: 'ECLIPSE: CONTRACT FANGS', desc: '奇幻悬疑漫剧，探索命运交错与未知世界的神秘故事', img: 'images/drama-9.webp', type: 'video', video: 'https://www.bilibili.com/video/BV1YCgQ6cEmD/?vd_source=08e47495e48e139b9aea8021d253ed73' },
+                { id: 9, title: '我的软饭男友是特种兵', desc: '都市情感漫剧，爱情、身份与使命交织的奇妙故事', img: 'images/drama-10.webp', type: 'video', video: 'https://www.bilibili.com/video/BV16pgf6ZE6i/?vd_source=08e47495e48e139b9aea8021d253ed73' },
+                { id: 10, title: '实习生竟是千亿总裁', desc: '职场逆袭漫剧，演绎隐藏身份与人生蜕变的精彩篇章', img: 'images/drama-11.webp', type: 'video', video: '' },
+                { id: 11, title: '2026 世界杯', desc: 'IP足球短剧，讲述梦想、荣耀与团队奋斗的竞技故事', img: 'images/drama-12.webp', type: 'video', video: 'https://res.cloudinary.com/datarpybk/video/upload/v1784534017/IP%E4%B8%96%E7%95%8C%E6%9D%AF_dhocut.mp4' },
             ],
             tvc: [
                 { id: 0, title: '啤酒', desc: '凝聚纯正酿造工艺，演绎自然清爽的欢聚时刻', img: 'images/tvc-1.webp',type:'video',video:'video/TVC/tvc1.mp4' },
@@ -6471,7 +6524,8 @@
                 badge: 'ComfyUI',
                 desc: '商业产品视觉呈现工作流，快速生成高质量产品展示图',
                 tags: ['SDXL', 'Inpainting'],
-                img: 'images/comfyui-3.webp'
+                img: 'images/comfyui-3.png',
+                images: ['images/comfyui-3.png', 'images/comfyui-4.png']
             },
             {
                 id: 3,
@@ -6514,18 +6568,46 @@
         let comfyuiStartY = 0;
         let comfyuiTranslateX = 0;
         let comfyuiTranslateY = 0;
+        let currentComfyUIIndex = 0;
+        let currentComfyUIImages = [];
 
         function openComfyUIModal(index) {
             const data = comfyuiData[index];
             if (data) {
-                const img = document.getElementById('comfyuiModalImage');
-                img.src = data.img;
-                img.alt = data.name;
+                currentComfyUIImages = data.images || [data.img];
+                currentComfyUIIndex = 0;
+                updateComfyUIModalImage();
+                document.getElementById('comfyuiModal').classList.add('active');
+            }
+        }
+
+        function updateComfyUIModalImage() {
+            const img = document.getElementById('comfyuiModalImage');
+            const navContainer = document.getElementById('comfyuiModalNav');
+            if (img && currentComfyUIImages.length > 0) {
+                img.src = currentComfyUIImages[currentComfyUIIndex];
                 img.style.transform = 'scale(1) translate(0, 0)';
                 comfyuiScale = 1;
                 comfyuiTranslateX = 0;
                 comfyuiTranslateY = 0;
-                document.getElementById('comfyuiModal').classList.add('active');
+
+                if (navContainer) {
+                    navContainer.style.display = currentComfyUIImages.length > 1 ? 'flex' : 'none';
+                }
+            }
+        }
+
+        function prevComfyUIImage() {
+            if (currentComfyUIImages.length > 1) {
+                currentComfyUIIndex = (currentComfyUIIndex - 1 + currentComfyUIImages.length) % currentComfyUIImages.length;
+                updateComfyUIModalImage();
+            }
+        }
+
+        function nextComfyUIImage() {
+            if (currentComfyUIImages.length > 1) {
+                currentComfyUIIndex = (currentComfyUIIndex + 1) % currentComfyUIImages.length;
+                updateComfyUIModalImage();
             }
         }
 
@@ -6567,7 +6649,7 @@
                 });
 
                 imgWrapper.addEventListener('mousedown', function(e) {
-                    if (comfyuiScale > 1) {
+                    if (comfyuiScale > 1 || comfyuiTranslateX !== 0 || comfyuiTranslateY !== 0) {
                         comfyuiIsDragging = true;
                         comfyuiStartX = e.clientX - comfyuiTranslateX;
                         comfyuiStartY = e.clientY - comfyuiTranslateY;
@@ -6600,6 +6682,69 @@
                     }
                     img.style.transform = `scale(${comfyuiScale}) translate(${comfyuiTranslateX}px, ${comfyuiTranslateY}px)`;
                     imgWrapper.style.cursor = comfyuiScale > 1 ? 'grab' : 'zoom-in';
+                });
+
+                // 触摸事件支持
+                let comfyuiTouchStartDistance = 0;
+                let comfyuiTouchStartScale = 1;
+                let comfyuiTouchStartX = 0;
+                let comfyuiTouchStartY = 0;
+                let comfyuiLastTouchX = 0;
+                let comfyuiLastTouchY = 0;
+
+                imgWrapper.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    if (e.touches.length === 1) {
+                        // 单指拖动
+                        const touch = e.touches[0];
+                        comfyuiIsDragging = true;
+                        comfyuiTouchStartX = touch.clientX - comfyuiTranslateX;
+                        comfyuiTouchStartY = touch.clientY - comfyuiTranslateY;
+                        comfyuiLastTouchX = touch.clientX;
+                        comfyuiLastTouchY = touch.clientY;
+                    } else if (e.touches.length === 2) {
+                        // 双指缩放
+                        comfyuiIsDragging = false;
+                        const touch1 = e.touches[0];
+                        const touch2 = e.touches[1];
+                        comfyuiTouchStartDistance = Math.hypot(
+                            touch2.clientX - touch1.clientX,
+                            touch2.clientY - touch1.clientY
+                        );
+                        comfyuiTouchStartScale = comfyuiScale;
+                    }
+                }, { passive: false });
+
+                imgWrapper.addEventListener('touchmove', function(e) {
+                    e.preventDefault();
+                    if (e.touches.length === 1 && comfyuiIsDragging) {
+                        // 单指拖动
+                        const touch = e.touches[0];
+                        comfyuiTranslateX = touch.clientX - comfyuiTouchStartX;
+                        comfyuiTranslateY = touch.clientY - comfyuiTouchStartY;
+                        img.style.transform = `scale(${comfyuiScale}) translate(${comfyuiTranslateX}px, ${comfyuiTranslateY}px)`;
+                    } else if (e.touches.length === 2) {
+                        // 双指缩放
+                        const touch1 = e.touches[0];
+                        const touch2 = e.touches[1];
+                        const currentDistance = Math.hypot(
+                            touch2.clientX - touch1.clientX,
+                            touch2.clientY - touch1.clientY
+                        );
+                        const scale = currentDistance / comfyuiTouchStartDistance;
+                        comfyuiScale = Math.min(Math.max(comfyuiTouchStartScale * scale, 0.5), 5);
+                        img.style.transform = `scale(${comfyuiScale}) translate(${comfyuiTranslateX}px, ${comfyuiTranslateY}px)`;
+                    }
+                }, { passive: false });
+
+                imgWrapper.addEventListener('touchend', function(e) {
+                    if (e.touches.length === 0) {
+                        comfyuiIsDragging = false;
+                    }
+                });
+
+                imgWrapper.addEventListener('touchcancel', function(e) {
+                    comfyuiIsDragging = false;
                 });
             }
         });
@@ -7904,16 +8049,36 @@
             observer.observe(carouselContainer);
         }
 
+        // ========== 滚动位置管理 ==========
+        const SCROLL_KEY = 'portfolio_scroll_pos';
+        
+        // 页面加载时恢复滚动位置
+        function restoreScrollPosition() {
+            const savedPos = sessionStorage.getItem(SCROLL_KEY);
+            if (savedPos !== null) {
+                // 清除保存的位置
+                sessionStorage.removeItem(SCROLL_KEY);
+                // 恢复到之前的位置
+                requestAnimationFrame(() => {
+                    window.scrollTo(0, parseInt(savedPos, 10));
+                });
+            }
+        }
+        
+        // 监听滚动来实时保存位置
+        let scrollSaveTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollSaveTimeout);
+            scrollSaveTimeout = setTimeout(() => {
+                sessionStorage.setItem(SCROLL_KEY, window.scrollY.toString());
+            }, 200);
+        }, { passive: true });
+
         // Initialize — split into critical (blocking) and deferred (idle) phases
         document.addEventListener('DOMContentLoaded', async () => {
             // ========== CRITICAL: Must run before first paint ==========
-            // 清除 URL hash，避免浏览器自动滚动到锚点
-            const targetHash = window.location.hash;
-            const shouldScrollToWorks = targetHash === '#works' || targetHash === '#about' || targetHash === '#contact';
-            if (targetHash) {
-                history.replaceState(null, '', window.location.pathname + window.location.search);
-            }
-            window.scrollTo(0, 0);
+            // 恢复滚动位置（如果之前有保存）
+            restoreScrollPosition();
 
             initLoadingScreen();
             
@@ -8130,7 +8295,7 @@
                 const downloadBtn = document.getElementById('downloadResumeBtn');
                 if (downloadBtn) {
                     downloadBtn.addEventListener('click', function() {
-                        const pdfPath = 'resume.pdf';
+                        const pdfPath = '吴限-15859800494.pdf';
                         window.open(pdfPath, '_blank');
                         setTimeout(() => {
                             alert('如果文件没有自动下载，请在打开的PDF页面按 Ctrl+S 保存');
@@ -8140,14 +8305,7 @@
             }, { timeout: 5000 });
 
             // ========== DEFERRED: Scroll to anchor on return ==========
-            if (shouldScrollToWorks) {
-                setTimeout(() => {
-                    const targetSection = document.querySelector(targetHash);
-                    if (targetSection) {
-                        targetSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }, 100);
-            }
+            // （已移除 hash 特殊处理，现在统一使用滚动位置恢复）
         });
     </script>
 
@@ -8183,8 +8341,20 @@
         <button class="comfyui-modal-reset" onclick="resetComfyUIImage()">
             复原
         </button>
+        <div id="comfyuiModalNav" class="comfyui-modal-nav" style="display: none;">
+            <button class="comfyui-modal-nav-btn prev" onclick="prevComfyUIImage()">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            </button>
+            <button class="comfyui-modal-nav-btn next" onclick="nextComfyUIImage()">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            </button>
+        </div>
         <div class="comfyui-modal-image-wrapper">
-            <img id="comfyuiModalImage" src="" alt="" draggable="false">
+            <img id="comfyuiModalImage" src="" alt="" loading="lazy" decoding="async" draggable="false">
         </div>
     </div>
 </body>
